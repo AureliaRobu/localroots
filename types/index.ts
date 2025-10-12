@@ -14,19 +14,10 @@ export type ProductWithFarmer = Product & {
     }
 }
 
-// Form types
-export type RegisterFormData = {
-    email: string
-    password: string
-    name: string
-    role: UserRole
-}
+// Re-export validation types
+export type { LoginFormData, RegisterFormData } from '@/lib/validations/auth'
 
-export type LoginFormData = {
-    email: string
-    password: string
-}
-
+// Other form types
 export type FarmerProfileFormData = {
     farmName: string
     description?: string
