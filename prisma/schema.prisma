@@ -1,0 +1,87 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// User roles enum
+enum UserRole {
+  FARMER
+  CUSTOMER
+  ADMIN
+}
+
+// Users table
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String
+  role          UserRole  @default(CUSTOMER)
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  farmerProfile FarmerProfile?
+  products      Product[]
+
+  @@map("users")
+}
+
+// Farmer-specific profile
+model FarmerProfile {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  farmName    String
+  description String?
+  address     String
+  city        String
+  state       String?
+  zipCode     String?
+  country     String  @default("USA")
+
+  // Geolocation
+  latitude  Float
+  longitude Float
+
+  phone   String?
+  website String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("farmer_profiles")
+}
+
+// Products table
+model Product {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+  unit        String  @default("lb") // lb, kg, piece, dozen, etc.
+  category    String // Vegetables, Fruits, Dairy, Meat, etc.
+  imageUrl    String?
+  inStock     Boolean @default(true)
+
+  // Relations
+  farmerId String
+  farmer   User   @relation(fields: [farmerId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("products")
+  @@index([farmerId])
+  @@index([category])
+}
