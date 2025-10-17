@@ -37,6 +37,7 @@ export async function getProductById(id: string) {
                         id: true,
                         name: true,
                         email: true,
+                        image: true,
                         farmerProfile: {
                             select: {
                                 farmName: true,
