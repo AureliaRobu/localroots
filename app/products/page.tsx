@@ -1,23 +1,39 @@
+
 import { Suspense } from 'react'
 import Link from 'next/link'
-import { getProducts } from '@/lib/db/products'
+import { getProducts, getProductCategories } from '@/lib/db/products'
 import { ProductCard } from '@/components/products/product-card'
+import { ProductsFilters } from '@/components/products/products-filters'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 
-async function ProductsList() {
-    const products = await getProducts()
+type Props = {
+    searchParams: {
+        search?: string
+        category?: string
+        inStock?: string
+    }
+}
+
+async function ProductsList({ searchParams }: Props) {
+    const filters = {
+        search: searchParams.search,
+        category: searchParams.category,
+        inStock: searchParams.inStock === 'true' ? true : searchParams.inStock === 'false' ? false : undefined,
+    }
+
+    const products = await getProducts(filters)
 
     if (products.length === 0) {
         return (
             <div className="flex min-h-[400px] flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
                 <div className="mx-auto flex max-w-md flex-col items-center gap-2">
-                    <h3 className="text-xl font-semibold">No products yet</h3>
+                    <h3 className="text-xl font-semibold">No products found</h3>
                     <p className="text-sm text-slate-600">
-                        Be the first to add products to the marketplace!
+                        Try adjusting your filters or search terms
                     </p>
-                    <Link href="/register" className="mt-4">
-                        <Button>Get Started</Button>
+                    <Link href="/products" className="mt-4">
+                        <Button variant="outline">Clear Filters</Button>
                     </Link>
                 </div>
             </div>
@@ -25,32 +41,37 @@ async function ProductsList() {
     }
 
     return (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {products.map((product) => (
-                <ProductCard
-                    key={product.id}
-                    id={product.id}
-                    name={product.name}
-                    description={product.description}
-                    price={product.price}
-                    unit={product.unit}
-                    category={product.category}
-                    imageUrl={product.imageUrl}
-                    inStock={product.inStock}
-                    farmerName={product.farmer.name}
-                    farmName={product.farmer.farmerProfile?.farmName}
-                    city={product.farmer.farmerProfile?.city}
-                    state={product.farmer.farmerProfile?.state}
-                />
-            ))}
-        </div>
+        <>
+            <div className="mb-4 text-sm text-slate-600">
+                Found {products.length} product{products.length !== 1 ? 's' : ''}
+            </div>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {products.map((product) => (
+                    <ProductCard
+                        key={product.id}
+                        id={product.id}
+                        name={product.name}
+                        description={product.description}
+                        price={product.price}
+                        unit={product.unit}
+                        category={product.category}
+                        imageUrl={product.imageUrl}
+                        inStock={product.inStock}
+                        farmerName={product.farmer.name}
+                        farmName={product.farmer.farmerProfile?.farmName}
+                        city={product.farmer.farmerProfile?.city}
+                        state={product.farmer.farmerProfile?.state}
+                    />
+                ))}
+            </div>
+        </>
     )
 }
 
 function ProductsLoading() {
     return (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {Array.from({ length: 8 }).map((_, i) => (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
                 <div key={i} className="space-y-3">
                     <Skeleton className="aspect-square w-full" />
                     <Skeleton className="h-4 w-3/4" />
@@ -61,7 +82,9 @@ function ProductsLoading() {
     )
 }
 
-export default function ProductsPage() {
+export default async function ProductsPage({ searchParams }: Props) {
+    const categories = await getProductCategories()
+
     return (
         <div className="min-h-screen bg-slate-50">
             <div className="mx-auto max-w-7xl px-4 py-8">
@@ -97,10 +120,20 @@ export default function ProductsPage() {
                     </div>
                 </div>
 
-                {/* Products Grid */}
-                <Suspense fallback={<ProductsLoading />}>
-                    <ProductsList />
-                </Suspense>
+                {/* Filters & Products Grid */}
+                <div className="grid gap-8 lg:grid-cols-4">
+                    {/* Sidebar Filters */}
+                    <aside className="lg:col-span-1">
+                        <ProductsFilters categories={categories} />
+                    </aside>
+
+                    {/* Products Grid */}
+                    <div className="lg:col-span-3">
+                        <Suspense fallback={<ProductsLoading />}>
+                            <ProductsList searchParams={searchParams} />
+                        </Suspense>
+                    </div>
+                </div>
             </div>
         </div>
     )
