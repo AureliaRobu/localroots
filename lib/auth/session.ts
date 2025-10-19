@@ -22,3 +22,11 @@ export async function requireFarmer() {
     }
     return user
 }
+
+export async function requireCustomer() {
+    const user = await requireAuth()
+    if (user.role !== UserRole.CUSTOMER) {
+        redirect('/farmer/dashboard')
+    }
+    return user
+}

@@ -82,11 +82,11 @@ export default function RegisterPage() {
                 if (data.role === UserRole.FARMER) {
                     router.push('/farmer/dashboard')
                 } else {
-                    router.push('/products')
+                    router.push('/customer/dashboard')
                 }
                 router.refresh()
             }
-        } catch {
+        } catch (error) {
             toast.error('Something went wrong. Please try again.')
         } finally {
             setIsLoading(false)
