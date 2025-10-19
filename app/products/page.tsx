@@ -1,4 +1,3 @@
-
 import { Suspense } from 'react'
 import Link from 'next/link'
 import { getProducts, getProductCategories } from '@/lib/db/products'
@@ -8,18 +7,20 @@ import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 
 type Props = {
-    searchParams: {
+    searchParams: Promise<{
         search?: string
         category?: string
         inStock?: string
-    }
+    }>
 }
 
 async function ProductsList({ searchParams }: Props) {
+    const params = await searchParams
+
     const filters = {
-        search: searchParams.search,
-        category: searchParams.category,
-        inStock: searchParams.inStock === 'true' ? true : searchParams.inStock === 'false' ? false : undefined,
+        search: params.search,
+        category: params.category,
+        inStock: params.inStock === 'true' ? true : params.inStock === 'false' ? false : undefined,
     }
 
     const products = await getProducts(filters)

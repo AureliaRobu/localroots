@@ -57,7 +57,7 @@ export default function LoginPage() {
                 router.push('/products')
                 router.refresh()
             }
-        } catch (error) {
+        } catch {
             toast.error('Something went wrong. Please try again.')
         } finally {
             setIsLoading(false)
@@ -68,7 +68,7 @@ export default function LoginPage() {
         setIsLoading(true)
         try {
             await signIn(provider)
-        } catch (error) {
+        } catch {
             toast.error('Social login failed. Please try again.')
             setIsLoading(false)
         }

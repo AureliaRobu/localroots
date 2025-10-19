@@ -55,7 +55,7 @@ export function FarmerProfileForm() {
             toast.success('Profile created successfully!')
             router.push('/farmer/products')
             router.refresh()
-        } catch (error) {
+        } catch {
             toast.error('Something went wrong. Please try again.')
         } finally {
             setIsLoading(false)
@@ -66,7 +66,6 @@ export function FarmerProfileForm() {
     const handleAddressBlur = async () => {
         const address = form.getValues('address')
         const city = form.getValues('city')
-        const state = form.getValues('state')
 
         if (address && city) {
             // For now, set default coordinates (you can integrate Google Maps API later)

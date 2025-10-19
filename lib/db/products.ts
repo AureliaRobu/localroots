@@ -1,4 +1,5 @@
 import prisma from '@/lib/db/prisma'
+import { Prisma } from '@prisma/client'
 
 export type ProductFilters = {
     search?: string
@@ -10,7 +11,7 @@ export type ProductFilters = {
 
 export async function getProducts(filters?: ProductFilters) {
     try {
-        const where: any = {}
+        const where: Prisma.ProductWhereInput = {}
 
         // Search filter
         if (filters?.search) {
@@ -66,6 +67,7 @@ export async function getProducts(filters?: ProductFilters) {
     }
 }
 
+
 export async function getProductById(id: string) {
     try {
         const product = await prisma.product.findUnique({
@@ -76,6 +78,7 @@ export async function getProductById(id: string) {
                         id: true,
                         name: true,
                         email: true,
+                        image: true,
                         farmerProfile: {
                             select: {
                                 farmName: true,

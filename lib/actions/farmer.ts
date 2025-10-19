@@ -1,7 +1,6 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 import { requireFarmer } from '@/lib/auth/session'
 import prisma from '@/lib/db/prisma'
 import { farmerProfileSchema, type FarmerProfileFormData } from '@/lib/validations/farmer'

@@ -86,7 +86,7 @@ export default function RegisterPage() {
                 }
                 router.refresh()
             }
-        } catch (error) {
+        } catch {
             toast.error('Something went wrong. Please try again.')
         } finally {
             setIsLoading(false)
@@ -96,8 +96,8 @@ export default function RegisterPage() {
     const handleSocialLogin = async (provider: 'google' | 'facebook') => {
         setIsLoading(true)
         try {
-            await signIn(provider, { callbackUrl: '/products' })
-        } catch (error) {
+            await signIn(provider)
+        } catch {
             toast.error('Social login failed. Please try again.')
             setIsLoading(false)
         }

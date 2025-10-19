@@ -62,7 +62,7 @@ export default {
         signIn: '/login',
     },
     callbacks: {
-        async signIn({ user, account, profile }) {
+        async signIn({ user, account }) {
             // For OAuth providers, ensure user exists in our database
             if (account?.provider !== 'credentials') {
                 const existingUser = await prisma.user.findUnique({
@@ -84,7 +84,7 @@ export default {
             }
             return true
         },
-        async jwt({ token, user, account }) {
+        async jwt({ token, user }) {
             if (user) {
                 // Fetch user role from database
                 const dbUser = await prisma.user.findUnique({

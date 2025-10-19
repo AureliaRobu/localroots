@@ -72,7 +72,7 @@ export function AddProductForm() {
             toast.success('Product created successfully!')
             form.reset()
             router.refresh()
-        } catch (error) {
+        } catch {
             toast.error('Something went wrong. Please try again.')
         } finally {
             setIsLoading(false)

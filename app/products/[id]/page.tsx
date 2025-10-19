@@ -9,12 +9,13 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import type { Metadata } from 'next'
 
 type Props = {
-    params: { id: string }
+    params: Promise<{ id: string }>
 }
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const product = await getProductById(params.id)
+    const paramsData = await params
+    const product = await getProductById(paramsData.id)
 
     if (!product) {
         return {
@@ -29,7 +30,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProductDetailPage({ params }: Props) {
-    const product = await getProductById(params.id)
+    const paramsData = await params
+    const product = await getProductById(paramsData.id)
 
     if (!product) {
         notFound()
