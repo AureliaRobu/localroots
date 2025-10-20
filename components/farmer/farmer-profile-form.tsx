@@ -15,14 +15,17 @@ import {
     FormLabel,
     FormMessage,
 } from '@/components/ui/form'
+import { CountryDropdown } from '@/components/ui/country-dropdown'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { farmerProfileSchema, type FarmerProfileFormData } from '@/lib/validations/farmer'
 import { createFarmerProfile } from '@/lib/actions/farmer'
+import { geocodeAddress } from '@/lib/actions/geocoding'
 import { toast } from 'sonner'
 
 export function FarmerProfileForm() {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
+    const [isGeocoding, setIsGeocoding] = useState(false)
 
     const form = useForm<FarmerProfileFormData>({
         resolver: zodResolver(farmerProfileSchema),
@@ -33,7 +36,7 @@ export function FarmerProfileForm() {
             city: '',
             state: '',
             zipCode: '',
-            country: 'USA',
+            country: 'US',
             latitude: 0,
             longitude: 0,
             phone: '',
@@ -55,23 +58,49 @@ export function FarmerProfileForm() {
             toast.success('Profile created successfully!')
             router.push('/farmer/products')
             router.refresh()
-        } catch {
+        } catch  {
             toast.error('Something went wrong. Please try again.')
         } finally {
             setIsLoading(false)
         }
     }
 
-    // Simple geocoding helper (for demo - you can use a real API later)
-    const handleAddressBlur = async () => {
+    // Auto-geocode address
+    const handleGeocode = async () => {
         const address = form.getValues('address')
         const city = form.getValues('city')
+        const state = form.getValues('state')
+        const country = form.getValues('country')
 
-        if (address && city) {
-            // For now, set default coordinates (you can integrate Google Maps API later)
-            form.setValue('latitude', 40.7128) // Default to NYC for demo
-            form.setValue('longitude', -74.0060)
-            toast.info('📍 Using default location. You can update coordinates manually.')
+        if (!address || !city) {
+            toast.error('Please enter address and city first')
+            return
+        }
+
+        setIsGeocoding(true)
+        toast.info('Finding location...')
+
+        try {
+            // Pass individual components - let geocodeAddress build the query
+            const result = await geocodeAddress(address, city, state, country)
+
+            if (result.success && result.latitude && result.longitude) {
+                form.setValue('latitude', result.latitude)
+                form.setValue('longitude', result.longitude)
+                toast.success('Location found!')
+
+                // Optional: log the display name for verification
+                if (result.displayName) {
+                    console.log('Found location:', result.displayName)
+                }
+            } else {
+                toast.error(result.error || 'Could not find location')
+            }
+        } catch (error) {
+            console.error('Geocoding error:', error)
+            toast.error('Geocoding failed')
+        } finally {
+            setIsGeocoding(false)
         }
     }
 
@@ -133,7 +162,6 @@ export function FarmerProfileForm() {
                                             placeholder="123 Farm Road"
                                             disabled={isLoading}
                                             {...field}
-                                            onBlur={handleAddressBlur}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -165,7 +193,7 @@ export function FarmerProfileForm() {
                                 name="state"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>State (Optional)</FormLabel>
+                                        <FormLabel>State/Province (Optional)</FormLabel>
                                         <FormControl>
                                             <Input
                                                 placeholder="IL"
@@ -185,7 +213,7 @@ export function FarmerProfileForm() {
                                 name="zipCode"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Zip Code (Optional)</FormLabel>
+                                        <FormLabel>Zip/Postal Code (Optional)</FormLabel>
                                         <FormControl>
                                             <Input
                                                 placeholder="62701"
@@ -198,6 +226,28 @@ export function FarmerProfileForm() {
                                 )}
                             />
 
+                            <FormField
+                                control={form.control}
+                                name="country"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Country</FormLabel>
+                                        <FormControl>
+                                            <CountryDropdown
+                                                placeholder="Country"
+                                                defaultValue={field.value}
+                                                onChange={(country) => {
+                                                    field.onChange(country.alpha3);
+                                                }}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+
+                        <div className="grid gap-4 sm:grid-cols-2">
                             <FormField
                                 control={form.control}
                                 name="phone"
@@ -216,75 +266,88 @@ export function FarmerProfileForm() {
                                     </FormItem>
                                 )}
                             />
+
+                            <FormField
+                                control={form.control}
+                                name="website"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Website (Optional)</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="url"
+                                                placeholder="https://yourfarm.com"
+                                                disabled={isLoading}
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
                         </div>
 
-                        <FormField
-                            control={form.control}
-                            name="website"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Website (Optional)</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            type="url"
-                                            placeholder="https://yourfarm.com"
-                                            disabled={isLoading}
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                        {/* Geocoding Section */}
+                        <div className="rounded-lg border bg-slate-50 p-4">
+                            <div className="mb-3 flex items-center justify-between">
+                                <h3 className="text-sm font-medium">Location Coordinates</h3>
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={handleGeocode}
+                                    disabled={isGeocoding || isLoading}
+                                >
+                                    {isGeocoding ? 'Finding...' : '📍 Auto-fill Location'}
+                                </Button>
+                            </div>
 
-                        <div className="grid gap-4 sm:grid-cols-2">
-                            <FormField
-                                control={form.control}
-                                name="latitude"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Latitude</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="number"
-                                                step="any"
-                                                placeholder="40.7128"
-                                                disabled={isLoading}
-                                                {...field}
-                                                onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
-                                            />
-                                        </FormControl>
-                                        <FormDescription className="text-xs">
-                                            Auto-filled from address
-                                        </FormDescription>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                            <div className="grid gap-4 sm:grid-cols-2">
+                                <FormField
+                                    control={form.control}
+                                    name="latitude"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Latitude</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    type="number"
+                                                    step="any"
+                                                    placeholder="40.7128"
+                                                    disabled={isLoading}
+                                                    {...field}
+                                                    onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
 
-                            <FormField
-                                control={form.control}
-                                name="longitude"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Longitude</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="number"
-                                                step="any"
-                                                placeholder="-74.0060"
-                                                disabled={isLoading}
-                                                {...field}
-                                                onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
-                                            />
-                                        </FormControl>
-                                        <FormDescription className="text-xs">
-                                            Auto-filled from address
-                                        </FormDescription>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                                <FormField
+                                    control={form.control}
+                                    name="longitude"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Longitude</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    type="number"
+                                                    step="any"
+                                                    placeholder="-74.0060"
+                                                    disabled={isLoading}
+                                                    {...field}
+                                                    onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+                            <FormDescription className="mt-2 text-xs">
+                                Click &#34;Auto-fill Location&#34; after entering your complete address
+                            </FormDescription>
                         </div>
 
                         <Button type="submit" disabled={isLoading} className="w-full">
