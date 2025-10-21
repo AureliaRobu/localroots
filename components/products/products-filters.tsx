@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState, useTransition } from 'react'
+import { useState, useTransition, useEffect } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import {
@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/select'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'
+import { toast } from 'sonner'
 
 type Props = {
     categories: string[]
@@ -26,6 +27,43 @@ export function ProductsFilters({ categories }: Props) {
     const [search, setSearch] = useState(searchParams.get('search') || '')
     const [category, setCategory] = useState(searchParams.get('category') || 'all')
     const [inStock, setInStock] = useState(searchParams.get('inStock') || 'all')
+    const [maxDistance, setMaxDistance] = useState(searchParams.get('maxDistance') || '')
+    const [userLocation, setUserLocation] = useState<{ lat: number; lon: number } | null>(null)
+    const [isGettingLocation, setIsGettingLocation] = useState(false)
+
+    // Get user location on mount if distance filter exists
+    useEffect(() => {
+        if (searchParams.get('maxDistance') && !userLocation) {
+            getUserLocation()
+        }
+    }, [])
+
+    const getUserLocation = () => {
+        if (!navigator.geolocation) {
+            toast.error('Geolocation is not supported by your browser')
+            return
+        }
+
+        setIsGettingLocation(true)
+        toast.info('Getting your location...')
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const location = {
+                    lat: position.coords.latitude,
+                    lon: position.coords.longitude,
+                }
+                setUserLocation(location)
+                setIsGettingLocation(false)
+                toast.success('Location found!')
+            },
+            (error) => {
+                setIsGettingLocation(false)
+                toast.error('Could not get your location')
+                console.error('Geolocation error:', error)
+            }
+        )
+    }
 
     const handleFilter = () => {
         const params = new URLSearchParams()
@@ -33,6 +71,12 @@ export function ProductsFilters({ categories }: Props) {
         if (search) params.set('search', search)
         if (category && category !== 'all') params.set('category', category)
         if (inStock && inStock !== 'all') params.set('inStock', inStock)
+
+        if (maxDistance && userLocation) {
+            params.set('maxDistance', maxDistance)
+            params.set('userLat', userLocation.lat.toString())
+            params.set('userLon', userLocation.lon.toString())
+        }
 
         startTransition(() => {
             router.push(`/products?${params.toString()}`)
@@ -43,12 +87,14 @@ export function ProductsFilters({ categories }: Props) {
         setSearch('')
         setCategory('all')
         setInStock('all')
+        setMaxDistance('')
+        setUserLocation(null)
         startTransition(() => {
             router.push('/products')
         })
     }
 
-    const hasFilters = search || (category && category !== 'all') || (inStock && inStock !== 'all')
+    const hasFilters = search || (category && category !== 'all') || (inStock && inStock !== 'all') || maxDistance
 
     return (
         <Card>
@@ -97,6 +143,37 @@ export function ProductsFilters({ categories }: Props) {
                                 <SelectItem value="false">Out of Stock</SelectItem>
                             </SelectContent>
                         </Select>
+                    </div>
+
+                    {/* Distance Filter */}
+                    <div className="space-y-2">
+                        <Label htmlFor="distance">Distance (km)</Label>
+                        <div className="flex gap-2">
+                            <Input
+                                id="distance"
+                                type="number"
+                                placeholder="Max distance"
+                                value={maxDistance}
+                                onChange={(e) => setMaxDistance(e.target.value)}
+                                disabled={!userLocation}
+                            />
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="icon"
+                                onClick={getUserLocation}
+                                disabled={isGettingLocation}
+                                title="Get my location"
+                            >
+
+                            </Button>
+                        </div>
+                        {userLocation && (
+                            <p className="text-xs text-green-600">✓ Location detected</p>
+                        )}
+                        {!userLocation && maxDistance && (
+                            <p className="text-xs text-amber-600">Click  to enable distance filter</p>
+                        )}
                     </div>
 
                     {/* Action Buttons */}

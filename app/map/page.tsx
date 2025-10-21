@@ -1,15 +1,49 @@
 import prisma from '@/lib/db/prisma'
 import { MapWrapper } from '@/components/maps/map-wrapper'
+import { getProducts } from '@/lib/db/products'
 
-async function getFarmersLocations() {
+type Props = {
+    searchParams: Promise<{
+        search?: string
+        category?: string
+        inStock?: string
+        maxDistance?: string
+        userLat?: string
+        userLon?: string
+    }>
+}
+
+async function getFarmersLocations(searchParams: Awaited<Props['searchParams']>) {
+    // Get filtered products
+    const filters = {
+        search: searchParams.search,
+        category: searchParams.category,
+        inStock: searchParams.inStock === 'true' ? true : searchParams.inStock === 'false' ? false : undefined,
+        maxDistance: searchParams.maxDistance ? parseFloat(searchParams.maxDistance) : undefined,
+        userLat: searchParams.userLat ? parseFloat(searchParams.userLat) : undefined,
+        userLon: searchParams.userLon ? parseFloat(searchParams.userLon) : undefined,
+    }
+
+    const filteredProducts = await getProducts(filters)
+
+    // Get unique farmer IDs from filtered products
+    const farmerIds = [...new Set(filteredProducts.map(p => p.farmerId))]
+
+    // Get farmer profiles for those farmers
     const farmers = await prisma.farmerProfile.findMany({
+        where: {
+            userId: { in: farmerIds }
+        },
         include: {
             user: {
                 select: {
                     id: true,
                     name: true,
                     products: {
-                        where: { inStock: true },
+                        where: {
+                            inStock: true,
+                            id: { in: filteredProducts.map(p => p.id) }
+                        },
                         select: {
                             id: true,
                             name: true,
@@ -36,8 +70,11 @@ async function getFarmersLocations() {
     }))
 }
 
-export default async function MapPage() {
-    const farmers = await getFarmersLocations()
+export default async function MapPage({ searchParams }: Props) {
+    const params = await searchParams
+    const farmers = await getFarmersLocations(params)
+
+    const hasFilters = Object.keys(params).length > 0
 
     return (
         <div className="flex h-[calc(100vh-4rem)] flex-col">
@@ -46,7 +83,9 @@ export default async function MapPage() {
                 <div className="mx-auto max-w-7xl">
                     <h1 className="text-2xl font-bold">Farmers Map</h1>
                     <p className="text-sm text-slate-600">
-                        Discover {farmers.length} local farmer{farmers.length !== 1 ? 's' : ''} near you
+                        {hasFilters ? 'Filtered: ' : 'Showing '}
+                        {farmers.length} local farmer{farmers.length !== 1 ? 's' : ''}
+                        {hasFilters && ' matching your criteria'}
                     </p>
                 </div>
             </div>

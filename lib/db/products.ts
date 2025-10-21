@@ -7,6 +7,22 @@ export type ProductFilters = {
     minPrice?: number
     maxPrice?: number
     inStock?: boolean
+    userLat?: number
+    userLon?: number
+    maxDistance?: number // in kilometers
+}
+
+// Calculate distance between two coordinates (Haversine formula)
+function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+    const R = 6371 // Earth's radius in kilometers
+    const dLat = (lat2 - lat1) * Math.PI / 180
+    const dLon = (lon2 - lon1) * Math.PI / 180
+    const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2)
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+    return R * c
 }
 
 export async function getProducts(filters?: ProductFilters) {
@@ -42,7 +58,7 @@ export async function getProducts(filters?: ProductFilters) {
             where.inStock = filters.inStock
         }
 
-        const products = await prisma.product.findMany({
+        let products = await prisma.product.findMany({
             where,
             orderBy: { createdAt: 'desc' },
             include: {
@@ -54,12 +70,31 @@ export async function getProducts(filters?: ProductFilters) {
                                 farmName: true,
                                 city: true,
                                 state: true,
+                                latitude: true,
+                                longitude: true,
                             },
                         },
                     },
                 },
             },
         })
+
+        // Distance filter (client-side filtering after fetch)
+        if (filters?.userLat && filters?.userLon && filters?.maxDistance) {
+            products = products.filter((product) => {
+                if (!product.farmer.farmerProfile) return false
+
+                const distance = calculateDistance(
+                    filters.userLat!,
+                    filters.userLon!,
+                    product.farmer.farmerProfile.latitude,
+                    product.farmer.farmerProfile.longitude
+                )
+
+                return distance <= filters.maxDistance!
+            })
+        }
+
         return products
     } catch (error) {
         console.error('Error fetching products:', error)
