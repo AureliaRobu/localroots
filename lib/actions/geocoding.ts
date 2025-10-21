@@ -1,49 +1,70 @@
 'use server'
 
-// Free geocoding using Nominatim (OpenStreetMap)
 export async function geocodeAddress(
     address: string,
     city: string,
     state?: string,
     country?: string
 ) {
+    const apiKey = process.env.GOOGLE_MAPS_API_KEY
+
+    if (!apiKey) {
+        console.error('GOOGLE_MAPS_API_KEY not found in environment variables')
+        return { success: false, error: 'Geocoding API key not configured' }
+    }
+
     try {
-        // Build query with all components
-        let query = `${address}, ${city}`
-        if (state) query += `, ${state}`
-        if (country) query += `, ${country}`
+        // Build the address components
+        let fullAddress = ''
 
-        const encodedQuery = encodeURIComponent(query)
+        if (address && address.trim()) {
+            fullAddress += address.trim()
+        }
 
-        console.log('Geocoding query:', query)
+        if (city && city.trim()) {
+            fullAddress += (fullAddress ? ', ' : '') + city.trim()
+        }
 
-        const response = await fetch(
-            `https://nominatim.openstreetmap.org/search?q=${encodedQuery}&format=json&limit=1`,
-            {
-                headers: {
-                    'User-Agent': 'LocalRoots-Marketplace',
-                },
-            }
-        )
+        if (state && state.trim()) {
+            fullAddress += (fullAddress ? ', ' : '') + state.trim()
+        }
+
+        if (country && country.trim()) {
+            fullAddress += (fullAddress ? ', ' : '') + country.trim()
+        }
+
+
+        const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(fullAddress)}&key=${apiKey}`
+
+        const response = await fetch(url)
 
         if (!response.ok) {
             return { success: false, error: 'Geocoding service unavailable' }
         }
 
         const data = await response.json()
-        console.log('Geocoding response:', data)
 
-        if (data.length === 0) {
-            return { success: false, error: 'Address not found' }
+        if (data.status === 'ZERO_RESULTS') {
+            return {
+                success: false,
+                error: 'Address not found. Try simplifying your address.'
+            }
         }
 
-        const location = data[0]
+        if (data.status !== 'OK') {
+            return {
+                success: false,
+                error: `Geocoding failed: ${data.status}`
+            }
+        }
+
+        const location = data.results[0].geometry.location
 
         return {
             success: true,
-            latitude: parseFloat(location.lat),
-            longitude: parseFloat(location.lon),
-            displayName: location.display_name, // Optional: for verification
+            latitude: location.lat,
+            longitude: location.lng,
+            displayName: data.results[0].formatted_address,
         }
     } catch (error) {
         console.error('Geocoding error:', error)
