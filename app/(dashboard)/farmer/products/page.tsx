@@ -1,26 +1,12 @@
 import { requireFarmer } from '@/lib/auth/session'
 import { AddProductForm } from '@/components/products/add-product-form'
+import { FarmerProductsGrid } from '@/components/products/farmer-products-grid'
 import prisma from '@/lib/db/prisma'
-import { ProductCard } from '@/components/products/product-card'
 
 async function getFarmerProducts(userId: string) {
     const products = await prisma.product.findMany({
         where: { farmerId: userId },
         orderBy: { createdAt: 'desc' },
-        include: {
-            farmer: {
-                select: {
-                    name: true,
-                    farmerProfile: {
-                        select: {
-                            farmName: true,
-                            city: true,
-                            state: true,
-                        }
-                    }
-                }
-            }
-        }
     })
     return products
 }
@@ -51,25 +37,7 @@ export default async function FarmerProductsPage() {
                                 </p>
                             </div>
                         ) : (
-                            <div className="grid gap-6 sm:grid-cols-2">
-                                {products.map((product) => (
-                                    <ProductCard
-                                        key={product.id}
-                                        id={product.id}
-                                        name={product.name}
-                                        description={product.description}
-                                        price={product.price}
-                                        unit={product.unit}
-                                        category={product.category}
-                                        imageUrl={product.imageUrl}
-                                        inStock={product.inStock}
-                                        farmerName={product.farmer.name}
-                                        farmName={product.farmer.farmerProfile?.farmName}
-                                        city={product.farmer.farmerProfile?.city}
-                                        state={product.farmer.farmerProfile?.state}
-                                    />
-                                ))}
-                            </div>
+                            <FarmerProductsGrid products={products} />
                         )}
                     </div>
                 </div>
