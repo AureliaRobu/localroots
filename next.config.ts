@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
                 port: '',
                 pathname: '/**',
             },
+            {
+              protocol: 'https',
+              hostname: 'localroots-product-images.s3.eu-north-1.amazonaws.com',
+              pathname: '/**',
+            },
         ],
     },
 };
