@@ -1,6 +1,7 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import 'leaflet/dist/leaflet.css';
+
+@import "../../node_modules/tw-animate-css/dist/tw-animate.css";
+@import '../../node_modules/leaflet/dist/leaflet.css';
 
 @custom-variant dark (&:is(.dark *));
 

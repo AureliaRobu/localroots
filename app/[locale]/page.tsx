@@ -1,24 +1,25 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { useTranslations } from 'next-intl';
 
 export default function HomePage() {
+    const t = useTranslations('home');
     return (
         <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
             {/* Hero Section */}
             <section className="mx-auto max-w-7xl px-4 py-20 text-center">
                 <h1 className="text-5xl font-bold tracking-tight text-slate-900 sm:text-6xl">
-                    Connect with Local
-                    <span className="text-green-600"> Organic Farmers</span>
+                    {t('header1')}
+                    <span className="text-green-600"> {t('header2')}</span>
                 </h1>
                 <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-600">
-                    Discover fresh, organic produce from farmers in your community.
-                    Support local agriculture and eat healthier today.
+                    {t('subheader')}
                 </p>
                 <div className="mt-10 flex items-center justify-center gap-4">
                     <Link href="/products">
                         <Button size="lg" className="text-lg">
-                            Browse Products
+                            {t('browse')}
                         </Button>
                     </Link>
                     <Link href="/map">

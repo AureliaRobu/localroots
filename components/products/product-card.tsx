@@ -34,7 +34,7 @@ export function ProductCard({
                                 state,
                             }: ProductCardProps) {
     return (
-        <Link href={`/products/${id}`}>
+        <Link href={`/app/%5Blocale%5D/products/${id}`}>
             <Card className="group overflow-hidden transition-all hover:shadow-lg">
                 <div className="relative aspect-square w-full overflow-hidden bg-slate-100">
                     {imageUrl ? (
