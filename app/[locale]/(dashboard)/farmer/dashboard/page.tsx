@@ -5,6 +5,7 @@ import { FarmerProfileForm } from '@/components/farmer/farmer-profile-form'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { getTranslations } from 'next-intl/server'
 
 async function getFarmerProfile(userId: string) {
     return await prisma.farmerProfile.findUnique({
@@ -15,6 +16,7 @@ async function getFarmerProfile(userId: string) {
 export default async function FarmerDashboardPage() {
     const user = await requireFarmer()
     const profile = await getFarmerProfile(user.id)
+    const t = await getTranslations('farmer.dashboard')
 
     // If no profile, show setup form
     if (!profile) {
@@ -22,9 +24,9 @@ export default async function FarmerDashboardPage() {
             <div className="min-h-screen bg-slate-50">
                 <div className="mx-auto max-w-3xl px-4 py-8">
                     <div className="mb-8 text-center">
-                        <h1 className="text-3xl font-bold">Welcome, {user.name}!</h1>
+                        <h1 className="text-3xl font-bold">{t('welcome', { name: user.name })}</h1>
                         <p className="mt-2 text-slate-600">
-                            Let&#39;s set up your farmer profile to start selling
+                            {t('setupProfile')}
                         </p>
                     </div>
                     <FarmerProfileForm />
@@ -38,15 +40,15 @@ export default async function FarmerDashboardPage() {
         <div className="min-h-screen bg-slate-50">
             <div className="mx-auto max-w-7xl px-4 py-8">
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold">Dashboard</h1>
-                    <p className="text-slate-600">Welcome back, {user.name}!</p>
+                    <h1 className="text-3xl font-bold">{t('title')}</h1>
+                    <p className="text-slate-600">{t('welcomeBack', { name: user.name })}</p>
                 </div>
 
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {/* Profile Card */}
                     <Card>
                         <CardHeader>
-                            <CardTitle>Farm Profile</CardTitle>
+                            <CardTitle>{t('farmProfile')}</CardTitle>
                             <CardDescription>{profile.farmName}</CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -62,7 +64,7 @@ export default async function FarmerDashboardPage() {
                                         rel="noopener noreferrer"
                                         className="text-blue-600 hover:underline"
                                     >
-                                        🌐 Visit Website
+                                        🌐 {t('visitWebsite')}
                                     </a>
                                 )}
                             </div>
@@ -72,15 +74,15 @@ export default async function FarmerDashboardPage() {
                     {/* Quick Actions */}
                     <Card>
                         <CardHeader>
-                            <CardTitle>Quick Actions</CardTitle>
+                            <CardTitle>{t('quickActions')}</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-2">
                             <Link href="/farmer/products" className="block">
-                                <Button className="w-full">Manage Products</Button>
+                                <Button className="w-full">{t('manageProducts')}</Button>
                             </Link>
                             <Link href="/products" className="block">
                                 <Button variant="outline" className="w-full">
-                                    View Marketplace
+                                    {t('viewMarketplace')}
                                 </Button>
                             </Link>
                         </CardContent>
@@ -89,18 +91,18 @@ export default async function FarmerDashboardPage() {
                     {/* Stats Card */}
                     <Card>
                         <CardHeader>
-                            <CardTitle>Your Stats</CardTitle>
+                            <CardTitle>{t('yourStats')}</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-2">
                                 <div className="flex justify-between">
-                                    <span className="text-slate-600">Products</span>
+                                    <span className="text-slate-600">{t('productsCount')}</span>
                                     <span className="font-semibold">
                     {await prisma.product.count({ where: { farmerId: user.id } })}
                   </span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span className="text-slate-600">In Stock</span>
+                                    <span className="text-slate-600">{t('inStock')}</span>
                                     <span className="font-semibold">
                     {await prisma.product.count({
                         where: { farmerId: user.id, inStock: true }

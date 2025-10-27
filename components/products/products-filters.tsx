@@ -14,6 +14,7 @@ import {
 import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'
 import { toast } from 'sonner'
+import { useTranslations } from 'next-intl'
 
 type Props = {
     categories: string[]
@@ -23,6 +24,7 @@ export function ProductsFilters({ categories }: Props) {
     const router = useRouter()
     const searchParams = useSearchParams()
     const [isPending, startTransition] = useTransition()
+    const t = useTranslations('products.filters')
 
     const [search, setSearch] = useState(searchParams.get('search') || '')
     const [category, setCategory] = useState(searchParams.get('category') || 'all')
@@ -40,12 +42,12 @@ export function ProductsFilters({ categories }: Props) {
 
     const getUserLocation = () => {
         if (!navigator.geolocation) {
-            toast.error('Geolocation is not supported by your browser')
+            toast.error(t('geolocationNotSupported'))
             return
         }
 
         setIsGettingLocation(true)
-        toast.info('Getting your location...')
+        toast.info(t('gettingLocation'))
 
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -55,11 +57,11 @@ export function ProductsFilters({ categories }: Props) {
                 }
                 setUserLocation(location)
                 setIsGettingLocation(false)
-                toast.success('Location found!')
+                toast.success(t('locationFound'))
             },
             (error) => {
                 setIsGettingLocation(false)
-                toast.error('Could not get your location')
+                toast.error(t('locationError'))
                 console.error('Geolocation error:', error)
             }
         )
@@ -102,10 +104,10 @@ export function ProductsFilters({ categories }: Props) {
                 <div className="space-y-4">
                     {/* Search */}
                     <div className="space-y-2">
-                        <Label htmlFor="search">Search</Label>
+                        <Label htmlFor="search">{t('search')}</Label>
                         <Input
                             id="search"
-                            placeholder="Search products..."
+                            placeholder={t('searchPlaceholder')}
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleFilter()}
@@ -114,13 +116,13 @@ export function ProductsFilters({ categories }: Props) {
 
                     {/* Category Filter */}
                     <div className="space-y-2">
-                        <Label htmlFor="category">Category</Label>
+                        <Label htmlFor="category">{t('category')}</Label>
                         <Select value={category} onValueChange={setCategory}>
                             <SelectTrigger id="category">
-                                <SelectValue placeholder="All categories" />
+                                <SelectValue placeholder={t('allCategories')} />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="all">All Categories</SelectItem>
+                                <SelectItem value="all">{t('allCategories')}</SelectItem>
                                 {categories.map((cat) => (
                                     <SelectItem key={cat} value={cat}>
                                         {cat}
@@ -132,27 +134,27 @@ export function ProductsFilters({ categories }: Props) {
 
                     {/* Stock Filter */}
                     <div className="space-y-2">
-                        <Label htmlFor="stock">Availability</Label>
+                        <Label htmlFor="stock">{t('availability')}</Label>
                         <Select value={inStock} onValueChange={setInStock}>
                             <SelectTrigger id="stock">
-                                <SelectValue placeholder="All products" />
+                                <SelectValue placeholder={t('allProducts')} />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="all">All Products</SelectItem>
-                                <SelectItem value="true">In Stock Only</SelectItem>
-                                <SelectItem value="false">Out of Stock</SelectItem>
+                                <SelectItem value="all">{t('allProducts')}</SelectItem>
+                                <SelectItem value="true">{t('inStockOnly')}</SelectItem>
+                                <SelectItem value="false">{t('outOfStock')}</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
 
                     {/* Distance Filter */}
                     <div className="space-y-2">
-                        <Label htmlFor="distance">Distance (km)</Label>
+                        <Label htmlFor="distance">{t('distance')}</Label>
                         <div className="flex gap-2">
                             <Input
                                 id="distance"
                                 type="number"
-                                placeholder="Max distance"
+                                placeholder={t('maxDistance')}
                                 value={maxDistance}
                                 onChange={(e) => setMaxDistance(e.target.value)}
                                 disabled={!userLocation}
@@ -163,16 +165,16 @@ export function ProductsFilters({ categories }: Props) {
                                 size="icon"
                                 onClick={getUserLocation}
                                 disabled={isGettingLocation}
-                                title="Get my location"
+                                title={t('getLocation')}
                             >
 
                             </Button>
                         </div>
                         {userLocation && (
-                            <p className="text-xs text-green-600">✓ Location detected</p>
+                            <p className="text-xs text-green-600">✓ {t('locationDetected')}</p>
                         )}
                         {!userLocation && maxDistance && (
-                            <p className="text-xs text-amber-600">Click  to enable distance filter</p>
+                            <p className="text-xs text-amber-600">{t('enableDistance')}</p>
                         )}
                     </div>
 
@@ -183,7 +185,7 @@ export function ProductsFilters({ categories }: Props) {
                             disabled={isPending}
                             className="flex-1"
                         >
-                            {isPending ? 'Filtering...' : 'Apply Filters'}
+                            {isPending ? t('filtering') : t('applyFilters')}
                         </Button>
                         {hasFilters && (
                             <Button
@@ -191,7 +193,7 @@ export function ProductsFilters({ categories }: Props) {
                                 variant="outline"
                                 disabled={isPending}
                             >
-                                Clear
+                                {t('clear')}
                             </Button>
                         )}
                     </div>

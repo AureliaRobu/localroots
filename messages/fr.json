@@ -1,11 +1,146 @@
 {
   "home": {
-    "browse": "Parcourir les produits",
-    "header1": "Connectez-vous avec des agriculteurs ",
-    "header": {
-      "12": "Connectez-vous avec des agriculteurs biologiques locaux"
+    "browse": "Parcourir les Produits",
+    "header1": "Connectez-vous avec des Agriculteurs",
+    "header2": "Biologiques Locaux",
+    "subheader": "Découvrez des produits frais et biologiques provenant des agriculteurs de votre communauté. Soutenez l'agriculture locale et mangez plus sainement dès aujourd'hui.",
+    "viewMap": "Voir la Carte",
+    "features": {
+      "organic": {
+        "title": "100% Biologique",
+        "description": "Tous les produits sont certifiés biologiques et cultivés avec soin par des agriculteurs locaux."
+      },
+      "local": {
+        "title": "Local et Frais",
+        "description": "Trouvez des agriculteurs près de chez vous et obtenez les produits les plus frais disponibles."
+      },
+      "community": {
+        "title": "Soutenir la Communauté",
+        "description": "Votre achat soutient directement les agriculteurs locaux et l'agriculture durable."
+      }
     },
-    "header2": "biologiques locaux",
-    "subheader": "Découvrez des produits frais et biologiques provenant des agriculteurs de votre communauté.\n                    Soutenez l'agriculture locale et mangez plus sainement dès aujourd'hui."
+    "cta": {
+      "title": "Êtes-vous agriculteur?",
+      "description": "Rejoignez notre marché et connectez-vous avec des clients qui apprécient les produits biologiques cultivés localement.",
+      "button": "Commencer à Vendre Aujourd'hui"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Bon retour",
+      "subtitle": "Connectez-vous à votre compte LocalRoots",
+      "email": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "••••••••",
+      "signingIn": "Connexion en cours...",
+      "signIn": "Se connecter",
+      "orContinue": "Ou continuer avec",
+      "google": "Google",
+      "facebook": "Facebook",
+      "noAccount": "Vous n'avez pas de compte?",
+      "signUp": "S'inscrire",
+      "invalidCredentials": "E-mail ou mot de passe invalide",
+      "welcomeBack": "Bon retour!",
+      "error": "Quelque chose s'est mal passé. Veuillez réessayer.",
+      "socialError": "La connexion sociale a échoué. Veuillez réessayer."
+    },
+    "register": {
+      "title": "Créer un compte",
+      "subtitle": "Rejoignez LocalRoots et commencez à vous connecter avec des agriculteurs locaux",
+      "fullName": "Nom complet",
+      "namePlaceholder": "Jean Dupont",
+      "email": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "••••••••",
+      "confirmPassword": "Confirmer le mot de passe",
+      "role": "Je suis un...",
+      "customer": "Client - Parcourir et acheter des produits locaux",
+      "farmer": "Agriculteur - Vendre mes produits biologiques",
+      "creatingAccount": "Création du compte...",
+      "createAccount": "Créer un compte",
+      "orContinue": "Ou continuer avec",
+      "google": "Google",
+      "facebook": "Facebook",
+      "hasAccount": "Vous avez déjà un compte?",
+      "signIn": "Se connecter",
+      "registrationFailed": "L'inscription a échoué",
+      "registrationSuccessButLoginFailed": "Inscription réussie, mais la connexion a échoué. Veuillez essayer de vous connecter.",
+      "accountCreated": "Compte créé avec succès!",
+      "error": "Quelque chose s'est mal passé. Veuillez réessayer.",
+      "socialError": "La connexion sociale a échoué. Veuillez réessayer."
+    }
+  },
+  "products": {
+    "title": "Parcourir les Produits Locaux",
+    "subtitle": "Produits frais et biologiques d'agriculteurs locaux",
+    "noProducts": "Aucun produit trouvé",
+    "noProductsDescription": "Essayez d'ajuster vos filtres ou vos termes de recherche",
+    "clearFilters": "Effacer les Filtres",
+    "found": "Trouvé",
+    "product": "produit",
+    "products": "produits",
+    "viewOnMap": "Voir sur la Carte",
+    "filters": {
+      "search": "Rechercher",
+      "searchPlaceholder": "Rechercher des produits...",
+      "category": "Catégorie",
+      "allCategories": "Toutes les Catégories",
+      "availability": "Disponibilité",
+      "allProducts": "Tous les Produits",
+      "inStockOnly": "En Stock Uniquement",
+      "outOfStock": "Rupture de Stock",
+      "distance": "Distance (km)",
+      "maxDistance": "Distance maximale",
+      "getLocation": "Obtenir ma position",
+      "locationDetected": "Position détectée",
+      "enableDistance": "Cliquez pour activer le filtre de distance",
+      "filtering": "Filtrage...",
+      "applyFilters": "Appliquer les Filtres",
+      "clear": "Effacer",
+      "gettingLocation": "Obtention de votre position...",
+      "locationFound": "Position trouvée!",
+      "geolocationNotSupported": "La géolocalisation n'est pas prise en charge par votre navigateur",
+      "locationError": "Impossible d'obtenir votre position"
+    }
+  },
+  "header": {
+    "products": "Produits",
+    "map": "Carte",
+    "dashboard": "Tableau de bord",
+    "myProducts": "Mes Produits",
+    "signIn": "Se Connecter",
+    "getStarted": "Commencer",
+    "signOut": "Se déconnecter"
+  },
+  "farmer": {
+    "dashboard": {
+      "welcome": "Bienvenue, {name}!",
+      "setupProfile": "Configurons votre profil d'agriculteur pour commencer à vendre",
+      "title": "Tableau de bord",
+      "welcomeBack": "Bon retour, {name}!",
+      "farmProfile": "Profil de la Ferme",
+      "visitWebsite": "Visiter le Site Web",
+      "quickActions": "Actions Rapides",
+      "manageProducts": "Gérer les Produits",
+      "viewMarketplace": "Voir le Marché",
+      "yourStats": "Vos Statistiques",
+      "productsCount": "Produits",
+      "inStock": "En Stock"
+    },
+    "products": {
+      "title": "Mes Produits",
+      "subtitle": "Gérez vos listes de produits",
+      "addProduct": "Ajouter un Nouveau Produit",
+      "noProducts": "Pas encore de produits",
+      "noProductsDescription": "Commencez par ajouter votre premier produit au marché",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "confirmDelete": "Êtes-vous sûr de vouloir supprimer ce produit?",
+      "deleteDescription": "Cette action ne peut pas être annulée.",
+      "cancel": "Annuler",
+      "deleteButton": "Supprimer"
+    }
   }
 }

@@ -1,11 +1,146 @@
 {
   "home": {
-    "browse": "Explorar productos",
-    "header1": "Conéctate con agricultores ",
-    "header": {
-      "12": "Conéctate con agricultores orgánicos locales"
+    "browse": "Explorar Productos",
+    "header1": "Conéctate con Agricultores",
+    "header2": "Orgánicos Locales",
+    "subheader": "Descubre productos frescos y orgánicos de agricultores en tu comunidad. Apoya la agricultura local y come más saludable hoy.",
+    "viewMap": "Ver Mapa",
+    "features": {
+      "organic": {
+        "title": "100% Orgánico",
+        "description": "Todos los productos están certificados como orgánicos y cultivados con cuidado por agricultores locales."
+      },
+      "local": {
+        "title": "Local y Fresco",
+        "description": "Encuentra agricultores cerca de ti y obtén los productos más frescos disponibles."
+      },
+      "community": {
+        "title": "Apoya la Comunidad",
+        "description": "Tu compra apoya directamente a los agricultores locales y la agricultura sostenible."
+      }
     },
-    "header2": "orgánicos locales",
-    "subheader": "Descubre productos frescos y orgánicos de agricultores en tu comunidad.\n                    Apoya la agricultura local y come más saludable hoy."
+    "cta": {
+      "title": "¿Eres agricultor?",
+      "description": "Únete a nuestro mercado y conéctate con clientes que valoran los productos orgánicos cultivados localmente.",
+      "button": "Comienza a Vender Hoy"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Bienvenido de nuevo",
+      "subtitle": "Inicia sesión en tu cuenta de LocalRoots",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "password": "Contraseña",
+      "passwordPlaceholder": "••••••••",
+      "signingIn": "Iniciando sesión...",
+      "signIn": "Iniciar sesión",
+      "orContinue": "O continúa con",
+      "google": "Google",
+      "facebook": "Facebook",
+      "noAccount": "¿No tienes una cuenta?",
+      "signUp": "Regístrate",
+      "invalidCredentials": "Correo electrónico o contraseña inválidos",
+      "welcomeBack": "¡Bienvenido de nuevo!",
+      "error": "Algo salió mal. Por favor, inténtalo de nuevo.",
+      "socialError": "El inicio de sesión social falló. Por favor, inténtalo de nuevo."
+    },
+    "register": {
+      "title": "Crear una cuenta",
+      "subtitle": "Únete a LocalRoots y comienza a conectarte con agricultores locales",
+      "fullName": "Nombre completo",
+      "namePlaceholder": "Juan Pérez",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "password": "Contraseña",
+      "passwordPlaceholder": "••••••••",
+      "confirmPassword": "Confirmar contraseña",
+      "role": "Soy un...",
+      "customer": "Cliente - Navegar y comprar productos locales",
+      "farmer": "Agricultor - Vender mis productos orgánicos",
+      "creatingAccount": "Creando cuenta...",
+      "createAccount": "Crear cuenta",
+      "orContinue": "O continúa con",
+      "google": "Google",
+      "facebook": "Facebook",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "signIn": "Iniciar sesión",
+      "registrationFailed": "El registro falló",
+      "registrationSuccessButLoginFailed": "Registro exitoso, pero el inicio de sesión falló. Por favor, intenta iniciar sesión.",
+      "accountCreated": "¡Cuenta creada exitosamente!",
+      "error": "Algo salió mal. Por favor, inténtalo de nuevo.",
+      "socialError": "El inicio de sesión social falló. Por favor, inténtalo de nuevo."
+    }
+  },
+  "products": {
+    "title": "Explorar Productos Locales",
+    "subtitle": "Productos frescos y orgánicos de agricultores locales",
+    "noProducts": "No se encontraron productos",
+    "noProductsDescription": "Intenta ajustar tus filtros o términos de búsqueda",
+    "clearFilters": "Limpiar Filtros",
+    "found": "Encontrado",
+    "product": "producto",
+    "products": "productos",
+    "viewOnMap": "Ver en el Mapa",
+    "filters": {
+      "search": "Buscar",
+      "searchPlaceholder": "Buscar productos...",
+      "category": "Categoría",
+      "allCategories": "Todas las Categorías",
+      "availability": "Disponibilidad",
+      "allProducts": "Todos los Productos",
+      "inStockOnly": "Solo en Stock",
+      "outOfStock": "Agotado",
+      "distance": "Distancia (km)",
+      "maxDistance": "Distancia máxima",
+      "getLocation": "Obtener mi ubicación",
+      "locationDetected": "Ubicación detectada",
+      "enableDistance": "Haz clic para habilitar el filtro de distancia",
+      "filtering": "Filtrando...",
+      "applyFilters": "Aplicar Filtros",
+      "clear": "Limpiar",
+      "gettingLocation": "Obteniendo tu ubicación...",
+      "locationFound": "¡Ubicación encontrada!",
+      "geolocationNotSupported": "La geolocalización no es compatible con tu navegador",
+      "locationError": "No se pudo obtener tu ubicación"
+    }
+  },
+  "header": {
+    "products": "Productos",
+    "map": "Mapa",
+    "dashboard": "Panel",
+    "myProducts": "Mis Productos",
+    "signIn": "Iniciar Sesión",
+    "getStarted": "Comenzar",
+    "signOut": "Cerrar sesión"
+  },
+  "farmer": {
+    "dashboard": {
+      "welcome": "¡Bienvenido, {name}!",
+      "setupProfile": "Configuremos tu perfil de agricultor para comenzar a vender",
+      "title": "Panel",
+      "welcomeBack": "¡Bienvenido de nuevo, {name}!",
+      "farmProfile": "Perfil de la Granja",
+      "visitWebsite": "Visitar Sitio Web",
+      "quickActions": "Acciones Rápidas",
+      "manageProducts": "Administrar Productos",
+      "viewMarketplace": "Ver Mercado",
+      "yourStats": "Tus Estadísticas",
+      "productsCount": "Productos",
+      "inStock": "En Stock"
+    },
+    "products": {
+      "title": "Mis Productos",
+      "subtitle": "Administra tus listados de productos",
+      "addProduct": "Agregar Nuevo Producto",
+      "noProducts": "Aún no hay productos",
+      "noProductsDescription": "Comienza agregando tu primer producto al mercado",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "confirmDelete": "¿Estás seguro de que quieres eliminar este producto?",
+      "deleteDescription": "Esta acción no se puede deshacer.",
+      "cancel": "Cancelar",
+      "deleteButton": "Eliminar"
+    }
   }
 }

@@ -12,10 +12,12 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { SignOutButton } from '@/components/layout/sign-out-button'
 import { UserRole } from '@prisma/client'
+import { getTranslations } from 'next-intl/server'
 
 export async function Header() {
     const session = await auth()
     const user = session?.user
+    const t = await getTranslations('header')
 
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
@@ -36,13 +38,13 @@ export async function Header() {
                         href="/products"
                         className="text-sm font-medium text-slate-700 transition-colors hover:text-slate-900"
                     >
-                        Products
+                        {t('products')}
                     </Link>
                     <Link
                         href="/map"
                         className="text-sm font-medium text-slate-700 transition-colors hover:text-slate-900"
                     >
-                        Map
+                        {t('map')}
                     </Link>
 
                     {/* Auth Section */}
@@ -73,12 +75,12 @@ export async function Header() {
                                     <>
                                         <DropdownMenuItem asChild>
                                             <Link href="/farmer/dashboard" className="cursor-pointer">
-                                                Dashboard
+                                                {t('dashboard')}
                                             </Link>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem asChild>
                                             <Link href="/farmer/products" className="cursor-pointer">
-                                                My Products
+                                                {t('myProducts')}
                                             </Link>
                                         </DropdownMenuItem>
                                         <DropdownMenuSeparator />
@@ -89,7 +91,7 @@ export async function Header() {
                                     <>
                                         <DropdownMenuItem asChild>
                                             <Link href="/customer/dashboard" className="cursor-pointer">
-                                                Dashboard
+                                                {t('dashboard')}
                                             </Link>
                                         </DropdownMenuItem>
                                         <DropdownMenuSeparator />
@@ -105,12 +107,12 @@ export async function Header() {
                         <div className="flex items-center gap-2">
                             <Link href="/login">
                                 <Button variant="ghost" size="sm">
-                                    Sign In
+                                    {t('signIn')}
                                 </Button>
                             </Link>
                             <Link href="/register">
                                 <Button size="sm">
-                                    Get Started
+                                    {t('getStarted')}
                                 </Button>
                             </Link>
                         </div>

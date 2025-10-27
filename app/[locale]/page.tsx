@@ -24,7 +24,7 @@ export default function HomePage() {
                     </Link>
                     <Link href="/map">
                         <Button size="lg" variant="outline" className="text-lg">
-                            View Map
+                            {t('viewMap')}
                         </Button>
                     </Link>
                 </div>
@@ -36,9 +36,9 @@ export default function HomePage() {
                     <Card>
                         <CardContent className="pt-6">
                             <div className="mb-4 text-4xl">🌱</div>
-                            <h3 className="mb-2 text-xl font-semibold">100% Organic</h3>
+                            <h3 className="mb-2 text-xl font-semibold">{t('features.organic.title')}</h3>
                             <p className="text-slate-600">
-                                All products are certified organic and grown with care by local farmers.
+                                {t('features.organic.description')}
                             </p>
                         </CardContent>
                     </Card>
@@ -46,9 +46,9 @@ export default function HomePage() {
                     <Card>
                         <CardContent className="pt-6">
                             <div className="mb-4 text-4xl">📍</div>
-                            <h3 className="mb-2 text-xl font-semibold">Local & Fresh</h3>
+                            <h3 className="mb-2 text-xl font-semibold">{t('features.local.title')}</h3>
                             <p className="text-slate-600">
-                                Find farmers near you and get the freshest produce available.
+                                {t('features.local.description')}
                             </p>
                         </CardContent>
                     </Card>
@@ -56,9 +56,9 @@ export default function HomePage() {
                     <Card>
                         <CardContent className="pt-6">
                             <div className="mb-4 text-4xl">🤝</div>
-                            <h3 className="mb-2 text-xl font-semibold">Support Community</h3>
+                            <h3 className="mb-2 text-xl font-semibold">{t('features.community.title')}</h3>
                             <p className="text-slate-600">
-                                Your purchase directly supports local farmers and sustainable agriculture.
+                                {t('features.community.description')}
                             </p>
                         </CardContent>
                     </Card>
@@ -69,14 +69,13 @@ export default function HomePage() {
             <section className="mx-auto max-w-7xl px-4 py-16">
                 <Card className="bg-green-600 text-white">
                     <CardContent className="flex flex-col items-center py-16 text-center">
-                        <h2 className="mb-4 text-3xl font-bold">Are you a farmer?</h2>
+                        <h2 className="mb-4 text-3xl font-bold">{t('cta.title')}</h2>
                         <p className="mb-8 max-w-xl text-green-50">
-                            Join our marketplace and connect with customers who value organic,
-                            locally-grown produce.
+                            {t('cta.description')}
                         </p>
                         <Link href="/register">
                             <Button size="lg" variant="secondary" className="text-lg">
-                                Start Selling Today
+                                {t('cta.button')}
                             </Button>
                         </Link>
                     </CardContent>

@@ -27,10 +27,12 @@ import {
 import { Icons } from '@/components/icons'
 import { loginSchema, type LoginFormData } from '@/lib/validations/auth'
 import { toast } from 'sonner'
+import { useTranslations } from 'next-intl'
 
 export default function LoginPage() {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
+    const t = useTranslations('auth.login')
 
     const form = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema),
@@ -51,14 +53,14 @@ export default function LoginPage() {
             })
 
             if (result?.error) {
-                toast.error('Invalid email or password')
+                toast.error(t('invalidCredentials'))
             } else {
-                toast.success('Welcome back!')
+                toast.success(t('welcomeBack'))
                 router.push('/products')
                 router.refresh()
             }
         } catch {
-            toast.error('Something went wrong. Please try again.')
+            toast.error(t('error'))
         } finally {
             setIsLoading(false)
         }
@@ -69,7 +71,7 @@ export default function LoginPage() {
         try {
             await signIn(provider)
         } catch {
-            toast.error('Social login failed. Please try again.')
+            toast.error(t('socialError'))
             setIsLoading(false)
         }
     }
@@ -78,8 +80,8 @@ export default function LoginPage() {
         <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
             <Card className="w-full max-w-md">
                 <CardHeader className="space-y-1">
-                    <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
-                    <CardDescription>Sign in to your LocalRoots account</CardDescription>
+                    <CardTitle className="text-2xl font-bold">{t('title')}</CardTitle>
+                    <CardDescription>{t('subtitle')}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <Form {...form}>
@@ -89,11 +91,11 @@ export default function LoginPage() {
                                 name="email"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Email</FormLabel>
+                                        <FormLabel>{t('email')}</FormLabel>
                                         <FormControl>
                                             <Input
                                                 type="email"
-                                                placeholder="you@example.com"
+                                                placeholder={t('emailPlaceholder')}
                                                 disabled={isLoading}
                                                 {...field}
                                             />
@@ -107,11 +109,11 @@ export default function LoginPage() {
                                 name="password"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Password</FormLabel>
+                                        <FormLabel>{t('password')}</FormLabel>
                                         <FormControl>
                                             <Input
                                                 type="password"
-                                                placeholder="••••••••"
+                                                placeholder={t('passwordPlaceholder')}
                                                 disabled={isLoading}
                                                 {...field}
                                             />
@@ -121,7 +123,7 @@ export default function LoginPage() {
                                 )}
                             />
                             <Button type="submit" className="w-full" disabled={isLoading}>
-                                {isLoading ? 'Signing in...' : 'Sign in'}
+                                {isLoading ? t('signingIn') : t('signIn')}
                             </Button>
                         </form>
                     </Form>
@@ -132,7 +134,7 @@ export default function LoginPage() {
                         </div>
                         <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-white px-2 text-slate-500">
-                Or continue with
+                {t('orContinue')}
               </span>
                         </div>
                     </div>
@@ -144,7 +146,7 @@ export default function LoginPage() {
                             disabled={isLoading}
                         >
                             <Icons.google className="mr-2 h-4 w-4" />
-                            Google
+                            {t('google')}
                         </Button>
                         <Button
                             variant="outline"
@@ -152,18 +154,18 @@ export default function LoginPage() {
                             disabled={isLoading}
                         >
                             <Icons.facebook className="mr-2 h-4 w-4" />
-                            Facebook
+                            {t('facebook')}
                         </Button>
                     </div>
                 </CardContent>
                 <CardFooter>
                     <p className="w-full text-center text-sm text-slate-600">
-                        Don&#39;t have an account?{' '}
+                        {t('noAccount')}{' '}
                         <Link
                             href="/register"
                             className="font-semibold text-slate-900 hover:underline"
                         >
-                            Sign up
+                            {t('signUp')}
                         </Link>
                     </p>
                 </CardFooter>

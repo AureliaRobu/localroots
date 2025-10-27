@@ -29,10 +29,12 @@ import { Icons } from '@/components/icons'
 import { registerSchema, type RegisterFormData } from '@/lib/validations/auth'
 import { toast } from 'sonner'
 import { UserRole } from '@prisma/client'
+import { useTranslations } from 'next-intl'
 
 export default function RegisterPage() {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
+    const t = useTranslations('auth.register')
 
     const form = useForm<RegisterFormData>({
         resolver: zodResolver(registerSchema),
@@ -61,7 +63,7 @@ export default function RegisterPage() {
             const result = await response.json()
 
             if (!response.ok) {
-                toast.error(result.error || 'Registration failed')
+                toast.error(result.error || t('registrationFailed'))
                 return
             }
 
@@ -73,10 +75,10 @@ export default function RegisterPage() {
             })
 
             if (signInResult?.error) {
-                toast.error('Registration successful, but login failed. Please try logging in.')
+                toast.error(t('registrationSuccessButLoginFailed'))
                 router.push('/login')
             } else {
-                toast.success('Account created successfully!')
+                toast.success(t('accountCreated'))
 
                 // Redirect based on role
                 if (data.role === UserRole.FARMER) {
@@ -87,7 +89,7 @@ export default function RegisterPage() {
                 router.refresh()
             }
         } catch (error) {
-            toast.error('Something went wrong. Please try again.')
+            toast.error(t('error'))
         } finally {
             setIsLoading(false)
         }
@@ -98,7 +100,7 @@ export default function RegisterPage() {
         try {
             await signIn(provider)
         } catch {
-            toast.error('Social login failed. Please try again.')
+            toast.error(t('socialError'))
             setIsLoading(false)
         }
     }
@@ -107,9 +109,9 @@ export default function RegisterPage() {
         <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-12">
             <Card className="w-full max-w-md">
                 <CardHeader className="space-y-1">
-                    <CardTitle className="text-2xl font-bold">Create an account</CardTitle>
+                    <CardTitle className="text-2xl font-bold">{t('title')}</CardTitle>
                     <CardDescription>
-                        Join LocalRoots and start connecting with local farmers
+                        {t('subtitle')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -120,10 +122,10 @@ export default function RegisterPage() {
                                 name="name"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Full Name</FormLabel>
+                                        <FormLabel>{t('fullName')}</FormLabel>
                                         <FormControl>
                                             <Input
-                                                placeholder="John Doe"
+                                                placeholder={t('namePlaceholder')}
                                                 disabled={isLoading}
                                                 {...field}
                                             />
@@ -138,11 +140,11 @@ export default function RegisterPage() {
                                 name="email"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Email</FormLabel>
+                                        <FormLabel>{t('email')}</FormLabel>
                                         <FormControl>
                                             <Input
                                                 type="email"
-                                                placeholder="you@example.com"
+                                                placeholder={t('emailPlaceholder')}
                                                 disabled={isLoading}
                                                 {...field}
                                             />
@@ -157,11 +159,11 @@ export default function RegisterPage() {
                                 name="password"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Password</FormLabel>
+                                        <FormLabel>{t('password')}</FormLabel>
                                         <FormControl>
                                             <Input
                                                 type="password"
-                                                placeholder="••••••••"
+                                                placeholder={t('passwordPlaceholder')}
                                                 disabled={isLoading}
                                                 {...field}
                                             />
@@ -176,11 +178,11 @@ export default function RegisterPage() {
                                 name="confirmPassword"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Confirm Password</FormLabel>
+                                        <FormLabel>{t('confirmPassword')}</FormLabel>
                                         <FormControl>
                                             <Input
                                                 type="password"
-                                                placeholder="••••••••"
+                                                placeholder={t('passwordPlaceholder')}
                                                 disabled={isLoading}
                                                 {...field}
                                             />
@@ -195,7 +197,7 @@ export default function RegisterPage() {
                                 name="role"
                                 render={({ field }) => (
                                     <FormItem className="space-y-3">
-                                        <FormLabel>I am a...</FormLabel>
+                                        <FormLabel>{t('role')}</FormLabel>
                                         <FormControl>
                                             <RadioGroup
                                                 onValueChange={field.onChange}
@@ -208,7 +210,7 @@ export default function RegisterPage() {
                                                         <RadioGroupItem value={UserRole.CUSTOMER} />
                                                     </FormControl>
                                                     <FormLabel className="font-normal cursor-pointer">
-                                                        Customer - Browse and buy local products
+                                                        {t('customer')}
                                                     </FormLabel>
                                                 </FormItem>
                                                 <FormItem className="flex items-center space-x-3 space-y-0">
@@ -216,7 +218,7 @@ export default function RegisterPage() {
                                                         <RadioGroupItem value={UserRole.FARMER} />
                                                     </FormControl>
                                                     <FormLabel className="font-normal cursor-pointer">
-                                                        Farmer - Sell my organic products
+                                                        {t('farmer')}
                                                     </FormLabel>
                                                 </FormItem>
                                             </RadioGroup>
@@ -227,7 +229,7 @@ export default function RegisterPage() {
                             />
 
                             <Button type="submit" className="w-full" disabled={isLoading}>
-                                {isLoading ? 'Creating account...' : 'Create account'}
+                                {isLoading ? t('creatingAccount') : t('createAccount')}
                             </Button>
                         </form>
                     </Form>
@@ -238,7 +240,7 @@ export default function RegisterPage() {
                         </div>
                         <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-white px-2 text-slate-500">
-                Or continue with
+                {t('orContinue')}
               </span>
                         </div>
                     </div>
@@ -250,7 +252,7 @@ export default function RegisterPage() {
                             disabled={isLoading}
                         >
                             <Icons.google className="mr-2 h-4 w-4" />
-                            Google
+                            {t('google')}
                         </Button>
                         <Button
                             variant="outline"
@@ -258,18 +260,18 @@ export default function RegisterPage() {
                             disabled={isLoading}
                         >
                             <Icons.facebook className="mr-2 h-4 w-4" />
-                            Facebook
+                            {t('facebook')}
                         </Button>
                     </div>
                 </CardContent>
                 <CardFooter>
                     <p className="w-full text-center text-sm text-slate-600">
-                        Already have an account?{' '}
+                        {t('hasAccount')}{' '}
                         <Link
                             href="/login"
                             className="font-semibold text-slate-900 hover:underline"
                         >
-                            Sign in
+                            {t('signIn')}
                         </Link>
                     </p>
                 </CardFooter>
