@@ -108,6 +108,7 @@
   "header": {
     "products": "Productos",
     "map": "Mapa",
+    "about": "Acerca de",
     "dashboard": "Panel",
     "myProducts": "Mis Productos",
     "signIn": "Iniciar Sesión",
@@ -141,6 +142,45 @@
       "deleteDescription": "Esta acción no se puede deshacer.",
       "cancel": "Cancelar",
       "deleteButton": "Eliminar"
+    }
+  },
+  "about": {
+    "title": "Acerca de LocalRoots",
+    "tagline": "Agricultores reales. Comida real. Conexiones reales.",
+    "story": "LocalRoots nació de una idea simple: la buena comida debe unir a las personas, no separarlas. Creemos en un sistema alimentario construido sobre la confianza, la justicia y la comunidad, no sobre márgenes de ganancia e intermediarios.",
+    "mission": {
+      "title": "Nuestra Misión",
+      "paragraph1": "Conectar a agricultores orgánicos de pequeña escala y productores de alimentos locales directamente con las personas que se preocupan por lo que comen — y la tierra de donde proviene.",
+      "paragraph2": "Sin intermediarios, sin precios inflados — solo comercio honesto, pago justo y respeto compartido por la tierra."
+    },
+    "why": {
+      "title": "¿Por qué LocalRoots?",
+      "direct": {
+        "title": "Conexión Directa",
+        "description": "Facilitamos que los clientes encuentren y apoyen a los productores locales, y que los agricultores compartan su cosecha directamente con su comunidad. Cada compra fortalece relaciones reales, no algoritmos."
+      },
+      "fair": {
+        "title": "Comercio Justo y Transparente",
+        "description": "Los agricultores establecen sus propios precios. Sabes exactamente a quién estás apoyando y de dónde proviene tu comida. El comercio justo no es solo una etiqueta aquí — es cómo vivimos."
+      },
+      "sustainable": {
+        "title": "Local y Sostenible",
+        "description": "Al reducir las distancias de transporte, reducimos costos, emisiones de carbono y desperdicios — ayudando a que las economías y ecosistemas locales prosperen juntos."
+      },
+      "community": {
+        "title": "La Comunidad Primero",
+        "description": "LocalRoots es más que un mercado — es una red de personas que creen en la ayuda mutua, la vida ecológica y la soberanía alimentaria. Inspirados por las ideas de pensadores como Murray Bookchin, vemos los sistemas alimentarios locales como la base para comunidades más fuertes y libres."
+      },
+      "real": {
+        "title": "Sin IA, Solo Personas",
+        "description": "En una era de automatización y sintéticos por doquier, nos mantenemos arraigados en lo real. LocalRoots está construido por humanos, para humanos — un espacio donde la autenticidad y el cuidado aún importan."
+      }
+    },
+    "cta": {
+      "title": "Únete a Nosotros",
+      "description": "Ya seas agricultor, jardinero o simplemente alguien que ama la buena comida, LocalRoots es tu comunidad. Juntos, podemos cultivar un sistema alimentario que nutra tanto a las personas como al planeta.",
+      "tagline": "Crece local. Come honesto. Vive conectado.",
+      "button": "Comenzar"
     }
   }
 }

@@ -46,6 +46,12 @@ export async function Header() {
                     >
                         {t('map')}
                     </Link>
+                    <Link
+                        href="/about"
+                        className="text-sm font-medium text-slate-700 transition-colors hover:text-slate-900"
+                    >
+                        {t('about')}
+                    </Link>
 
                     {/* Auth Section */}
                     {user ? (

@@ -108,6 +108,7 @@
   "header": {
     "products": "Produits",
     "map": "Carte",
+    "about": "À Propos",
     "dashboard": "Tableau de bord",
     "myProducts": "Mes Produits",
     "signIn": "Se Connecter",
@@ -141,6 +142,45 @@
       "deleteDescription": "Cette action ne peut pas être annulée.",
       "cancel": "Annuler",
       "deleteButton": "Supprimer"
+    }
+  },
+  "about": {
+    "title": "À Propos de LocalRoots",
+    "tagline": "De vrais agriculteurs. De la vraie nourriture. De vraies connexions.",
+    "story": "LocalRoots est né d'une idée simple : la bonne nourriture devrait rassembler les gens — pas les séparer. Nous croyons en un système alimentaire basé sur la confiance, l'équité et la communauté, pas sur les marges bénéficiaires et les intermédiaires.",
+    "mission": {
+      "title": "Notre Mission",
+      "paragraph1": "Connecter directement les petits agriculteurs biologiques et les producteurs alimentaires locaux avec les personnes qui se soucient de ce qu'elles mangent — et de la terre d'où cela provient.",
+      "paragraph2": "Pas d'intermédiaires, pas de prix gonflés — juste un commerce honnête, une rémunération équitable et un respect partagé pour la terre."
+    },
+    "why": {
+      "title": "Pourquoi LocalRoots?",
+      "direct": {
+        "title": "Connexion Directe",
+        "description": "Nous facilitons la recherche et le soutien des producteurs locaux par les clients, et permettons aux agriculteurs de partager leur récolte directement avec leur communauté. Chaque achat renforce de vraies relations, pas des algorithmes."
+      },
+      "fair": {
+        "title": "Commerce Équitable et Transparent",
+        "description": "Les agriculteurs fixent leurs propres prix. Vous savez exactement qui vous soutenez et d'où provient votre nourriture. Le commerce équitable n'est pas qu'une étiquette ici — c'est notre façon de vivre."
+      },
+      "sustainable": {
+        "title": "Local et Durable",
+        "description": "En réduisant les distances de transport, nous réduisons les coûts, les émissions de carbone et les déchets — aidant les économies et écosystèmes locaux à prospérer ensemble."
+      },
+      "community": {
+        "title": "La Communauté d'Abord",
+        "description": "LocalRoots est plus qu'un marché — c'est un réseau de personnes qui croient en l'entraide, la vie écologique et la souveraineté alimentaire. Inspirés par les idées de penseurs comme Murray Bookchin, nous voyons les systèmes alimentaires locaux comme le fondement de communautés plus fortes et plus libres."
+      },
+      "real": {
+        "title": "Pas d'IA, Juste des Personnes",
+        "description": "À une époque d'automatisation et de synthétique partout, nous restons ancrés dans ce qui est réel. LocalRoots est construit par des humains, pour des humains — un espace où l'authenticité et l'attention comptent encore."
+      }
+    },
+    "cta": {
+      "title": "Rejoignez-Nous",
+      "description": "Que vous soyez agriculteur, jardinier ou simplement quelqu'un qui aime la bonne nourriture, LocalRoots est votre communauté. Ensemble, nous pouvons cultiver un système alimentaire qui nourrit à la fois les gens et la planète.",
+      "tagline": "Cultivez local. Mangez honnête. Vivez connecté.",
+      "button": "Commencer"
     }
   }
 }

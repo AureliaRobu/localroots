@@ -108,6 +108,7 @@
   "header": {
     "products": "Products",
     "map": "Map",
+    "about": "About",
     "dashboard": "Dashboard",
     "myProducts": "My Products",
     "signIn": "Sign In",
@@ -141,6 +142,45 @@
       "deleteDescription": "This action cannot be undone.",
       "cancel": "Cancel",
       "deleteButton": "Delete"
+    }
+  },
+  "about": {
+    "title": "About LocalRoots",
+    "tagline": "Real farmers. Real food. Real connections.",
+    "story": "LocalRoots was born from a simple idea: good food should bring people together — not drive them apart. We believe in a food system built on trust, fairness, and community, not profit margins and middlemen.",
+    "mission": {
+      "title": "Our Mission",
+      "paragraph1": "To connect small-scale organic farmers and local food growers directly with the people who care about what they eat — and the land it comes from.",
+      "paragraph2": "No intermediaries, no inflated prices — just honest trade, fair pay, and shared respect for the earth."
+    },
+    "why": {
+      "title": "Why LocalRoots?",
+      "direct": {
+        "title": "Direct Connection",
+        "description": "We make it easy for customers to find and support local growers, and for farmers to share their harvest directly with their community. Every purchase strengthens real relationships, not algorithms."
+      },
+      "fair": {
+        "title": "Fair and Transparent Trade",
+        "description": "Farmers set their own prices. You know exactly who you're supporting and where your food comes from. Fair trade isn't just a label here — it's how we live."
+      },
+      "sustainable": {
+        "title": "Local and Sustainable",
+        "description": "By reducing transport distances, we lower costs, carbon emissions, and waste — helping local economies and ecosystems thrive together."
+      },
+      "community": {
+        "title": "Community First",
+        "description": "LocalRoots is more than a marketplace — it's a network of people who believe in mutual aid, ecological living, and food sovereignty. Inspired by the ideas of thinkers like Murray Bookchin, we see local food systems as a foundation for stronger, freer communities."
+      },
+      "real": {
+        "title": "No AI, Just People",
+        "description": "In an era of automation and synthetic everything, we stay rooted in what's real. LocalRoots is built by humans, for humans — a space where authenticity and care still matter."
+      }
+    },
+    "cta": {
+      "title": "Join Us",
+      "description": "Whether you're a farmer, gardener, or simply someone who loves good food, LocalRoots is your community. Together, we can grow a food system that nourishes both people and the planet.",
+      "tagline": "Grow local. Eat honest. Live connected.",
+      "button": "Get Started"
     }
   }
 }
