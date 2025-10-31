@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { SignOutButton } from '@/components/layout/sign-out-button'
+import { MobileMenu } from '@/components/layout/mobile-menu'
 import { UserRole } from '@prisma/client'
 import { getTranslations } from 'next-intl/server'
 
@@ -22,6 +23,9 @@ export async function Header() {
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
+                {/* Mobile Menu */}
+                <MobileMenu user={user} />
+
                 {/* Logo */}
                 <Link href="/" className="flex items-center space-x-2">
                     <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-600 text-white font-bold">
@@ -32,8 +36,8 @@ export async function Header() {
           </span>
                 </Link>
 
-                {/* Navigation */}
-                <nav className="flex items-center gap-6">
+                {/* Desktop Navigation */}
+                <nav className="hidden md:flex items-center gap-6">
                     <Link
                         href="/products"
                         className="text-sm font-medium text-slate-700 transition-colors hover:text-slate-900"
