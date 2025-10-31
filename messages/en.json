@@ -123,12 +123,17 @@
       "welcomeBack": "Welcome back, {name}!",
       "farmProfile": "Farm Profile",
       "visitWebsite": "Visit Website",
+      "editProfile": "Edit Profile",
       "quickActions": "Quick Actions",
       "manageProducts": "Manage Products",
       "viewMarketplace": "View Marketplace",
       "yourStats": "Your Stats",
       "productsCount": "Products",
       "inStock": "In Stock"
+    },
+    "profile": {
+      "editProfile": "Edit Farm Profile",
+      "editDescription": "Update your farm information and location details"
     },
     "products": {
       "title": "My Products",

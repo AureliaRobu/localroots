@@ -123,12 +123,17 @@
       "welcomeBack": "¡Bienvenido de nuevo, {name}!",
       "farmProfile": "Perfil de la Granja",
       "visitWebsite": "Visitar Sitio Web",
+      "editProfile": "Editar Perfil",
       "quickActions": "Acciones Rápidas",
       "manageProducts": "Administrar Productos",
       "viewMarketplace": "Ver Mercado",
       "yourStats": "Tus Estadísticas",
       "productsCount": "Productos",
       "inStock": "En Stock"
+    },
+    "profile": {
+      "editProfile": "Editar Perfil de la Granja",
+      "editDescription": "Actualiza la información y ubicación de tu granja"
     },
     "products": {
       "title": "Mis Productos",

@@ -68,6 +68,11 @@ export default async function FarmerDashboardPage() {
                                     </a>
                                 )}
                             </div>
+                            <Link href="/farmer/profile/edit" className="mt-4 block">
+                                <Button variant="outline" className="w-full">
+                                    {t('editProfile')}
+                                </Button>
+                            </Link>
                         </CardContent>
                     </Card>
 

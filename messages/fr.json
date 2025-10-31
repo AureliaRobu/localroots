@@ -123,12 +123,17 @@
       "welcomeBack": "Bon retour, {name}!",
       "farmProfile": "Profil de la Ferme",
       "visitWebsite": "Visiter le Site Web",
+      "editProfile": "Modifier le Profil",
       "quickActions": "Actions Rapides",
       "manageProducts": "Gérer les Produits",
       "viewMarketplace": "Voir le Marché",
       "yourStats": "Vos Statistiques",
       "productsCount": "Produits",
       "inStock": "En Stock"
+    },
+    "profile": {
+      "editProfile": "Modifier le Profil de la Ferme",
+      "editDescription": "Mettez à jour les informations et l'emplacement de votre ferme"
     },
     "products": {
       "title": "Mes Produits",
