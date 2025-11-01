@@ -17,6 +17,14 @@ enum UserRole {
   ADMIN
 }
 
+// Order status enum
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
 // Users table
 model User {
   id            String    @id @default(cuid())
@@ -33,6 +41,8 @@ model User {
   accounts      Account[]
   farmerProfile FarmerProfile?
   products      Product[]
+  cart          Cart?
+  orders        Order[]
 
   @@map("users")
 }
@@ -97,8 +107,10 @@ model Product {
   inStock     Boolean @default(true)
 
   // Relations
-  farmerId String
-  farmer   User   @relation(fields: [farmerId], references: [id], onDelete: Cascade)
+  farmerId   String
+  farmer     User        @relation(fields: [farmerId], references: [id], onDelete: Cascade)
+  cartItems  CartItem[]
+  orderItems OrderItem[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -106,4 +118,68 @@ model Product {
   @@map("products")
   @@index([farmerId])
   @@index([category])
+}
+
+// Shopping Cart
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("carts")
+}
+
+// Cart Items
+model CartItem {
+  id        String   @id @default(cuid())
+  cartId    String
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity  Int      @default(1)
+  addedAt   DateTime @default(now())
+
+  @@map("cart_items")
+  @@index([cartId])
+  @@index([productId])
+}
+
+// Orders
+model Order {
+  id              String      @id @default(cuid())
+  userId          String
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status          OrderStatus @default(PENDING)
+  total           Float
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  deliveryAddress String
+  notes           String?
+  items           OrderItem[]
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@map("orders")
+  @@index([userId])
+  @@index([status])
+}
+
+// Order Items (snapshot at purchase time)
+model OrderItem {
+  id              String  @id @default(cuid())
+  orderId         String
+  order           Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId       String
+  product         Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  quantity        Int
+  priceAtPurchase Float
+  productName     String
+
+  @@map("order_items")
+  @@index([orderId])
+  @@index([productId])
 }

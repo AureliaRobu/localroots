@@ -187,5 +187,24 @@
       "tagline": "Cultivez local. Mangez honnête. Vivez connecté.",
       "button": "Commencer"
     }
+  },
+  "cart": {
+    "title": "Panier d'Achat",
+    "description": "Examinez vos articles et procédez au paiement",
+    "loading": "Chargement du panier...",
+    "empty": "Votre panier est vide",
+    "item": "article",
+    "items": "articles",
+    "total": "Total",
+    "checkout": "Procéder au Paiement",
+    "continueShopping": "Continuer les Achats",
+    "noImage": "Pas d'image",
+    "unknownFarmer": "Agriculteur inconnu",
+    "outOfStock": "En rupture de stock",
+    "removed": "Article retiré du panier",
+    "updateError": "Échec de la mise à jour de la quantité",
+    "removeError": "Échec de la suppression de l'article",
+    "addedToCart": "Ajouté au panier",
+    "addToCartError": "Échec de l'ajout au panier"
   }
 }

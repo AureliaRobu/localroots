@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { SignOutButton } from '@/components/layout/sign-out-button'
 import { MobileMenu } from '@/components/layout/mobile-menu'
 import { LanguageSwitcher } from '@/components/layout/language-switcher'
+import { CartButton } from '@/components/cart/cart-button'
 import { UserRole } from '@prisma/client'
 import { getTranslations } from 'next-intl/server'
 
@@ -60,6 +61,9 @@ export async function Header() {
 
                     {/* Language Switcher */}
                     <LanguageSwitcher />
+
+                    {/* Cart Button */}
+                    {user && user.role === UserRole.CUSTOMER && <CartButton />}
 
                     {/* Auth Section */}
                     {user ? (

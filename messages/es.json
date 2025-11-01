@@ -187,5 +187,24 @@
       "tagline": "Crece local. Come honesto. Vive conectado.",
       "button": "Comenzar"
     }
+  },
+  "cart": {
+    "title": "Carrito de Compras",
+    "description": "Revisa tus artículos y procede al pago",
+    "loading": "Cargando carrito...",
+    "empty": "Tu carrito está vacío",
+    "item": "artículo",
+    "items": "artículos",
+    "total": "Total",
+    "checkout": "Proceder al Pago",
+    "continueShopping": "Continuar Comprando",
+    "noImage": "Sin imagen",
+    "unknownFarmer": "Agricultor desconocido",
+    "outOfStock": "Agotado",
+    "removed": "Artículo eliminado del carrito",
+    "updateError": "Error al actualizar cantidad",
+    "removeError": "Error al eliminar artículo",
+    "addedToCart": "Agregado al carrito",
+    "addToCartError": "Error al agregar al carrito"
   }
 }

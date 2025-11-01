@@ -187,5 +187,24 @@
       "tagline": "Grow local. Eat honest. Live connected.",
       "button": "Get Started"
     }
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "description": "Review your items and proceed to checkout",
+    "loading": "Loading cart...",
+    "empty": "Your cart is empty",
+    "item": "item",
+    "items": "items",
+    "total": "Total",
+    "checkout": "Proceed to Checkout",
+    "continueShopping": "Continue Shopping",
+    "noImage": "No image",
+    "unknownFarmer": "Unknown farmer",
+    "outOfStock": "Out of stock",
+    "removed": "Item removed from cart",
+    "updateError": "Failed to update quantity",
+    "removeError": "Failed to remove item",
+    "addedToCart": "Added to cart",
+    "addToCartError": "Failed to add to cart"
   }
 }

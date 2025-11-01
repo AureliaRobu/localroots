@@ -7,6 +7,7 @@ import {SpeedInsights} from "@vercel/speed-insights/next";
 import {NextIntlClientProvider, hasLocale} from 'next-intl';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
+import {CartProvider} from '@/lib/context/cart-context';
 
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({locale}));
@@ -43,10 +44,12 @@ export default async function RootLayout({
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
         <NextIntlClientProvider>
-            <Header/>
-            {children}
-            <SpeedInsights/>
-            <Toaster/>
+            <CartProvider>
+                <Header/>
+                {children}
+                <SpeedInsights/>
+                <Toaster/>
+            </CartProvider>
         </NextIntlClientProvider>
         </body>
         </html>

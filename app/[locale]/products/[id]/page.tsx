@@ -2,10 +2,10 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getProductById } from '@/lib/db/products'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { ProductDetailActions } from '@/components/products/product-detail-actions'
 import type { Metadata } from 'next'
 
 type Props = {
@@ -130,36 +130,11 @@ export default async function ProductDetailPage({ params }: Props) {
                                 )}
                             </div>
 
-                            {/* Contact Button */}
-                            <div className="pt-4">
-                                <Button
-                                    size="lg"
-                                    className="w-full"
-                                    disabled={!product.inStock}
-                                    asChild={product.inStock}
-                                >
-                                    {product.inStock ? (
-                                        <a href={`mailto:${farmer.email}?subject=Interest in ${product.name}`}>
-                                            <svg
-                                                className="mr-2 h-5 w-5"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth={2}
-                                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                                                />
-                                            </svg>
-                                            Contact Farmer
-                                        </a>
-                                    ) : (
-                                        'Out of Stock'
-                                    )}
-                                </Button>
-                            </div>
+                            {/* Add to Cart */}
+                            <ProductDetailActions
+                                productId={product.id}
+                                inStock={product.inStock}
+                            />
                         </div>
 
                         {/* Farmer Info Card */}
