@@ -16,7 +16,12 @@ type CartItem = {
     inStock: boolean
     farmer: {
       id: string
-      farmName: string | null
+      name: string | null
+      email: string
+      image: string | null
+      farmerProfile: {
+        farmName: string
+      } | null
     }
   }
 }
