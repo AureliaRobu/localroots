@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/sheet'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { SignOutButton } from '@/components/layout/sign-out-button'
+import { LanguageSwitcher } from '@/components/layout/language-switcher'
 import { UserRole } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 
@@ -91,6 +92,11 @@ export function MobileMenu({ user }: MobileMenuProps) {
             >
               {t('about')}
             </Link>
+
+            {/* Language Switcher */}
+            <div className="px-3 py-2">
+              <LanguageSwitcher />
+            </div>
           </nav>
 
           {/* User-specific Links */}
