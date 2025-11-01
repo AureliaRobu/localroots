@@ -246,7 +246,7 @@ export default async function CustomerDashboardPage() {
                     ) : (
                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                             {recentProducts.map((product) => (
-                                <Link key={product.id} href={`/app/%5Blocale%5D/products/${product.id}`}>
+                                <Link key={product.id} href={`/products/${product.id}`}>
                                     <Card className="group transition-shadow hover:shadow-lg">
                                         <CardHeader>
                                             <div className="flex items-start justify-between">

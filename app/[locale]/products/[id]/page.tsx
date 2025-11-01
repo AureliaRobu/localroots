@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import type { Metadata } from 'next'
 
 type Props = {
-    params: Promise<{ id: string }>
+    params: Promise<{ locale: string; id: string }>
 }
 
 // Generate metadata for SEO
