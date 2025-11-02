@@ -1,13 +1,10 @@
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { getCurrentUser } from '@/lib/auth/session'
+import { requireCustomer } from '@/lib/auth/session'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import prisma from '@/lib/db/prisma'
-import { UserRole } from '@prisma/client'
 
-async function getCustomerStats(userId: string) {
+async function getCustomerStats() {
     // Get total number of farmers
     const farmersCount = await prisma.farmerProfile.count()
 
@@ -52,17 +49,10 @@ async function getRecentProducts() {
 }
 
 export default async function CustomerDashboardPage() {
-    const user = await getCurrentUser()
+    // Now allows both farmers and customers to access
+    const user = await requireCustomer()
 
-    if (!user) {
-        redirect('/login')
-    }
-
-    if (user.role !== UserRole.CUSTOMER) {
-        redirect('/farmer/dashboard')
-    }
-
-    const stats = await getCustomerStats(user.id)
+    const stats = await getCustomerStats()
     const recentProducts = await getRecentProducts()
 
     return (

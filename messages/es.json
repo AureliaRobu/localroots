@@ -110,6 +110,8 @@
     "map": "Mapa",
     "about": "Acerca de",
     "dashboard": "Panel",
+    "farmerDashboard": "Panel del Agricultor",
+    "buyingDashboard": "Panel de Compras",
     "myProducts": "Mis Productos",
     "signIn": "Iniciar Sesión",
     "getStarted": "Comenzar",

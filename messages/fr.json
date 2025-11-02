@@ -110,6 +110,8 @@
     "map": "Carte",
     "about": "À Propos",
     "dashboard": "Tableau de bord",
+    "farmerDashboard": "Tableau de bord Agriculteur",
+    "buyingDashboard": "Tableau de bord Achats",
     "myProducts": "Mes Produits",
     "signIn": "Se Connecter",
     "getStarted": "Commencer",

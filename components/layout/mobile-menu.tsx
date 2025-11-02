@@ -102,6 +102,7 @@ export function MobileMenu({ user }: MobileMenuProps) {
           {/* User-specific Links */}
           {user && (
             <div className="flex flex-col gap-2 pt-4 border-t">
+              {/* Farmer-specific links */}
               {user.role === UserRole.FARMER && (
                 <>
                   <Link
@@ -109,7 +110,7 @@ export function MobileMenu({ user }: MobileMenuProps) {
                     className="flex items-center rounded-lg px-3 py-2 text-slate-700 transition-all hover:bg-slate-100 hover:text-slate-900"
                     onClick={() => setOpen(false)}
                   >
-                    {t('dashboard')}
+                    {t('farmerDashboard') || 'Farmer Dashboard'}
                   </Link>
                   <Link
                     href="/farmer/products"
@@ -121,13 +122,16 @@ export function MobileMenu({ user }: MobileMenuProps) {
                 </>
               )}
 
-              {user.role === UserRole.CUSTOMER && (
+              {/* Customer/Buying links - Available for both customers and farmers */}
+              {(user.role === UserRole.CUSTOMER || user.role === UserRole.FARMER) && (
                 <Link
                   href="/customer/dashboard"
                   className="flex items-center rounded-lg px-3 py-2 text-slate-700 transition-all hover:bg-slate-100 hover:text-slate-900"
                   onClick={() => setOpen(false)}
                 >
-                  {t('dashboard')}
+                  {user.role === UserRole.FARMER
+                    ? (t('buyingDashboard') || 'Buying Dashboard')
+                    : t('dashboard')}
                 </Link>
               )}
             </div>

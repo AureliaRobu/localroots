@@ -62,8 +62,8 @@ export async function Header() {
                     {/* Language Switcher */}
                     <LanguageSwitcher />
 
-                    {/* Cart Button */}
-                    {user && user.role === UserRole.CUSTOMER && <CartButton />}
+                    {/* Cart Button - Available for both customers and farmers */}
+                    {user && (user.role === UserRole.CUSTOMER || user.role === UserRole.FARMER) && <CartButton />}
 
                     {/* Auth Section */}
                     {user ? (
@@ -89,11 +89,12 @@ export async function Header() {
                                 </DropdownMenuLabel>
                                 <DropdownMenuSeparator />
 
+                                {/* Farmer-specific links */}
                                 {user.role === UserRole.FARMER && (
                                     <>
                                         <DropdownMenuItem asChild>
                                             <Link href="/farmer/dashboard" className="cursor-pointer">
-                                                {t('dashboard')}
+                                                {t('farmerDashboard') || 'Farmer Dashboard'}
                                             </Link>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem asChild>
@@ -105,11 +106,14 @@ export async function Header() {
                                     </>
                                 )}
 
-                                {user.role === UserRole.CUSTOMER && (
+                                {/* Customer/Buying links - Available for both customers and farmers */}
+                                {(user.role === UserRole.CUSTOMER || user.role === UserRole.FARMER) && (
                                     <>
                                         <DropdownMenuItem asChild>
                                             <Link href="/customer/dashboard" className="cursor-pointer">
-                                                {t('dashboard')}
+                                                {user.role === UserRole.FARMER
+                                                    ? (t('buyingDashboard') || 'Buying Dashboard')
+                                                    : t('dashboard')}
                                             </Link>
                                         </DropdownMenuItem>
                                         <DropdownMenuSeparator />

@@ -25,8 +25,10 @@ export async function requireFarmer() {
 
 export async function requireCustomer() {
     const user = await requireAuth()
-    if (user.role !== UserRole.CUSTOMER) {
-        redirect('/farmer/dashboard')
+    // Allow both CUSTOMER and FARMER roles to access customer routes
+    // Farmers can buy products too!
+    if (user.role !== UserRole.CUSTOMER && user.role !== UserRole.FARMER) {
+        redirect('/products')
     }
     return user
 }

@@ -110,6 +110,8 @@
     "map": "Map",
     "about": "About",
     "dashboard": "Dashboard",
+    "farmerDashboard": "Farmer Dashboard",
+    "buyingDashboard": "Buying Dashboard",
     "myProducts": "My Products",
     "signIn": "Sign In",
     "getStarted": "Get Started",
