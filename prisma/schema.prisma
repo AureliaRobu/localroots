@@ -25,6 +25,12 @@ enum OrderStatus {
   CANCELLED
 }
 
+// Payment method enum
+enum PaymentMethod {
+  CASH_ON_DELIVERY
+  STRIPE
+}
+
 // Users table
 model User {
   id            String    @id @default(cuid())
@@ -149,10 +155,13 @@ model CartItem {
 
 // Orders
 model Order {
-  id              String      @id @default(cuid())
+  id              String        @id @default(cuid())
   userId          String
-  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  status          OrderStatus @default(PENDING)
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status          OrderStatus   @default(PENDING)
+  paymentMethod   PaymentMethod @default(CASH_ON_DELIVERY)
+  paymentStatus   String?       // For Stripe: 'pending', 'paid', 'failed'
+  stripePaymentId String?       // Stripe Payment Intent ID
   total           Float
   customerName    String
   customerEmail   String
@@ -160,8 +169,8 @@ model Order {
   deliveryAddress String
   notes           String?
   items           OrderItem[]
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 
   @@map("orders")
   @@index([userId])
