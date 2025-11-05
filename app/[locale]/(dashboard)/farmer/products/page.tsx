@@ -16,14 +16,13 @@ export default async function FarmerProductsPage() {
     const products = await getFarmerProducts(user.id)
 
     return (
-        <div className="min-h-screen bg-slate-50">
-            <div className="mx-auto max-w-7xl px-4 py-8">
-                <div className="mb-8">
-                    <h1 className="text-3xl font-bold">My Products</h1>
-                    <p className="text-slate-600">Manage your product listings</p>
-                </div>
+        <div className="px-4 lg:px-6">
+            <div className="mb-8">
+                <h1 className="text-3xl font-bold">My Products</h1>
+                <p className="text-slate-600">Manage your product listings</p>
+            </div>
 
-                <div className="grid gap-8 lg:grid-cols-3">
+            <div className="grid gap-8 lg:grid-cols-3">
                     <div className="lg:col-span-1">
                         <AddProductForm />
                     </div>
@@ -40,7 +39,6 @@ export default async function FarmerProductsPage() {
                             <FarmerProductsGrid products={products} />
                         )}
                     </div>
-                </div>
             </div>
         </div>
     )

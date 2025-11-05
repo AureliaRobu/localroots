@@ -56,13 +56,12 @@ export default async function CustomerDashboardPage() {
     const recentProducts = await getRecentProducts()
 
     return (
-        <div className="min-h-screen bg-slate-50">
-            <div className="mx-auto max-w-7xl px-4 py-8">
-                {/* Header */}
-                <div className="mb-8">
-                    <h1 className="text-3xl font-bold">Welcome back, {user.name}!</h1>
-                    <p className="text-slate-600">Discover fresh, local products</p>
-                </div>
+        <div className="px-4 lg:px-6">
+            {/* Header */}
+            <div className="mb-8">
+                <h1 className="text-3xl font-bold">Welcome back, {user.name}!</h1>
+                <p className="text-slate-600">Discover fresh, local products</p>
+            </div>
 
                 {/* Stats Cards */}
                 <div className="mb-8 grid gap-6 md:grid-cols-3">
@@ -274,7 +273,6 @@ export default async function CustomerDashboardPage() {
                         </div>
                     )}
                 </div>
-            </div>
         </div>
     )
 }

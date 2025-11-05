@@ -22,16 +22,14 @@ export default async function EditProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="mx-auto max-w-3xl px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">{t('editProfile')}</h1>
-          <p className="mt-2 text-slate-600">
-            {t('editDescription')}
-          </p>
-        </div>
-        <FarmerProfileEditForm profile={profile} />
+    <div className="mx-auto max-w-3xl px-4 lg:px-6">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold">{t('editProfile')}</h1>
+        <p className="mt-2 text-slate-600">
+          {t('editDescription')}
+        </p>
       </div>
+      <FarmerProfileEditForm profile={profile} />
     </div>
   )
 }

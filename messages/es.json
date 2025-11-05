@@ -285,5 +285,24 @@
     "items": "Artículos",
     "confirmOrder": "Confirmar Pedido",
     "markCompleted": "Marcar como Completado"
+  },
+  "Navigation": {
+    "farmer": {
+      "dashboard": "Panel",
+      "myProducts": "Mis Productos",
+      "orders": "Pedidos",
+      "profile": "Perfil",
+      "settings": "Configuración",
+      "logout": "Cerrar Sesión"
+    },
+    "customer": {
+      "dashboard": "Panel",
+      "browseProducts": "Explorar Productos",
+      "myOrders": "Mis Pedidos",
+      "shoppingCart": "Carrito",
+      "findFarmers": "Buscar Agricultores",
+      "settings": "Configuración",
+      "logout": "Cerrar Sesión"
+    }
   }
 }

@@ -23,7 +23,7 @@ export default async function FarmerOrdersPage() {
 
   if (!ordersResult.success) {
     return (
-      <div className="container py-10">
+      <div className="px-4 lg:px-6">
         <p className="text-red-500">{ordersResult.error}</p>
       </div>
     )
@@ -54,7 +54,7 @@ export default async function FarmerOrdersPage() {
   }
 
   return (
-    <div className="container py-10">
+    <div className="px-4 lg:px-6">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold">{t('title')}</h1>
       </div>

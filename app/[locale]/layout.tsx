@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import {Geist, Geist_Mono} from "next/font/google";
+import {Raleway, Merriweather} from "next/font/google";
 import {Toaster} from "@/components/ui/sonner";
 import {Header} from "@/components/layout/header";
 import "./globals.css";
@@ -13,13 +13,15 @@ export function generateStaticParams() {
     return routing.locales.map((locale) => ({locale}));
 }
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
+const raleway = Raleway({
+    weight: ['300', '400', '500', '600', '700'],
+    variable: "--font-raleway",
     subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
+const merriweather = Merriweather({
+    weight: ['300', '400', '700', '900'],
+    variable: "--font-merriweather",
     subsets: ["latin"],
 });
 
@@ -41,7 +43,7 @@ export default async function RootLayout({
     return (
         <html lang="en">
         <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+            className={`${raleway.variable} ${merriweather.variable} antialiased`}
         >
         <NextIntlClientProvider>
             <CartProvider>

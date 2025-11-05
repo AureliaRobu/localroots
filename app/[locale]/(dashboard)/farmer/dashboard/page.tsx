@@ -21,30 +21,27 @@ export default async function FarmerDashboardPage() {
     // If no profile, show setup form
     if (!profile) {
         return (
-            <div className="min-h-screen bg-slate-50">
-                <div className="mx-auto max-w-3xl px-4 py-8">
-                    <div className="mb-8 text-center">
-                        <h1 className="text-3xl font-bold">{t('welcome', { name: user.name ?? 'Farmer' })}</h1>
-                        <p className="mt-2 text-slate-600">
-                            {t('setupProfile')}
-                        </p>
-                    </div>
-                    <FarmerProfileForm />
+            <div className="mx-auto max-w-3xl px-4 lg:px-6">
+                <div className="mb-8 text-center">
+                    <h1 className="text-3xl font-bold">{t('welcome', { name: user.name ?? 'Farmer' })}</h1>
+                    <p className="mt-2 text-slate-600">
+                        {t('setupProfile')}
+                    </p>
                 </div>
+                <FarmerProfileForm />
             </div>
         )
     }
 
     // Show dashboard with profile info
     return (
-        <div className="min-h-screen bg-slate-50">
-            <div className="mx-auto max-w-7xl px-4 py-8">
-                <div className="mb-8">
-                    <h1 className="text-3xl font-bold">{t('title')}</h1>
-                    <p className="text-slate-600">{t('welcomeBack', { name: user.name ?? 'Farmer' })}</p>
-                </div>
+        <div className="px-4 lg:px-6">
+            <div className="mb-8">
+                <h1 className="text-3xl font-bold">{t('title')}</h1>
+                <p className="text-slate-600">{t('welcomeBack', { name: user.name ?? 'Farmer' })}</p>
+            </div>
 
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {/* Profile Card */}
                     <Card>
                         <CardHeader>
@@ -118,7 +115,6 @@ export default async function FarmerDashboardPage() {
                         </CardContent>
                     </Card>
                 </div>
-            </div>
         </div>
     )
 }

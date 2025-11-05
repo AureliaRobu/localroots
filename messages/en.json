@@ -285,5 +285,24 @@
     "items": "Items",
     "confirmOrder": "Confirm Order",
     "markCompleted": "Mark as Completed"
+  },
+  "Navigation": {
+    "farmer": {
+      "dashboard": "Dashboard",
+      "myProducts": "My Products",
+      "orders": "Orders",
+      "profile": "Profile",
+      "settings": "Settings",
+      "logout": "Logout"
+    },
+    "customer": {
+      "dashboard": "Dashboard",
+      "browseProducts": "Browse Products",
+      "myOrders": "My Orders",
+      "shoppingCart": "Shopping Cart",
+      "findFarmers": "Find Farmers",
+      "settings": "Settings",
+      "logout": "Logout"
+    }
   }
 }

@@ -8,9 +8,9 @@ import { CancelOrderButton } from './cancel-order-button'
 import { format } from 'date-fns'
 
 interface OrderDetailsPageProps {
-  params: {
+  params: Promise<{
     orderId: string
-  }
+  }>
 }
 
 export default async function OrderDetailsPage({ params }: OrderDetailsPageProps) {
@@ -21,7 +21,8 @@ export default async function OrderDetailsPage({ params }: OrderDetailsPageProps
     redirect('/login')
   }
 
-  const orderResult = await getOrderById(params.orderId)
+  const { orderId } = await params
+  const orderResult = await getOrderById(orderId)
 
   if (!orderResult.success || !orderResult.data) {
     redirect('/customer/dashboard')
