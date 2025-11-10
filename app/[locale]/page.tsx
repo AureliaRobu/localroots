@@ -8,25 +8,37 @@ export default function HomePage() {
     return (
         <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
             {/* Hero Section */}
-            <section className="mx-auto max-w-7xl px-4 py-20 text-center">
-                <h1 className="text-5xl font-bold tracking-tight text-slate-900 sm:text-6xl">
-                    {t('header1')}
-                    <span className="text-green-600"> {t('header2')}</span>
-                </h1>
-                <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-600">
-                    {t('subheader')}
-                </p>
-                <div className="mt-10 flex items-center justify-center gap-4">
-                    <Link href="/products">
-                        <Button size="lg" className="text-lg">
-                            {t('browse')}
-                        </Button>
-                    </Link>
-                    <Link href="/map">
-                        <Button size="lg" variant="outline" className="text-lg">
-                            {t('viewMap')}
-                        </Button>
-                    </Link>
+            <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+                {/* Background Image */}
+                <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                        backgroundImage: "url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2832&auto=format&fit=crop')"
+                    }}
+                />
+                {/* Dark Overlay */}
+                <div className="absolute inset-0 bg-black/50" />
+
+                {/* Content */}
+                <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
+                    <h1 className="text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
+                        {t('header')}
+                    </h1>
+                    <p className="mx-auto mt-6 max-w-2xl text-lg text-white/90 sm:text-xl">
+                        {t('subheader')}
+                    </p>
+                    <div className="mt-10 flex items-center justify-center gap-4">
+                        <Link href="/products">
+                            <Button size="lg" className="text-lg bg-green-600 hover:bg-green-700">
+                                {t('browse')}
+                            </Button>
+                        </Link>
+                        <Link href="/map">
+                            <Button size="lg" variant="outline" className="text-lg border-2 border-white text-white bg-transparent hover:bg-white hover:text-gray-900">
+                                {t('viewMap')}
+                            </Button>
+                        </Link>
+                    </div>
                 </div>
             </section>
 

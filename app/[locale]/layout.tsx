@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import {Raleway, Merriweather} from "next/font/google";
+import {Lora, Poppins} from "next/font/google";
 import {Toaster} from "@/components/ui/sonner";
 import {Header} from "@/components/layout/header";
 import "./globals.css";
@@ -13,15 +13,15 @@ export function generateStaticParams() {
     return routing.locales.map((locale) => ({locale}));
 }
 
-const raleway = Raleway({
+const poppins = Poppins({
     weight: ['300', '400', '500', '600', '700'],
-    variable: "--font-raleway",
+    variable: "--font-poppins",
     subsets: ["latin"],
 });
 
-const merriweather = Merriweather({
-    weight: ['300', '400', '700', '900'],
-    variable: "--font-merriweather",
+const lora = Lora({
+    weight: ['400', '500', '600', '700'],
+    variable: "--font-lora",
     subsets: ["latin"],
 });
 
@@ -43,7 +43,7 @@ export default async function RootLayout({
     return (
         <html lang="en">
         <body
-            className={`${raleway.variable} ${merriweather.variable} antialiased`}
+            className={`${poppins.variable} ${lora.variable} antialiased`}
         >
         <NextIntlClientProvider>
             <CartProvider>
