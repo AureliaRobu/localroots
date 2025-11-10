@@ -8,7 +8,6 @@ import {
   IconReceipt,
   IconSettings,
   IconLogout,
-  IconPlant,
   IconShoppingBag,
   IconMap,
 } from "@tabler/icons-react"
@@ -16,15 +15,9 @@ import { signOut } from "next-auth/react"
 
 import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
-import { NavUser } from "@/components/nav-user"
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { useParams } from "next/navigation"
 import { useTranslations } from "next-intl"
@@ -84,36 +77,12 @@ export function CustomerSidebar({ user, ...props }: CustomerSidebarProps) {
     },
   ]
 
-  const userData = {
-    name: user?.name || "Customer",
-    email: user?.email || "",
-    avatar: user?.image || "",
-  }
-
   return (
     <Sidebar collapsible="offcanvas" {...props}>
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
-            >
-              <a href={`/${locale}`}>
-                <IconPlant className="!size-5 text-green-600" />
-                <span className="text-base font-semibold">LocalRoots</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="pt-4">
         <NavMain items={navMain} />
         <NavSecondary items={navSecondary} className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={userData} />
-      </SidebarFooter>
     </Sidebar>
   )
 }
