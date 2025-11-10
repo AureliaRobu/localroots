@@ -14,15 +14,21 @@ export function generateStaticParams() {
 }
 
 const poppins = Poppins({
-    weight: ['300', '400', '500', '600', '700'],
+    weight: ['400', '600', '700'], // Reduced from 5 to 3 weights
     variable: "--font-poppins",
     subsets: ["latin"],
+    display: 'swap', // Prevents FOIT - shows fallback font immediately
+    preload: true, // Preload the font
+    fallback: ['system-ui', 'arial'], // Better fallback fonts
 });
 
 const lora = Lora({
-    weight: ['400', '500', '600', '700'],
+    weight: ['400', '600', '700'], // Reduced from 4 to 3 weights
     variable: "--font-lora",
     subsets: ["latin"],
+    display: 'swap', // Prevents FOIT - shows fallback font immediately
+    preload: true, // Preload the font
+    fallback: ['georgia', 'serif'], // Better fallback fonts
 });
 
 export const metadata: Metadata = {
