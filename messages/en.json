@@ -4,18 +4,22 @@
     "header": "Real farmers. Real food. Real connections.",
     "subheader": "Discover fresh, organic produce from farmers in your community. Support local agriculture and eat healthier today.",
     "viewMap": "View Map",
-    "features": {
-      "organic": {
-        "title": "100% Organic",
-        "description": "All products are certified organic and grown with care by local farmers."
+    "audiences": {
+      "title": "Who We Serve",
+      "enthusiasts": {
+        "title": "Discover and buy organic food directly from local farmers",
+        "description": "Finding trustworthy local sources for fresh, organic food shouldn't be hard. Connect directly with nearby organic farmers through interactive maps, authentic reviews, and real-time communication.",
+        "cta": "Start Shopping"
       },
-      "local": {
-        "title": "Local & Fresh",
-        "description": "Find farmers near you and get the freshest produce available."
+      "farmers": {
+        "title": "Sell your organic produce directly to local customers—no middlemen",
+        "description": "Reaching local customers without costly ads or intermediaries is now simple. Showcase your products, chat with buyers, and build a loyal community of local supporters.",
+        "cta": "Join as Farmer"
       },
-      "community": {
-        "title": "Support Community",
-        "description": "Your purchase directly supports local farmers and sustainable agriculture."
+      "organizers": {
+        "title": "Empower your community to share and grow through local food networks",
+        "description": "Building strong local networks for sustainable trade doesn't have to be fragmented. Connect producers and consumers through shared exchanges and powerful communication tools.",
+        "cta": "Build Community"
       }
     },
     "cta": {
@@ -130,7 +134,31 @@
       "viewMarketplace": "View Marketplace",
       "yourStats": "Your Stats",
       "productsCount": "Products",
-      "inStock": "In Stock"
+      "inStock": "In Stock",
+      "stats": {
+        "totalProducts": "Total Products",
+        "inStockCount": "in stock",
+        "totalOrders": "Total Orders",
+        "pendingCount": "pending",
+        "totalRevenue": "Total Revenue",
+        "fromCompleted": "From completed orders",
+        "stockStatus": "Stock Status",
+        "productsAvailable": "Products available"
+      },
+      "recentOrders": {
+        "title": "Recent Orders",
+        "description": "Your latest orders from customers",
+        "noOrders": "No orders yet",
+        "table": {
+          "product": "Product",
+          "customer": "Customer",
+          "quantity": "Quantity",
+          "total": "Total",
+          "status": "Status",
+          "date": "Date",
+          "noImage": "No img"
+        }
+      }
     },
     "profile": {
       "editProfile": "Edit Farm Profile",
@@ -148,6 +176,38 @@
       "deleteDescription": "This action cannot be undone.",
       "cancel": "Cancel",
       "deleteButton": "Delete"
+    }
+  },
+  "customer": {
+    "dashboard": {
+      "title": "Welcome back, {name}!",
+      "subtitle": "Track your orders and discover fresh products",
+      "stats": {
+        "totalOrders": "Total Orders",
+        "completedCount": "completed",
+        "pendingOrders": "Pending Orders",
+        "awaitingDelivery": "Awaiting delivery",
+        "totalSpent": "Total Spent",
+        "onLocalProducts": "On local products",
+        "favoriteCategory": "Favorite Category",
+        "mostPurchased": "Most purchased"
+      },
+      "recentOrders": {
+        "title": "Recent Orders",
+        "description": "Your latest orders from local farmers",
+        "viewAll": "View all",
+        "noOrders": "No orders yet",
+        "startShopping": "Start shopping",
+        "table": {
+          "product": "Product",
+          "farmer": "Farmer",
+          "quantity": "Quantity",
+          "total": "Total",
+          "status": "Status",
+          "date": "Date",
+          "noImage": "No img"
+        }
+      }
     }
   },
   "about": {

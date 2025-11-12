@@ -4,18 +4,22 @@
     "header": "De vrais agriculteurs. De la vraie nourriture. De vraies connexions.",
     "subheader": "Découvrez des produits frais et biologiques provenant des agriculteurs de votre communauté. Soutenez l'agriculture locale et mangez plus sainement dès aujourd'hui.",
     "viewMap": "Voir la Carte",
-    "features": {
-      "organic": {
-        "title": "100% Biologique",
-        "description": "Tous les produits sont certifiés biologiques et cultivés avec soin par des agriculteurs locaux."
+    "audiences": {
+      "title": "Qui Nous Servons",
+      "enthusiasts": {
+        "title": "Découvrez et achetez des aliments biologiques directement auprès d'agriculteurs locaux",
+        "description": "Trouver des sources locales fiables pour des aliments frais et biologiques ne devrait pas être difficile. Connectez-vous directement avec des agriculteurs biologiques à proximité via des cartes interactives, des avis authentiques et une communication en temps réel.",
+        "cta": "Commencer les Achats"
       },
-      "local": {
-        "title": "Local et Frais",
-        "description": "Trouvez des agriculteurs près de chez vous et obtenez les produits les plus frais disponibles."
+      "farmers": {
+        "title": "Vendez vos produits biologiques directement aux clients locaux—sans intermédiaires",
+        "description": "Atteindre des clients locaux sans publicités coûteuses ou intermédiaires est désormais simple. Présentez vos produits, chattez avec les acheteurs et construisez une communauté fidèle de supporters locaux.",
+        "cta": "Rejoindre comme Agriculteur"
       },
-      "community": {
-        "title": "Soutenir la Communauté",
-        "description": "Votre achat soutient directement les agriculteurs locaux et l'agriculture durable."
+      "organizers": {
+        "title": "Donnez du pouvoir à votre communauté pour partager et grandir grâce aux réseaux alimentaires locaux",
+        "description": "Construire des réseaux locaux solides pour le commerce durable n'a pas à être fragmenté. Connectez producteurs et consommateurs grâce à des échanges partagés et des outils de communication puissants.",
+        "cta": "Construire la Communauté"
       }
     },
     "cta": {
@@ -130,7 +134,31 @@
       "viewMarketplace": "Voir le Marché",
       "yourStats": "Vos Statistiques",
       "productsCount": "Produits",
-      "inStock": "En Stock"
+      "inStock": "En Stock",
+      "stats": {
+        "totalProducts": "Total des Produits",
+        "inStockCount": "en stock",
+        "totalOrders": "Total des Commandes",
+        "pendingCount": "en attente",
+        "totalRevenue": "Revenu Total",
+        "fromCompleted": "Des commandes terminées",
+        "stockStatus": "État du Stock",
+        "productsAvailable": "Produits disponibles"
+      },
+      "recentOrders": {
+        "title": "Commandes Récentes",
+        "description": "Vos dernières commandes de clients",
+        "noOrders": "Pas encore de commandes",
+        "table": {
+          "product": "Produit",
+          "customer": "Client",
+          "quantity": "Quantité",
+          "total": "Total",
+          "status": "Statut",
+          "date": "Date",
+          "noImage": "Pas d'img"
+        }
+      }
     },
     "profile": {
       "editProfile": "Modifier le Profil de la Ferme",
@@ -148,6 +176,38 @@
       "deleteDescription": "Cette action ne peut pas être annulée.",
       "cancel": "Annuler",
       "deleteButton": "Supprimer"
+    }
+  },
+  "customer": {
+    "dashboard": {
+      "title": "Bon retour, {name}!",
+      "subtitle": "Suivez vos commandes et découvrez des produits frais",
+      "stats": {
+        "totalOrders": "Total des Commandes",
+        "completedCount": "terminées",
+        "pendingOrders": "Commandes en Attente",
+        "awaitingDelivery": "En attente de livraison",
+        "totalSpent": "Total Dépensé",
+        "onLocalProducts": "Sur des produits locaux",
+        "favoriteCategory": "Catégorie Favorite",
+        "mostPurchased": "Le plus acheté"
+      },
+      "recentOrders": {
+        "title": "Commandes Récentes",
+        "description": "Vos dernières commandes d'agriculteurs locaux",
+        "viewAll": "Voir tout",
+        "noOrders": "Pas encore de commandes",
+        "startShopping": "Commencer les achats",
+        "table": {
+          "product": "Produit",
+          "farmer": "Agriculteur",
+          "quantity": "Quantité",
+          "total": "Total",
+          "status": "Statut",
+          "date": "Date",
+          "noImage": "Pas d'img"
+        }
+      }
     }
   },
   "about": {

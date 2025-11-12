@@ -189,46 +189,46 @@ export default async function FarmerDashboardPage() {
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Total Products</CardTitle>
+                        <CardTitle className="text-sm font-medium">{t('stats.totalProducts')}</CardTitle>
                         <svg className="h-4 w-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                         </svg>
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{stats.totalProducts}</div>
-                        <p className="text-xs text-muted-foreground">{stats.inStockProducts} in stock</p>
+                        <p className="text-xs text-muted-foreground">{stats.inStockProducts} {t('stats.inStockCount')}</p>
                     </CardContent>
                 </Card>
 
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
+                        <CardTitle className="text-sm font-medium">{t('stats.totalOrders')}</CardTitle>
                         <svg className="h-4 w-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{stats.totalOrders}</div>
-                        <p className="text-xs text-muted-foreground">{stats.pendingOrders} pending</p>
+                        <p className="text-xs text-muted-foreground">{stats.pendingOrders} {t('stats.pendingCount')}</p>
                     </CardContent>
                 </Card>
 
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+                        <CardTitle className="text-sm font-medium">{t('stats.totalRevenue')}</CardTitle>
                         <svg className="h-4 w-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">${stats.totalRevenue.toFixed(2)}</div>
-                        <p className="text-xs text-muted-foreground">From completed orders</p>
+                        <p className="text-xs text-muted-foreground">{t('stats.fromCompleted')}</p>
                     </CardContent>
                 </Card>
 
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Stock Status</CardTitle>
+                        <CardTitle className="text-sm font-medium">{t('stats.stockStatus')}</CardTitle>
                         <svg className="h-4 w-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                         </svg>
@@ -237,7 +237,7 @@ export default async function FarmerDashboardPage() {
                         <div className="text-2xl font-bold">
                             {stats.totalProducts > 0 ? Math.round((stats.inStockProducts / stats.totalProducts) * 100) : 0}%
                         </div>
-                        <p className="text-xs text-muted-foreground">Products available</p>
+                        <p className="text-xs text-muted-foreground">{t('stats.productsAvailable')}</p>
                     </CardContent>
                 </Card>
             </div>
@@ -250,24 +250,24 @@ export default async function FarmerDashboardPage() {
             {/* Recent Orders Table */}
             <Card>
                 <CardHeader>
-                    <CardTitle>Recent Orders</CardTitle>
-                    <CardDescription>Your latest orders from customers</CardDescription>
+                    <CardTitle>{t('recentOrders.title')}</CardTitle>
+                    <CardDescription>{t('recentOrders.description')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     {recentOrders.length === 0 ? (
                         <div className="text-center py-8 text-muted-foreground">
-                            No orders yet
+                            {t('recentOrders.noOrders')}
                         </div>
                     ) : (
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>Product</TableHead>
-                                    <TableHead>Customer</TableHead>
-                                    <TableHead>Quantity</TableHead>
-                                    <TableHead>Total</TableHead>
-                                    <TableHead>Status</TableHead>
-                                    <TableHead>Date</TableHead>
+                                    <TableHead>{t('recentOrders.table.product')}</TableHead>
+                                    <TableHead>{t('recentOrders.table.customer')}</TableHead>
+                                    <TableHead>{t('recentOrders.table.quantity')}</TableHead>
+                                    <TableHead>{t('recentOrders.table.total')}</TableHead>
+                                    <TableHead>{t('recentOrders.table.status')}</TableHead>
+                                    <TableHead>{t('recentOrders.table.date')}</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -286,7 +286,7 @@ export default async function FarmerDashboardPage() {
                                                         />
                                                     ) : (
                                                         <div className="w-10 h-10 bg-slate-200 rounded flex items-center justify-center text-xs">
-                                                            No img
+                                                            {t('recentOrders.table.noImage')}
                                                         </div>
                                                     )}
                                                     <span>{item.product.name}</span>

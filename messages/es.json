@@ -4,18 +4,22 @@
     "header": "Agricultores reales. Comida real. Conexiones reales.",
     "subheader": "Descubre productos frescos y orgánicos de agricultores en tu comunidad. Apoya la agricultura local y come más saludable hoy.",
     "viewMap": "Ver Mapa",
-    "features": {
-      "organic": {
-        "title": "100% Orgánico",
-        "description": "Todos los productos están certificados como orgánicos y cultivados con cuidado por agricultores locales."
+    "audiences": {
+      "title": "A Quién Servimos",
+      "enthusiasts": {
+        "title": "Descubre y compra alimentos orgánicos directamente de agricultores locales",
+        "description": "Encontrar fuentes locales confiables de alimentos frescos y orgánicos no debería ser difícil. Conéctate directamente con agricultores orgánicos cercanos a través de mapas interactivos, reseñas auténticas y comunicación en tiempo real.",
+        "cta": "Empezar a Comprar"
       },
-      "local": {
-        "title": "Local y Fresco",
-        "description": "Encuentra agricultores cerca de ti y obtén los productos más frescos disponibles."
+      "farmers": {
+        "title": "Vende tus productos orgánicos directamente a clientes locales—sin intermediarios",
+        "description": "Llegar a clientes locales sin costosos anuncios o intermediarios ahora es simple. Muestra tus productos, chatea con compradores y construye una comunidad leal de seguidores locales.",
+        "cta": "Únete como Agricultor"
       },
-      "community": {
-        "title": "Apoya la Comunidad",
-        "description": "Tu compra apoya directamente a los agricultores locales y la agricultura sostenible."
+      "organizers": {
+        "title": "Empodera a tu comunidad para compartir y crecer a través de redes alimentarias locales",
+        "description": "Construir redes locales sólidas para el comercio sostenible no tiene que ser fragmentado. Conecta productores y consumidores a través de intercambios compartidos y poderosas herramientas de comunicación.",
+        "cta": "Construir Comunidad"
       }
     },
     "cta": {
@@ -130,7 +134,31 @@
       "viewMarketplace": "Ver Mercado",
       "yourStats": "Tus Estadísticas",
       "productsCount": "Productos",
-      "inStock": "En Stock"
+      "inStock": "En Stock",
+      "stats": {
+        "totalProducts": "Total de Productos",
+        "inStockCount": "en stock",
+        "totalOrders": "Total de Pedidos",
+        "pendingCount": "pendientes",
+        "totalRevenue": "Ingresos Totales",
+        "fromCompleted": "De pedidos completados",
+        "stockStatus": "Estado del Stock",
+        "productsAvailable": "Productos disponibles"
+      },
+      "recentOrders": {
+        "title": "Pedidos Recientes",
+        "description": "Tus últimos pedidos de clientes",
+        "noOrders": "Aún no hay pedidos",
+        "table": {
+          "product": "Producto",
+          "customer": "Cliente",
+          "quantity": "Cantidad",
+          "total": "Total",
+          "status": "Estado",
+          "date": "Fecha",
+          "noImage": "Sin img"
+        }
+      }
     },
     "profile": {
       "editProfile": "Editar Perfil de la Granja",
@@ -148,6 +176,38 @@
       "deleteDescription": "Esta acción no se puede deshacer.",
       "cancel": "Cancelar",
       "deleteButton": "Eliminar"
+    }
+  },
+  "customer": {
+    "dashboard": {
+      "title": "¡Bienvenido de nuevo, {name}!",
+      "subtitle": "Rastrea tus pedidos y descubre productos frescos",
+      "stats": {
+        "totalOrders": "Total de Pedidos",
+        "completedCount": "completados",
+        "pendingOrders": "Pedidos Pendientes",
+        "awaitingDelivery": "Esperando entrega",
+        "totalSpent": "Total Gastado",
+        "onLocalProducts": "En productos locales",
+        "favoriteCategory": "Categoría Favorita",
+        "mostPurchased": "Más comprado"
+      },
+      "recentOrders": {
+        "title": "Pedidos Recientes",
+        "description": "Tus últimos pedidos de agricultores locales",
+        "viewAll": "Ver todos",
+        "noOrders": "Aún no hay pedidos",
+        "startShopping": "Comenzar a comprar",
+        "table": {
+          "product": "Producto",
+          "farmer": "Agricultor",
+          "quantity": "Cantidad",
+          "total": "Total",
+          "status": "Estado",
+          "date": "Fecha",
+          "noImage": "Sin img"
+        }
+      }
     }
   },
   "about": {

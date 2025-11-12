@@ -73,7 +73,7 @@ export function CustomerSidebar({ user, ...props }: CustomerSidebarProps) {
       title: t('logout'),
       url: "#",
       icon: IconLogout,
-      onClick: () => signOut({ callbackUrl: `/${locale}/login` }),
+      onClick: () => signOut(),
     },
   ]
 

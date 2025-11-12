@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { useTranslations } from 'next-intl';
@@ -42,38 +43,93 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* Features Section */}
-            <section className="mx-auto max-w-7xl px-4 py-16">
-                <div className="grid gap-8 md:grid-cols-3">
-                    <Card>
-                        <CardContent className="pt-6">
-                            <div className="mb-4 text-4xl">🌱</div>
-                            <h3 className="mb-2 text-xl font-semibold">{t('features.organic.title')}</h3>
-                            <p className="text-slate-600">
-                                {t('features.organic.description')}
-                            </p>
-                        </CardContent>
-                    </Card>
+            {/* Target Audiences Section */}
+            <section className="mx-auto max-w-7xl px-4 py-20">
+                <div className="mb-12 text-center">
+                    <h2 className="text-4xl font-bold text-gray-900">{t('audiences.title')}</h2>
+                </div>
 
-                    <Card>
-                        <CardContent className="pt-6">
-                            <div className="mb-4 text-4xl">📍</div>
-                            <h3 className="mb-2 text-xl font-semibold">{t('features.local.title')}</h3>
-                            <p className="text-slate-600">
-                                {t('features.local.description')}
+                <div className="space-y-20">
+                    {/* Local Food Enthusiasts */}
+                    <div className="grid gap-8 md:grid-cols-2 items-center">
+                        <div className="relative h-80 overflow-hidden rounded-2xl shadow-lg">
+                            <Image
+                                src="https://images.unsplash.com/photo-1461354464878-ad92f492a5a0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGZhcm1lcnxlbnwwfDB8MHx8fDI%3D"
+                                alt="Local food enthusiasts shopping"
+                                fill
+                                className="object-cover"
+                            />
+                        </div>
+                        <div className="space-y-4">
+                            <h3 className="text-2xl font-bold text-gray-900">
+                                {t('audiences.enthusiasts.title')}
+                            </h3>
+                            <p className="text-lg text-gray-600 leading-relaxed">
+                                {t('audiences.enthusiasts.description')}
                             </p>
-                        </CardContent>
-                    </Card>
+                            <div className="pt-4">
+                                <Link href="/products">
+                                    <Button size="lg" className="bg-green-600 hover:bg-green-700">
+                                        {t('audiences.enthusiasts.cta')}
+                                    </Button>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
 
-                    <Card>
-                        <CardContent className="pt-6">
-                            <div className="mb-4 text-4xl">🤝</div>
-                            <h3 className="mb-2 text-xl font-semibold">{t('features.community.title')}</h3>
-                            <p className="text-slate-600">
-                                {t('features.community.description')}
+                    {/* Small-Scale Organic Farmers - Reverse layout */}
+                    <div className="grid gap-8 md:grid-cols-2 items-center">
+                        <div className="space-y-4 md:order-1">
+                            <h3 className="text-2xl font-bold text-gray-900">
+                                {t('audiences.farmers.title')}
+                            </h3>
+                            <p className="text-lg text-gray-600 leading-relaxed">
+                                {t('audiences.farmers.description')}
                             </p>
-                        </CardContent>
-                    </Card>
+                            <div className="pt-4">
+                                <Link href="/register">
+                                    <Button size="lg" className="bg-green-600 hover:bg-green-700">
+                                        {t('audiences.farmers.cta')}
+                                    </Button>
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="relative h-80 overflow-hidden rounded-2xl shadow-lg md:order-2">
+                            <Image
+                                src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?q=80&w=2793&auto=format&fit=crop"
+                                alt="Organic farmer in field"
+                                fill
+                                className="object-cover"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Community Organizers */}
+                    <div className="grid gap-8 md:grid-cols-2 items-center">
+                        <div className="relative h-80 overflow-hidden rounded-2xl shadow-lg">
+                            <Image
+                                src="https://images.unsplash.com/photo-1616990632575-59f35f0e2cd0?w=500&auto=format&fit=crop"
+                                alt="Community gathering"
+                                fill
+                                className="object-cover"
+                            />
+                        </div>
+                        <div className="space-y-4">
+                            <h3 className="text-2xl font-bold text-gray-900">
+                                {t('audiences.organizers.title')}
+                            </h3>
+                            <p className="text-lg text-gray-600 leading-relaxed">
+                                {t('audiences.organizers.description')}
+                            </p>
+                            <div className="pt-4">
+                                <Link href="/register">
+                                    <Button size="lg" className="bg-green-600 hover:bg-green-700">
+                                        {t('audiences.organizers.cta')}
+                                    </Button>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
