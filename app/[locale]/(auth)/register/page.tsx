@@ -27,6 +27,7 @@ import {
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Icons } from '@/components/icons'
 import { registerSchema, type RegisterFormData } from '@/lib/validations/auth'
+import { registerAction } from '@/lib/actions/auth'
 import { toast } from 'sonner'
 import { UserRole } from '@prisma/client'
 import { useTranslations } from 'next-intl'
@@ -38,6 +39,7 @@ export default function RegisterPage() {
 
     const form = useForm<RegisterFormData>({
         resolver: zodResolver(registerSchema),
+        mode: 'onBlur',
         defaultValues: {
             name: '',
             email: '',
@@ -51,44 +53,25 @@ export default function RegisterPage() {
         setIsLoading(true)
 
         try {
-            // Register user
-            const response = await fetch('/api/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
+            const result = await registerAction(data)
 
-            const result = await response.json()
-
-            if (!response.ok) {
-                toast.error(result.error || t('registrationFailed'))
+            if (!result.success) {
+                toast.error(result.error)
                 return
             }
 
-            // Auto sign in after registration
-            const signInResult = await signIn('credentials', {
-                email: data.email,
-                password: data.password,
-                redirect: false,
-            })
+            // Success - redirect based on role
+            toast.success(t('accountCreated'))
 
-            if (signInResult?.error) {
-                toast.error(t('registrationSuccessButLoginFailed'))
-                router.push('/login')
+            if (result.role === UserRole.FARMER) {
+                router.push('/farmer/dashboard')
             } else {
-                toast.success(t('accountCreated'))
-
-                // Redirect based on role
-                if (data.role === UserRole.FARMER) {
-                    router.push('/farmer/dashboard')
-                } else {
-                    router.push('/customer/dashboard')
-                }
-                router.refresh()
+                router.push('/customer/dashboard')
             }
+
+            router.refresh()
         } catch (error) {
+            console.error('Registration error:', error)
             toast.error(t('error'))
         } finally {
             setIsLoading(false)

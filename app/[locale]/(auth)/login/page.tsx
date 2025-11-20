@@ -26,8 +26,10 @@ import {
 } from '@/components/ui/form'
 import { Icons } from '@/components/icons'
 import { loginSchema, type LoginFormData } from '@/lib/validations/auth'
+import { loginAction } from '@/lib/actions/auth'
 import { toast } from 'sonner'
 import { useTranslations } from 'next-intl'
+import { UserRole } from '@prisma/client'
 
 export default function LoginPage() {
     const router = useRouter()
@@ -36,6 +38,7 @@ export default function LoginPage() {
 
     const form = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema),
+        mode: 'onBlur',
         defaultValues: {
             email: '',
             password: '',
@@ -46,20 +49,32 @@ export default function LoginPage() {
         setIsLoading(true)
 
         try {
-            const result = await signIn('credentials', {
-                email: data.email,
-                password: data.password,
-                redirect: false,
-            })
+            const result = await loginAction(data)
 
-            if (result?.error) {
-                toast.error(t('invalidCredentials'))
-            } else {
-                toast.success(t('welcomeBack'))
-                router.push('/products')
-                router.refresh()
+            if (!result.success) {
+                toast.error(result.error)
+                return
             }
-        } catch {
+
+            // Success - redirect based on role
+            toast.success(t('welcomeBack'))
+
+            if (result.role === UserRole.FARMER) {
+                // Check if farmer has completed their profile
+                if (result.hasProfile) {
+                    router.push('/farmer/dashboard')
+                } else {
+                    router.push('/farmer/profile/setup')
+                }
+            } else if (result.role === UserRole.CUSTOMER) {
+                router.push('/customer/dashboard')
+            } else {
+                router.push('/products')
+            }
+
+            router.refresh()
+        } catch (error) {
+            console.error('Login error:', error)
             toast.error(t('error'))
         } finally {
             setIsLoading(false)
