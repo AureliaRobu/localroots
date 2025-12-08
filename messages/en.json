@@ -363,5 +363,249 @@
       "settings": "Settings",
       "logout": "Logout"
     }
+  },
+  "privacy": {
+    "title": "Privacy Policy | LocalRoots",
+    "description": "Learn how LocalRoots collects, uses, and protects your personal information",
+    "heading": "Privacy Policy",
+    "lastUpdated": "Last updated: December 8, 2025",
+    "introduction": {
+      "title": "Introduction",
+      "content": "LocalRoots (\"we,\" \"our,\" or \"us\") respects your privacy and is committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our marketplace platform connecting local organic farmers with customers."
+    },
+    "informationCollection": {
+      "title": "Information We Collect",
+      "personalInfo": {
+        "title": "Personal Information You Provide",
+        "items": [
+          "Account registration information (name, email address, password)",
+          "Profile information (for farmers: farm name, description, location, website)",
+          "Contact information (phone number, physical address)",
+          "Payment information (processed securely through third-party payment processors)"
+        ]
+      },
+      "farmerInfo": {
+        "title": "Farmer-Specific Information",
+        "items": [
+          "Farm location and geolocation coordinates",
+          "Product listings (images, descriptions, prices)",
+          "Business details and certifications",
+          "Communication with customers through our platform"
+        ]
+      },
+      "automaticInfo": {
+        "title": "Information Collected Automatically",
+        "items": [
+          "Device information (IP address, browser type, operating system)",
+          "Usage data (pages visited, features used, time spent on platform)",
+          "Location data (with your permission, for distance-based product filtering)"
+        ]
+      }
+    },
+    "howWeUse": {
+      "title": "How We Use Your Information",
+      "items": [
+        "To provide and maintain our marketplace services",
+        "To process transactions and send order notifications",
+        "To connect farmers with customers in their local area",
+        "To improve our platform and develop new features",
+        "To communicate with you about your account and our services",
+        "To ensure platform security and prevent fraud"
+      ]
+    },
+    "dataSharing": {
+      "title": "Data Sharing and Disclosure",
+      "intro": "We do not sell your personal information. We may share your information only in the following circumstances:",
+      "items": [
+        "With farmers when you place an order (name, contact information, delivery address)",
+        "With service providers who help us operate our platform (AWS for image storage, payment processors)",
+        "When required by law or to protect our legal rights",
+        "With your explicit consent for other purposes"
+      ]
+    },
+    "dataSecurity": {
+      "title": "Data Security",
+      "content": "We implement appropriate technical and organizational measures to protect your personal information, including encryption of passwords, secure database storage, and regular security assessments. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security."
+    },
+    "thirdParty": {
+      "title": "Third-Party Services",
+      "items": [
+        "Authentication: Google OAuth, Facebook OAuth (governed by their respective privacy policies)",
+        "Image Storage: AWS S3 (subject to Amazon Web Services privacy policy)",
+        "Maps: OpenStreetMap (subject to OpenStreetMap privacy policy)"
+      ]
+    },
+    "yourRights": {
+      "title": "Your Rights",
+      "items": [
+        "Access your personal information",
+        "Correct inaccurate information",
+        "Delete your account and associated data",
+        "Object to certain processing of your information",
+        "Export your data in a portable format"
+      ]
+    },
+    "cookies": {
+      "title": "Cookies and Tracking",
+      "content": "We use essential cookies for authentication and session management. We do not use third-party advertising cookies or tracking pixels."
+    },
+    "children": {
+      "title": "Children's Privacy",
+      "content": "Our services are not directed to children under 13 years of age. We do not knowingly collect personal information from children under 13."
+    },
+    "changes": {
+      "title": "Changes to This Privacy Policy",
+      "content": "We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the 'Last updated' date."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "content": "If you have questions about this Privacy Policy or how we handle your information, please contact us:"
+    }
+  },
+  "terms": {
+    "title": "Terms and Conditions | LocalRoots",
+    "metaDescription": "Read the terms and conditions for using the LocalRoots marketplace platform",
+    "heading": "Terms and Conditions",
+    "lastUpdated": "Last updated: December 8, 2025",
+    "acceptance": {
+      "title": "Acceptance of Terms",
+      "content": "By accessing or using LocalRoots, you agree to be bound by these Terms and Conditions. If you do not agree to these terms, please do not use our platform."
+    },
+    "serviceDescription": {
+      "title": "Description of Service",
+      "content": "LocalRoots is an online marketplace platform that connects local organic farmers with customers seeking fresh, locally-sourced products. We provide the technology platform but are not a party to transactions between farmers and customers."
+    },
+    "eligibility": {
+      "title": "Eligibility",
+      "intro": "To use LocalRoots, you must:",
+      "items": [
+        "Be at least 18 years of age",
+        "Have the legal capacity to enter into binding contracts",
+        "Not be prohibited from using the service under applicable laws"
+      ]
+    },
+    "accounts": {
+      "title": "User Accounts",
+      "intro": "When you create an account, you agree to:",
+      "items": [
+        "Provide accurate, current, and complete information",
+        "Maintain and update your information to keep it accurate",
+        "Maintain the security of your password and account",
+        "Accept responsibility for all activities that occur under your account"
+      ]
+    },
+    "farmerResponsibilities": {
+      "title": "Farmer Responsibilities",
+      "intro": "If you register as a farmer, you agree to:",
+      "items": [
+        "Accurately represent your products, prices, and availability",
+        "Comply with all applicable food safety regulations and certifications",
+        "Fulfill orders in a timely manner as agreed with customers",
+        "Maintain organic or other claimed certifications where applicable",
+        "Set fair and honest prices for your products",
+        "Respond promptly to customer inquiries and concerns"
+      ]
+    },
+    "customerResponsibilities": {
+      "title": "Customer Responsibilities",
+      "intro": "If you register as a customer, you agree to:",
+      "items": [
+        "Provide accurate delivery information",
+        "Pay for orders as agreed with farmers",
+        "Treat farmers with respect and professionalism",
+        "Report any issues or concerns promptly through proper channels"
+      ]
+    },
+    "transactions": {
+      "title": "Transactions and Payments",
+      "intro": "Please note:",
+      "items": [
+        "Transactions are directly between farmers and customers",
+        "LocalRoots facilitates the connection but is not responsible for transaction fulfillment",
+        "Payment terms are agreed upon between farmers and customers",
+        "Disputes should be resolved directly between the parties involved"
+      ]
+    },
+    "prohibited": {
+      "title": "Prohibited Conduct",
+      "intro": "You may not:",
+      "items": [
+        "Use the platform for any illegal purpose",
+        "Post false, misleading, or fraudulent information",
+        "Harass, abuse, or harm other users",
+        "Interfere with or disrupt the platform's operation",
+        "Attempt to gain unauthorized access to any part of the platform",
+        "Use automated systems (bots, scrapers) without permission",
+        "Resell or commercially exploit the platform without authorization"
+      ]
+    },
+    "intellectual": {
+      "title": "Intellectual Property",
+      "platform": "The LocalRoots platform, including its design, code, and content, is owned by LocalRoots and protected by intellectual property laws. You may not copy, modify, or distribute our platform without permission.",
+      "userContent": "You retain ownership of content you post (product listings, photos, descriptions) but grant LocalRoots a license to display and distribute this content as necessary to provide our services."
+    },
+    "disclaimer": {
+      "title": "Disclaimer of Warranties",
+      "content": "LocalRoots provides the platform on an \"as is\" and \"as available\" basis. We make no warranties, expressed or implied, regarding the reliability, accuracy, or availability of the platform or products listed.",
+      "asIs": "The platform is provided \"as is\" without warranty of any kind."
+    },
+    "limitation": {
+      "title": "Limitation of Liability",
+      "content": "To the maximum extent permitted by law, LocalRoots shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the platform. Our total liability shall not exceed the amount you paid to LocalRoots in the past 12 months."
+    },
+    "indemnification": {
+      "title": "Indemnification",
+      "content": "You agree to indemnify and hold LocalRoots harmless from any claims, losses, damages, liabilities, and expenses (including legal fees) arising from your use of the platform, violation of these terms, or infringement of any rights of another party."
+    },
+    "termination": {
+      "title": "Termination",
+      "intro": "We reserve the right to suspend or terminate your account:",
+      "items": [
+        "For violation of these Terms and Conditions",
+        "For fraudulent, abusive, or illegal activity",
+        "At our discretion with or without cause, with reasonable notice"
+      ]
+    },
+    "changes": {
+      "title": "Changes to Terms",
+      "content": "We may modify these Terms and Conditions at any time. We will notify you of material changes by posting the updated terms on this page and updating the \"Last updated\" date. Your continued use of the platform after changes constitutes acceptance of the new terms."
+    },
+    "governing": {
+      "title": "Governing Law",
+      "content": "These Terms and Conditions are governed by and construed in accordance with applicable laws. Any disputes arising from these terms shall be resolved through binding arbitration or in the courts of competent jurisdiction."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "content": "If you have questions about these Terms and Conditions, please contact us:"
+    }
+  },
+  "footer": {
+    "about": {
+      "title": "LocalRoots",
+      "description": "Connecting local organic farmers with customers who value fresh, sustainable, and community-driven food."
+    },
+    "quickLinks": {
+      "title": "Quick Links",
+      "products": "Browse Products",
+      "map": "Find Farmers",
+      "about": "About Us",
+      "joinAsFarmer": "Join as Farmer"
+    },
+    "legal": {
+      "title": "Legal",
+      "privacy": "Privacy Policy",
+      "terms": "Terms & Conditions"
+    },
+    "contact": {
+      "title": "Contact",
+      "address": "123 Farm Road, Agricultural District"
+    },
+    "rights": "All rights reserved."
+  },
+  "cookieConsent": {
+    "message": "We use essential cookies for authentication and session management. We do not use tracking or advertising cookies.",
+    "learnMore": "Learn more",
+    "accept": "Accept",
+    "decline": "Decline"
   }
 }

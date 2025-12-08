@@ -2,6 +2,8 @@ import type {Metadata} from "next";
 import {Lora, Poppins} from "next/font/google";
 import {Toaster} from "@/components/ui/sonner";
 import {Header} from "@/components/layout/header";
+import Footer from "@/components/layout/Footer";
+import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
 import {SpeedInsights} from "@vercel/speed-insights/next";
 import {NextIntlClientProvider, hasLocale} from 'next-intl';
@@ -49,12 +51,16 @@ export default async function RootLayout({
     return (
         <html lang="en">
         <body
-            className={`${poppins.variable} ${lora.variable} antialiased`}
+            className={`${poppins.variable} ${lora.variable} antialiased flex flex-col min-h-screen`}
         >
         <NextIntlClientProvider>
             <CartProvider>
                 <Header/>
-                {children}
+                <main className="flex-1">
+                    {children}
+                </main>
+                <Footer/>
+                <CookieConsent/>
                 <SpeedInsights/>
                 <Toaster/>
             </CartProvider>

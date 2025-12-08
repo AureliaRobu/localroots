@@ -363,5 +363,249 @@
       "settings": "Paramètres",
       "logout": "Déconnexion"
     }
+  },
+  "privacy": {
+    "title": "Politique de Confidentialité | LocalRoots",
+    "description": "Découvrez comment LocalRoots collecte, utilise et protège vos informations personnelles",
+    "heading": "Politique de Confidentialité",
+    "lastUpdated": "Dernière mise à jour : 8 décembre 2025",
+    "introduction": {
+      "title": "Introduction",
+      "content": "LocalRoots (« nous », « notre » ou « nos ») respecte votre vie privée et s'engage à protéger vos informations personnelles. Cette Politique de Confidentialité explique comment nous collectons, utilisons, divulguons et protégeons vos informations lorsque vous utilisez notre plateforme de marché connectant les agriculteurs biologiques locaux avec les clients."
+    },
+    "informationCollection": {
+      "title": "Informations que Nous Collectons",
+      "personalInfo": {
+        "title": "Informations Personnelles que Vous Fournissez",
+        "items": [
+          "Informations d'inscription au compte (nom, adresse e-mail, mot de passe)",
+          "Informations de profil (pour les agriculteurs : nom de la ferme, description, emplacement, site web)",
+          "Coordonnées (numéro de téléphone, adresse physique)",
+          "Informations de paiement (traitées en toute sécurité via des processeurs de paiement tiers)"
+        ]
+      },
+      "farmerInfo": {
+        "title": "Informations Spécifiques aux Agriculteurs",
+        "items": [
+          "Emplacement de la ferme et coordonnées de géolocalisation",
+          "Listes de produits (images, descriptions, prix)",
+          "Détails commerciaux et certifications",
+          "Communication avec les clients via notre plateforme"
+        ]
+      },
+      "automaticInfo": {
+        "title": "Informations Collectées Automatiquement",
+        "items": [
+          "Informations sur l'appareil (adresse IP, type de navigateur, système d'exploitation)",
+          "Données d'utilisation (pages visitées, fonctionnalités utilisées, temps passé sur la plateforme)",
+          "Données de localisation (avec votre permission, pour le filtrage des produits par distance)"
+        ]
+      }
+    },
+    "howWeUse": {
+      "title": "Comment Nous Utilisons Vos Informations",
+      "items": [
+        "Pour fournir et maintenir nos services de marché",
+        "Pour traiter les transactions et envoyer des notifications de commande",
+        "Pour connecter les agriculteurs avec les clients de leur région",
+        "Pour améliorer notre plateforme et développer de nouvelles fonctionnalités",
+        "Pour communiquer avec vous concernant votre compte et nos services",
+        "Pour assurer la sécurité de la plateforme et prévenir la fraude"
+      ]
+    },
+    "dataSharing": {
+      "title": "Partage et Divulgation des Données",
+      "intro": "Nous ne vendons pas vos informations personnelles. Nous pouvons partager vos informations uniquement dans les circonstances suivantes :",
+      "items": [
+        "Avec les agriculteurs lorsque vous passez une commande (nom, coordonnées, adresse de livraison)",
+        "Avec les fournisseurs de services qui nous aident à exploiter notre plateforme (AWS pour le stockage d'images, processeurs de paiement)",
+        "Lorsque la loi l'exige ou pour protéger nos droits légaux",
+        "Avec votre consentement explicite pour d'autres fins"
+      ]
+    },
+    "dataSecurity": {
+      "title": "Sécurité des Données",
+      "content": "Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos informations personnelles, notamment le chiffrement des mots de passe, le stockage sécurisé des bases de données et des évaluations de sécurité régulières. Cependant, aucune méthode de transmission sur Internet n'est sûre à 100 %, et nous ne pouvons garantir une sécurité absolue."
+    },
+    "thirdParty": {
+      "title": "Services Tiers",
+      "items": [
+        "Authentification : Google OAuth, Facebook OAuth (régis par leurs politiques de confidentialité respectives)",
+        "Stockage d'Images : AWS S3 (soumis à la politique de confidentialité d'Amazon Web Services)",
+        "Cartes : OpenStreetMap (soumis à la politique de confidentialité d'OpenStreetMap)"
+      ]
+    },
+    "yourRights": {
+      "title": "Vos Droits",
+      "items": [
+        "Accéder à vos informations personnelles",
+        "Corriger les informations inexactes",
+        "Supprimer votre compte et les données associées",
+        "Vous opposer à certains traitements de vos informations",
+        "Exporter vos données dans un format portable"
+      ]
+    },
+    "cookies": {
+      "title": "Cookies et Suivi",
+      "content": "Nous utilisons des cookies essentiels pour l'authentification et la gestion de session. Nous n'utilisons pas de cookies publicitaires tiers ni de pixels de suivi."
+    },
+    "children": {
+      "title": "Confidentialité des Enfants",
+      "content": "Nos services ne sont pas destinés aux enfants de moins de 13 ans. Nous ne collectons pas sciemment d'informations personnelles auprès d'enfants de moins de 13 ans."
+    },
+    "changes": {
+      "title": "Modifications de Cette Politique de Confidentialité",
+      "content": "Nous pouvons mettre à jour cette Politique de Confidentialité de temps à autre. Nous vous informerons de tout changement en publiant la nouvelle Politique de Confidentialité sur cette page et en mettant à jour la date de 'Dernière mise à jour'."
+    },
+    "contact": {
+      "title": "Nous Contacter",
+      "content": "Si vous avez des questions concernant cette Politique de Confidentialité ou la façon dont nous traitons vos informations, veuillez nous contacter :"
+    }
+  },
+  "terms": {
+    "title": "Conditions Générales | LocalRoots",
+    "metaDescription": "Lisez les conditions générales d'utilisation de la plateforme de marché LocalRoots",
+    "heading": "Conditions Générales",
+    "lastUpdated": "Dernière mise à jour : 8 décembre 2025",
+    "acceptance": {
+      "title": "Acceptation des Conditions",
+      "content": "En accédant ou en utilisant LocalRoots, vous acceptez d'être lié par ces Conditions Générales. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser notre plateforme."
+    },
+    "serviceDescription": {
+      "title": "Description du Service",
+      "content": "LocalRoots est une plateforme de marché en ligne qui connecte les agriculteurs biologiques locaux avec les clients à la recherche de produits frais d'origine locale. Nous fournissons la plateforme technologique mais ne sommes pas partie aux transactions entre agriculteurs et clients."
+    },
+    "eligibility": {
+      "title": "Éligibilité",
+      "intro": "Pour utiliser LocalRoots, vous devez :",
+      "items": [
+        "Avoir au moins 18 ans",
+        "Avoir la capacité juridique de conclure des contrats contraignants",
+        "Ne pas être interdit d'utiliser le service en vertu des lois applicables"
+      ]
+    },
+    "accounts": {
+      "title": "Comptes Utilisateurs",
+      "intro": "Lorsque vous créez un compte, vous acceptez de :",
+      "items": [
+        "Fournir des informations exactes, actuelles et complètes",
+        "Maintenir et mettre à jour vos informations pour les garder exactes",
+        "Maintenir la sécurité de votre mot de passe et de votre compte",
+        "Accepter la responsabilité de toutes les activités qui se produisent sous votre compte"
+      ]
+    },
+    "farmerResponsibilities": {
+      "title": "Responsabilités des Agriculteurs",
+      "intro": "Si vous vous inscrivez en tant qu'agriculteur, vous acceptez de :",
+      "items": [
+        "Représenter avec précision vos produits, prix et disponibilité",
+        "Respecter toutes les réglementations et certifications de sécurité alimentaire applicables",
+        "Honorer les commandes en temps opportun comme convenu avec les clients",
+        "Maintenir les certifications biologiques ou autres certifications revendiquées le cas échéant",
+        "Fixer des prix justes et honnêtes pour vos produits",
+        "Répondre rapidement aux demandes et préoccupations des clients"
+      ]
+    },
+    "customerResponsibilities": {
+      "title": "Responsabilités des Clients",
+      "intro": "Si vous vous inscrivez en tant que client, vous acceptez de :",
+      "items": [
+        "Fournir des informations de livraison exactes",
+        "Payer les commandes comme convenu avec les agriculteurs",
+        "Traiter les agriculteurs avec respect et professionnalisme",
+        "Signaler rapidement tout problème ou préoccupation par les canaux appropriés"
+      ]
+    },
+    "transactions": {
+      "title": "Transactions et Paiements",
+      "intro": "Veuillez noter :",
+      "items": [
+        "Les transactions se font directement entre les agriculteurs et les clients",
+        "LocalRoots facilite la connexion mais n'est pas responsable de l'exécution des transactions",
+        "Les conditions de paiement sont convenues entre les agriculteurs et les clients",
+        "Les litiges doivent être résolus directement entre les parties concernées"
+      ]
+    },
+    "prohibited": {
+      "title": "Conduite Interdite",
+      "intro": "Vous ne pouvez pas :",
+      "items": [
+        "Utiliser la plateforme à des fins illégales",
+        "Publier des informations fausses, trompeuses ou frauduleuses",
+        "Harceler, abuser ou nuire à d'autres utilisateurs",
+        "Interférer ou perturber le fonctionnement de la plateforme",
+        "Tenter d'obtenir un accès non autorisé à toute partie de la plateforme",
+        "Utiliser des systèmes automatisés (bots, scrapers) sans permission",
+        "Revendre ou exploiter commercialement la plateforme sans autorisation"
+      ]
+    },
+    "intellectual": {
+      "title": "Propriété Intellectuelle",
+      "platform": "La plateforme LocalRoots, y compris sa conception, son code et son contenu, appartient à LocalRoots et est protégée par les lois sur la propriété intellectuelle. Vous ne pouvez pas copier, modifier ou distribuer notre plateforme sans autorisation.",
+      "userContent": "Vous conservez la propriété du contenu que vous publiez (listes de produits, photos, descriptions) mais accordez à LocalRoots une licence pour afficher et distribuer ce contenu selon les besoins pour fournir nos services."
+    },
+    "disclaimer": {
+      "title": "Exclusion de Garanties",
+      "content": "LocalRoots fournit la plateforme « en l'état » et « selon disponibilité ». Nous ne faisons aucune garantie, expresse ou implicite, concernant la fiabilité, l'exactitude ou la disponibilité de la plateforme ou des produits listés.",
+      "asIs": "La plateforme est fournie « en l'état » sans garantie d'aucune sorte."
+    },
+    "limitation": {
+      "title": "Limitation de Responsabilité",
+      "content": "Dans toute la mesure permise par la loi, LocalRoots ne sera pas responsable de tout dommage indirect, accessoire, spécial, consécutif ou punitif découlant de votre utilisation de la plateforme. Notre responsabilité totale ne dépassera pas le montant que vous avez payé à LocalRoots au cours des 12 derniers mois."
+    },
+    "indemnification": {
+      "title": "Indemnisation",
+      "content": "Vous acceptez d'indemniser et de dégager LocalRoots de toute réclamation, perte, dommage, responsabilité et dépense (y compris les frais juridiques) découlant de votre utilisation de la plateforme, de la violation de ces conditions ou de l'atteinte aux droits d'une autre partie."
+    },
+    "termination": {
+      "title": "Résiliation",
+      "intro": "Nous nous réservons le droit de suspendre ou de résilier votre compte :",
+      "items": [
+        "Pour violation de ces Conditions Générales",
+        "Pour activité frauduleuse, abusive ou illégale",
+        "À notre discrétion avec ou sans motif, avec un préavis raisonnable"
+      ]
+    },
+    "changes": {
+      "title": "Modifications des Conditions",
+      "content": "Nous pouvons modifier ces Conditions Générales à tout moment. Nous vous informerons des modifications importantes en publiant les conditions mises à jour sur cette page et en mettant à jour la date de « Dernière mise à jour ». Votre utilisation continue de la plateforme après les modifications constitue l'acceptation des nouvelles conditions."
+    },
+    "governing": {
+      "title": "Loi Applicable",
+      "content": "Ces Conditions Générales sont régies et interprétées conformément aux lois applicables. Tout litige découlant de ces conditions sera résolu par arbitrage contraignant ou devant les tribunaux compétents."
+    },
+    "contact": {
+      "title": "Nous Contacter",
+      "content": "Si vous avez des questions concernant ces Conditions Générales, veuillez nous contacter :"
+    }
+  },
+  "footer": {
+    "about": {
+      "title": "LocalRoots",
+      "description": "Connecter les agriculteurs biologiques locaux avec les clients qui valorisent une alimentation fraîche, durable et communautaire."
+    },
+    "quickLinks": {
+      "title": "Liens Rapides",
+      "products": "Parcourir les Produits",
+      "map": "Trouver des Agriculteurs",
+      "about": "À Propos",
+      "joinAsFarmer": "Rejoindre comme Agriculteur"
+    },
+    "legal": {
+      "title": "Légal",
+      "privacy": "Politique de Confidentialité",
+      "terms": "Conditions Générales"
+    },
+    "contact": {
+      "title": "Contact",
+      "address": "123 Farm Road, District Agricole"
+    },
+    "rights": "Tous droits réservés."
+  },
+  "cookieConsent": {
+    "message": "Nous utilisons des cookies essentiels pour l'authentification et la gestion de session. Nous n'utilisons pas de cookies de suivi ou publicitaires.",
+    "learnMore": "En savoir plus",
+    "accept": "Accepter",
+    "decline": "Refuser"
   }
 }
