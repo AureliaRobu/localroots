@@ -4,6 +4,7 @@ import { signIn } from '@/lib/auth/auth'
 import { loginSchema, registerSchema } from '@/lib/validations/auth'
 import { AuthError } from 'next-auth'
 import prisma from '@/lib/db/prisma'
+import { getUserByEmail } from '@/lib/db/users'
 import { UserRole } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 
@@ -112,9 +113,7 @@ export async function registerAction(data: unknown): Promise<RegisterResult> {
     const { name, email, password, role } = validated.data
 
     // 2. Check if user already exists
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    })
+    const existingUser = await getUserByEmail(email)
 
     if (existingUser) {
       return {

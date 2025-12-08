@@ -54,7 +54,7 @@ export default function HomePage() {
                     <div className="grid gap-8 md:grid-cols-2 items-center">
                         <div className="relative h-80 overflow-hidden rounded-2xl shadow-lg">
                             <Image
-                                src="https://images.unsplash.com/photo-1461354464878-ad92f492a5a0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGZhcm1lcnxlbnwwfDB8MHx8fDI%3D"
+                                src="https://images.unsplash.com/photo-1461354464878-ad92f492a5a0?w=500&auto=format&fit=crop"
                                 alt="Local food enthusiasts shopping"
                                 fill
                                 className="object-cover"
