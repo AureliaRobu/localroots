@@ -84,7 +84,7 @@ All actions use `'use server'` directive and return structured results with erro
 Uses **next-intl**:
 - **Routing**: `/i18n/routing.ts` - Defines locales (`en`, `fr`, `es`), default locale
 - **Messages**: `/messages/` - JSON translation files (en.json, es.json, fr.json)
-- **Middleware**: `/middleware.ts` - Handles locale detection and routing
+- **Middleware**: `/proxy.ts` - Handles locale detection and routing
 - **Provider**: Wrapped in root layout with `NextIntlClientProvider`
 
 All user-facing strings should use `useTranslations()` hook or `getTranslations()` for server components.
