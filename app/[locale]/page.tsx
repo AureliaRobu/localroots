@@ -2,7 +2,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl'
+import { ClosestProducts } from '@/components/products/closest-products'
 
 export default function HomePage() {
     const t = useTranslations('home');
@@ -131,6 +132,11 @@ export default function HomePage() {
                         </div>
                     </div>
                 </div>
+            </section>
+
+            {/* Closest Products Section */}
+            <section className="mx-auto max-w-7xl px-4 py-16">
+                <ClosestProducts />
             </section>
 
             {/* CTA Section */}

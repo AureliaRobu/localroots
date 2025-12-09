@@ -192,6 +192,15 @@
         "favoriteCategory": "Favorite Category",
         "mostPurchased": "Most purchased"
       },
+      "closestProducts": {
+        "title": "Closest Products",
+        "description": "Fresh products from nearby farmers",
+        "errorFetching": "Failed to fetch products",
+        "locationError": "Could not access your location",
+        "locationNotSupported": "Location access is not supported by your browser",
+        "noProducts": "No products found nearby",
+        "away": "away"
+      },
       "recentOrders": {
         "title": "Recent Orders",
         "description": "Your latest orders from local farmers",

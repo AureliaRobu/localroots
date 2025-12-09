@@ -149,3 +149,49 @@ export async function getProductCategories() {
         return []
     }
 }
+
+// Get closest products to a location
+export async function getClosestProducts(userLat: number, userLon: number, limit: number = 6) {
+    try {
+        // Fetch all products with farmer profiles
+        const products = await prisma.product.findMany({
+            where: { inStock: true },
+            include: {
+                farmer: {
+                    select: {
+                        name: true,
+                        farmerProfile: {
+                            select: {
+                                farmName: true,
+                                city: true,
+                                state: true,
+                                latitude: true,
+                                longitude: true,
+                            },
+                        },
+                    },
+                },
+            },
+        })
+
+        // Filter products with valid farmer profiles and calculate distances
+        const productsWithDistance = products
+            .filter((product) => product.farmer.farmerProfile)
+            .map((product) => {
+                const distance = calculateDistance(
+                    userLat,
+                    userLon,
+                    product.farmer.farmerProfile!.latitude,
+                    product.farmer.farmerProfile!.longitude
+                )
+                return { ...product, distance }
+            })
+            .sort((a, b) => a.distance - b.distance)
+            .slice(0, limit)
+
+        return productsWithDistance
+    } catch (error) {
+        console.error('Error fetching closest products:', error)
+        return []
+    }
+}

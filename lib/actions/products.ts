@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { requireFarmer } from '@/lib/auth/session'
 import prisma from '@/lib/db/prisma'
 import { productSchema, type ProductFormData } from '@/lib/validations/product'
+import { getClosestProducts } from '@/lib/db/products'
 
 export async function createProduct(data: ProductFormData) {
     try {
@@ -157,6 +158,38 @@ export async function deleteProduct(id: string) {
         return {
             success: false,
             error: 'Failed to delete product. Please try again.'
+        }
+    }
+}
+
+export async function getClosestProductsAction(latitude: number, longitude: number, limit?: number) {
+    try {
+        // Validate coordinates
+        if (typeof latitude !== 'number' || typeof longitude !== 'number') {
+            return {
+                success: false,
+                error: 'Invalid coordinates provided'
+            }
+        }
+
+        if (isNaN(latitude) || isNaN(longitude)) {
+            return {
+                success: false,
+                error: 'Invalid latitude or longitude'
+            }
+        }
+
+        const products = await getClosestProducts(latitude, longitude, limit || 6)
+
+        return {
+            success: true,
+            data: products
+        }
+    } catch (error) {
+        console.error('Error fetching closest products:', error)
+        return {
+            success: false,
+            error: 'Failed to fetch closest products'
         }
     }
 }

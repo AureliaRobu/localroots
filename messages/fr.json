@@ -192,6 +192,15 @@
         "favoriteCategory": "Catégorie Favorite",
         "mostPurchased": "Le plus acheté"
       },
+      "closestProducts": {
+        "title": "Produits les Plus Proches",
+        "description": "Produits frais des agriculteurs à proximité",
+        "errorFetching": "Échec de la récupération des produits",
+        "locationError": "Impossible d'accéder à votre position",
+        "locationNotSupported": "L'accès à la position n'est pas pris en charge par votre navigateur",
+        "noProducts": "Aucun produit trouvé à proximité",
+        "away": "de distance"
+      },
       "recentOrders": {
         "title": "Commandes Récentes",
         "description": "Vos dernières commandes d'agriculteurs locaux",
