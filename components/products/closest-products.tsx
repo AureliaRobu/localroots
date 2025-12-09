@@ -3,9 +3,10 @@
 import { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { ProductCardCompact } from '@/components/products/product-card-compact'
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/components/ui/carousel'
 import { useTranslations } from 'next-intl'
 import { getClosestProductsAction } from '@/lib/actions/products'
+import { cn } from '@/lib/utils'
 
 type Product = {
     id: string
@@ -35,6 +36,9 @@ export function ClosestProducts({ initialProducts = [] }: ClosestProductsProps) 
     const [products, setProducts] = useState<Product[]>(initialProducts)
     const [loading, setLoading] = useState(initialProducts.length === 0)
     const [error, setError] = useState<string | null>(null)
+    const [api, setApi] = useState<CarouselApi>()
+    const [current, setCurrent] = useState(0)
+    const [count, setCount] = useState(0)
     const t = useTranslations('customer.dashboard.closestProducts')
 
     useEffect(() => {
@@ -70,7 +74,21 @@ export function ClosestProducts({ initialProducts = [] }: ClosestProductsProps) 
             setError(t('locationNotSupported'))
             setLoading(false)
         }
-    }, [initialProducts, t])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [initialProducts.length])
+
+    useEffect(() => {
+        if (!api) {
+            return
+        }
+
+        setCount(api.scrollSnapList().length)
+        setCurrent(api.selectedScrollSnap())
+
+        api.on("select", () => {
+            setCurrent(api.selectedScrollSnap())
+        })
+    }, [api])
 
     if (loading) {
         return (
@@ -126,8 +144,9 @@ export function ClosestProducts({ initialProducts = [] }: ClosestProductsProps) 
                 <CardTitle>{t('title')}</CardTitle>
                 <CardDescription>{t('description')}</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-4">
                 <Carousel
+                    setApi={setApi}
                     opts={{
                         align: "start",
                         loop: false,
@@ -152,9 +171,22 @@ export function ClosestProducts({ initialProducts = [] }: ClosestProductsProps) 
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
                 </Carousel>
+                <div className="flex justify-center gap-2 mt-4">
+                    {Array.from({ length: count }).map((_, index) => (
+                        <button
+                            key={index}
+                            className={cn(
+                                "h-2 w-2 rounded-full transition-all",
+                                current === index
+                                    ? "bg-green-600 w-6"
+                                    : "bg-slate-300 hover:bg-slate-400"
+                            )}
+                            onClick={() => api?.scrollTo(index)}
+                            aria-label={`Go to slide ${index + 1}`}
+                        />
+                    ))}
+                </div>
             </CardContent>
         </Card>
     )
