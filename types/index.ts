@@ -1,7 +1,7 @@
-import { User, UserRole, FarmerProfile, Product } from '@prisma/client'
+import { User, UserRole, FarmerProfile, Product, Review } from '@prisma/client'
 
 // Export Prisma types
-export type { User, UserRole, FarmerProfile, Product }
+export type { User, UserRole, FarmerProfile, Product, Review }
 
 // Extended types with relations
 export type UserWithProfile = User & {
@@ -14,8 +14,17 @@ export type ProductWithFarmer = Product & {
     }
 }
 
+export type ReviewWithUser = Review & {
+    user: {
+        id: string
+        name: string | null
+        image: string | null
+    }
+}
+
 // Re-export validation types
 export type { LoginFormData, RegisterFormData } from '@/lib/validations/auth'
+export type { ReviewFormData, UpdateReviewFormData } from '@/lib/validations/review'
 
 // Other form types
 export type FarmerProfileFormData = {

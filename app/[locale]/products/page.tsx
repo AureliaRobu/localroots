@@ -98,6 +98,8 @@ async function ProductsList({ searchParams }: Props) {
                         farmName={product.farmer.farmerProfile?.farmName}
                         city={product.farmer.farmerProfile?.city}
                         state={product.farmer.farmerProfile?.state}
+                        averageRating={product.averageRating}
+                        reviewCount={product.reviewCount}
                     />
                 ))}
             </div>

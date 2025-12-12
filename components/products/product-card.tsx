@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { AddToCartButton } from '@/components/cart/add-to-cart-button'
+import { StarRating } from '@/components/reviews/star-rating'
 
 type ProductCardProps = {
     id: string
@@ -19,6 +20,8 @@ type ProductCardProps = {
     farmName?: string | null
     city?: string | null
     state?: string | null
+    averageRating?: number | null
+    reviewCount?: number
 }
 
 export function ProductCard({
@@ -34,6 +37,8 @@ export function ProductCard({
                                 farmName,
                                 city,
                                 state,
+                                averageRating,
+                                reviewCount = 0,
                             }: ProductCardProps) {
     return (
         <Card className="group overflow-hidden transition-all hover:shadow-lg flex flex-col">
@@ -89,6 +94,14 @@ export function ProductCard({
                                 <div className="text-xs text-slate-500">per {unit}</div>
                             </div>
                         </div>
+                        {averageRating && reviewCount > 0 && (
+                            <div className="mt-2 flex items-center gap-1">
+                                <StarRating rating={averageRating} size="sm" />
+                                <span className="text-xs text-slate-600">
+                                    ({reviewCount})
+                                </span>
+                            </div>
+                        )}
                     </CardContent>
                 </Link>
                 <CardFooter className="border-t bg-slate-50 p-3 flex-col gap-3">

@@ -49,6 +49,7 @@ model User {
   products      Product[]
   cart          Cart?
   orders        Order[]
+  reviews       Review[]
 
   @@map("users")
 }
@@ -112,11 +113,16 @@ model Product {
   imageUrl    String?
   inStock     Boolean @default(true)
 
+  // Ratings and reviews
+  averageRating Float?
+  reviewCount   Int      @default(0)
+
   // Relations
   farmerId   String
   farmer     User        @relation(fields: [farmerId], references: [id], onDelete: Cascade)
   cartItems  CartItem[]
   orderItems OrderItem[]
+  reviews    Review[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -169,6 +175,7 @@ model Order {
   deliveryAddress String
   notes           String?
   items           OrderItem[]
+  reviews         Review[]
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
 
@@ -191,4 +198,30 @@ model OrderItem {
   @@map("order_items")
   @@index([orderId])
   @@index([productId])
+}
+
+// Reviews
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int      // 1-5 stars
+  title     String   // Short review title
+  comment   String?  @db.Text
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  isVerified Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, productId])
+  @@map("reviews")
+  @@index([productId])
+  @@index([userId])
 }

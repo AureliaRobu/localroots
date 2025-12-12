@@ -5,6 +5,7 @@ import { getTranslations } from 'next-intl/server'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { CancelOrderButton } from './cancel-order-button'
+import { ReviewButton } from '@/components/reviews/review-button'
 import { format } from 'date-fns'
 
 interface OrderDetailsPageProps {
@@ -30,9 +31,9 @@ export default async function OrderDetailsPage({ params }: OrderDetailsPageProps
 
   const order = orderResult.data
 
-  // Calculate total for farmer's items if viewing as farmer
+  // Check if current user is the order owner (can be either FARMER or CUSTOMER role)
+  const isOrderOwner = order.userId === user.id
   const isFarmer = user.role === 'FARMER'
-  const isCustomer = order.userId === user.id
 
   const getStatusBadgeColor = (status: string) => {
     switch (status) {
@@ -142,6 +143,16 @@ export default async function OrderDetailsPage({ params }: OrderDetailsPageProps
                 <p className="text-sm text-muted-foreground">
                   {item.quantity} x ${item.priceAtPurchase.toFixed(2)}
                 </p>
+                {isOrderOwner && (
+                  <div className="mt-2">
+                    <ReviewButton
+                      productId={item.productId}
+                      productName={item.productName}
+                      orderId={order.id}
+                      orderStatus={order.status}
+                    />
+                  </div>
+                )}
               </div>
               <p className="font-medium">
                 ${(item.priceAtPurchase * item.quantity).toFixed(2)}
@@ -152,7 +163,7 @@ export default async function OrderDetailsPage({ params }: OrderDetailsPageProps
       </Card>
 
       {/* Action Buttons */}
-      {isCustomer && order.status === 'PENDING' && (
+      {isOrderOwner && order.status === 'PENDING' && (
         <div className="flex justify-end">
           <CancelOrderButton orderId={order.id} />
         </div>

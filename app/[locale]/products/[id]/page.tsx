@@ -6,6 +6,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { ProductDetailActions } from '@/components/products/product-detail-actions'
+import { ReviewSummary } from '@/components/reviews/review-summary'
+import { ReviewsList } from '@/components/reviews/reviews-list'
+import { getProductReviews, canReviewProduct } from '@/lib/actions/review'
+import { getCurrentUser } from '@/lib/auth/session'
+import prisma from '@/lib/db/prisma'
 import type { Metadata } from 'next'
 
 type Props = {
@@ -39,6 +44,30 @@ export default async function ProductDetailPage({ params }: Props) {
 
     const farmer = product.farmer
     const profile = farmer.farmerProfile
+
+    // Fetch reviews data
+    const reviewsResult = await getProductReviews(product.id, { limit: 10 })
+    const reviews = reviewsResult.success && reviewsResult.data ? reviewsResult.data.reviews : []
+    const totalReviews = reviewsResult.success && reviewsResult.data ? reviewsResult.data.totalCount : 0
+    const hasMore = reviewsResult.success && reviewsResult.data ? reviewsResult.data.hasMore : false
+
+    // Check if current user can review
+    const currentUser = await getCurrentUser()
+    const canReviewResult = await canReviewProduct(product.id)
+    const canReview = canReviewResult.success && canReviewResult.data ? canReviewResult.data.canReview : false
+    const orderId = canReviewResult.success && canReviewResult.data ? canReviewResult.data.orderId : undefined
+
+    // Calculate rating distribution
+    const ratingDistribution: { [key: number]: number } = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
+    if (reviewsResult.success && reviewsResult.data) {
+        const allReviews = await prisma.review.findMany({
+            where: { productId: product.id },
+            select: { rating: true },
+        })
+        allReviews.forEach((review) => {
+            ratingDistribution[review.rating]++
+        })
+    }
 
     return (
         <div className="min-h-screen bg-slate-50">
@@ -240,6 +269,50 @@ export default async function ProductDetailPage({ params }: Props) {
 
                 {/* More from this farmer */}
                 <MoreFromFarmer farmerId={product.farmerId} currentProductId={product.id} />
+
+                {/* Reviews Section */}
+                <div className="mt-16">
+                    <h2 className="mb-6 text-2xl font-bold">Customer Reviews</h2>
+
+                    {/* Review Summary */}
+                    {product.averageRating && totalReviews > 0 ? (
+                        <ReviewSummary
+                            averageRating={product.averageRating}
+                            totalReviews={totalReviews}
+                            ratingDistribution={ratingDistribution}
+                            canReview={canReview}
+                            productId={product.id}
+                            orderId={orderId}
+                        />
+                    ) : (
+                        <Card className="p-6 text-center">
+                            <p className="text-gray-500">No reviews yet</p>
+                            {canReview && orderId && (
+                                <ReviewSummary
+                                    averageRating={0}
+                                    totalReviews={0}
+                                    ratingDistribution={ratingDistribution}
+                                    canReview={canReview}
+                                    productId={product.id}
+                                    orderId={orderId}
+                                />
+                            )}
+                        </Card>
+                    )}
+
+                    {/* Reviews List */}
+                    {totalReviews > 0 && (
+                        <div className="mt-8">
+                            <ReviewsList
+                                initialReviews={reviews}
+                                productId={product.id}
+                                orderId={orderId}
+                                currentUserId={currentUser?.id}
+                                totalCount={totalReviews}
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     )
@@ -299,6 +372,8 @@ async function MoreFromFarmer({
                         farmName={product.farmer.farmerProfile?.farmName}
                         city={product.farmer.farmerProfile?.city}
                         state={product.farmer.farmerProfile?.state}
+                        averageRating={product.averageRating}
+                        reviewCount={product.reviewCount}
                     />
                 ))}
             </div>
