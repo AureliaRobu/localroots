@@ -31,6 +31,30 @@ enum PaymentMethod {
   STRIPE
 }
 
+// Chat conversation type enum
+enum ConversationType {
+  DIRECT      // 1-on-1 chat
+  GROUP       // Group/community chat
+}
+
+// Message type enum
+enum MessageType {
+  TEXT
+  IMAGE
+  FILE
+  SYSTEM  // Join/leave notifications
+}
+
+// Group category enum
+enum GroupCategory {
+  GENERAL
+  FOOD_SHARE      // Food sharing community
+  NEWS            // News and updates
+  RECIPES         // Recipe sharing
+  TIPS            // Farming/cooking tips
+  LOCAL_EVENTS    // Local events
+}
+
 // Users table
 model User {
   id            String    @id @default(cuid())
@@ -50,6 +74,12 @@ model User {
   cart          Cart?
   orders        Order[]
   reviews       Review[]
+
+  // Chat relations
+  conversationParticipants  ConversationParticipant[]
+  messages                  Message[]
+  messageReadReceipts       MessageReadReceipt[]
+  createdGroups             Group[]
 
   @@map("users")
 }
@@ -224,4 +254,89 @@ model Review {
   @@map("reviews")
   @@index([productId])
   @@index([userId])
+}
+
+// Chat Conversations
+model Conversation {
+  id            String    @id @default(cuid())
+  type          ConversationType @default(DIRECT)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  participants  ConversationParticipant[]
+  messages      Message[]
+  group         Group?
+
+  @@map("conversations")
+  @@index([type])
+}
+
+// Conversation Participants (many-to-many User <-> Conversation)
+model ConversationParticipant {
+  id              String   @id @default(cuid())
+  conversationId  String
+  userId          String
+  joinedAt        DateTime @default(now())
+  lastReadAt      DateTime @default(now())
+
+  conversation    Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user            User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([conversationId, userId])
+  @@map("conversation_participants")
+  @@index([userId])
+}
+
+// Messages
+model Message {
+  id              String   @id @default(cuid())
+  conversationId  String
+  senderId        String
+  content         String   @db.Text
+  type            MessageType @default(TEXT)
+  attachmentUrl   String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  conversation    Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender          User @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  readReceipts    MessageReadReceipt[]
+
+  @@map("messages")
+  @@index([conversationId, createdAt])
+  @@index([senderId])
+}
+
+// Message Read Receipts
+model MessageReadReceipt {
+  id        String   @id @default(cuid())
+  messageId String
+  userId    String
+  readAt    DateTime @default(now())
+
+  message   Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, userId])
+  @@map("message_read_receipts")
+}
+
+// Groups/Communities
+model Group {
+  id              String   @id @default(cuid())
+  conversationId  String   @unique
+  name            String
+  description     String?  @db.Text
+  imageUrl        String?
+  category        GroupCategory @default(GENERAL)
+  createdById     String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  conversation    Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  createdBy       User @relation(fields: [createdById], references: [id])
+
+  @@map("groups")
+  @@index([category])
+  @@index([createdById])
 }
