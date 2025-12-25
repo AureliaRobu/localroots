@@ -20,7 +20,11 @@ export async function createSocketServer() {
   // Socket.io server
   const io = new Server({
     cors: {
-      origin: process.env.NEXTAUTH_URL || 'http://localhost:3000',
+      origin: [
+        'http://localhost:3000', // Local development
+        'https://localroots-lovat.vercel.app', // Production
+        /^https:\/\/.*\.vercel\.app$/ // Vercel preview deployments
+      ],
       credentials: true
     },
     adapter: createAdapter(pubClient, subClient)
