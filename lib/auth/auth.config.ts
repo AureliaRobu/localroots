@@ -3,6 +3,7 @@ import Credentials from 'next-auth/providers/credentials'
 import Google from 'next-auth/providers/google'
 import Facebook from 'next-auth/providers/facebook'
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 import prisma from '@/lib/db/prisma'
 import { LoginFormData } from '@/types'
 import { UserRole } from '@prisma/client'
@@ -102,6 +103,20 @@ export default {
             if (session.user) {
                 session.user.role = token.role as UserRole
                 session.user.id = token.id as string
+
+                // Create a Socket.io-compatible JWT token
+                // This token is used for WebSocket authentication
+                if (process.env.AUTH_SECRET) {
+                    session.accessToken = jwt.sign(
+                        {
+                            sub: token.id,
+                            role: token.role,
+                            email: token.email
+                        },
+                        process.env.AUTH_SECRET,
+                        { expiresIn: '7d' }
+                    )
+                }
             }
             return session
         }

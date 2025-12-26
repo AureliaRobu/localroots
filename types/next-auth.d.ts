@@ -11,6 +11,7 @@ declare module 'next-auth' {
             name?: string | null
             image?: string | null
         } & DefaultSession['user']
+        accessToken?: string // JWT token for Socket.io authentication
     }
 
     interface User {
