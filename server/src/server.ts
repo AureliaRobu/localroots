@@ -2,6 +2,12 @@ import { Server } from 'socket.io';
 import { createAdapter } from '@socket.io/redis-adapter';
 import { createClient } from 'redis';
 import { authMiddleware } from './middleware/auth.middleware';
+import {
+  registerChatHandlers,
+  registerPresenceHandlers,
+  registerTypingHandlers,
+  registerGroupHandlers
+} from './handlers';
 
 const PORT = process.env.SOCKET_PORT || 3001;
 
@@ -35,13 +41,13 @@ export async function createSocketServer() {
 
   // Connection handler
   io.on('connection', (socket) => {
-    console.log(`User connected: ${socket.data.userId}`);
+    console.log(`User connected: ${socket.data.userId} (${socket.data.role})`);
 
-    // TODO: Register event handlers in Phase 4
-    // registerChatHandlers(io, socket);
-    // registerPresenceHandlers(io, socket);
-    // registerTypingHandlers(io, socket);
-    // registerGroupHandlers(io, socket);
+    // Register event handlers
+    registerChatHandlers(io, socket);
+    registerPresenceHandlers(io, socket);
+    registerTypingHandlers(io, socket);
+    registerGroupHandlers(io, socket);
 
     socket.on('disconnect', () => {
       console.log(`User disconnected: ${socket.data.userId}`);
