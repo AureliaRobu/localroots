@@ -10,7 +10,8 @@ import {
   registerGroupHandlers
 } from './handlers';
 
-const PORT = process.env.SOCKET_PORT || 3001;
+// Railway injects PORT, fallback to SOCKET_PORT for local dev
+const PORT = process.env.PORT || process.env.SOCKET_PORT || 3001;
 
 export async function createSocketServer() {
   // Connect the main Redis client used by handlers

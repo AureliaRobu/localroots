@@ -1,8 +1,10 @@
 import dotenv from 'dotenv';
 import { createSocketServer } from './server';
 
-// Load environment variables from parent directory
-dotenv.config({ path: '../.env' });
+// Load environment variables (local dev only - Railway injects these automatically)
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config({ path: '../.env' });
+}
 
 async function main() {
   try {
