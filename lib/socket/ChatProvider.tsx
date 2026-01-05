@@ -150,3 +150,8 @@ export function useChatContext() {
   }
   return context
 }
+
+// Safe version that returns null if not within ChatProvider
+export function useChatContextSafe() {
+  return useContext(ChatContext)
+}

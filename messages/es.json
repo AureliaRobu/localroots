@@ -649,5 +649,50 @@
     "confirmDelete": "¿Estás seguro de que quieres eliminar esta reseña?",
     "basedOn": "Basado en {count} reseñas",
     "stars": "estrellas"
+  },
+  "chat": {
+    "title": "Mensajes",
+    "newMessage": "Nuevo Mensaje",
+    "noConversations": "Sin conversaciones",
+    "startConversation": "Iniciar una conversación",
+    "typeMessage": "Escribe un mensaje...",
+    "send": "Enviar",
+    "online": "En línea",
+    "offline": "Desconectado",
+    "typing": "{name} está escribiendo...",
+    "messageButton": "Enviar mensaje a {name}",
+    "searchConversations": "Buscar conversaciones...",
+    "searchUsers": "Buscar usuarios...",
+    "noUsersFound": "No se encontraron usuarios",
+    "selectConversation": "Selecciona una conversación para empezar a chatear",
+    "members": "{count} miembros",
+    "groups": {
+      "title": "Grupos",
+      "create": "Crear Grupo",
+      "join": "Unirse",
+      "leave": "Salir",
+      "members": "{count} miembros",
+      "noGroups": "No hay grupos disponibles",
+      "searchGroups": "Buscar grupos...",
+      "categories": {
+        "all": "Todas las Categorías",
+        "general": "General",
+        "foodShare": "Compartir Comida",
+        "news": "Noticias",
+        "recipes": "Recetas",
+        "tips": "Consejos",
+        "localEvents": "Eventos Locales"
+      },
+      "createGroup": {
+        "title": "Crear Grupo",
+        "name": "Nombre del Grupo",
+        "namePlaceholder": "Ingresa el nombre del grupo",
+        "description": "Descripción",
+        "descriptionPlaceholder": "¿De qué trata este grupo?",
+        "category": "Categoría",
+        "creating": "Creando...",
+        "create": "Crear Grupo"
+      }
+    }
   }
 }

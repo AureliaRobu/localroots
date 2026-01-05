@@ -649,5 +649,50 @@
     "confirmDelete": "Êtes-vous sûr de vouloir supprimer cet avis?",
     "basedOn": "Basé sur {count} avis",
     "stars": "étoiles"
+  },
+  "chat": {
+    "title": "Messages",
+    "newMessage": "Nouveau Message",
+    "noConversations": "Aucune conversation",
+    "startConversation": "Démarrer une conversation",
+    "typeMessage": "Tapez un message...",
+    "send": "Envoyer",
+    "online": "En ligne",
+    "offline": "Hors ligne",
+    "typing": "{name} est en train d'écrire...",
+    "messageButton": "Envoyer un message à {name}",
+    "searchConversations": "Rechercher des conversations...",
+    "searchUsers": "Rechercher des utilisateurs...",
+    "noUsersFound": "Aucun utilisateur trouvé",
+    "selectConversation": "Sélectionnez une conversation pour commencer à discuter",
+    "members": "{count} membres",
+    "groups": {
+      "title": "Groupes",
+      "create": "Créer un Groupe",
+      "join": "Rejoindre",
+      "leave": "Quitter",
+      "members": "{count} membres",
+      "noGroups": "Aucun groupe disponible",
+      "searchGroups": "Rechercher des groupes...",
+      "categories": {
+        "all": "Toutes les Catégories",
+        "general": "Général",
+        "foodShare": "Partage de Nourriture",
+        "news": "Actualités",
+        "recipes": "Recettes",
+        "tips": "Conseils",
+        "localEvents": "Événements Locaux"
+      },
+      "createGroup": {
+        "title": "Créer un Groupe",
+        "name": "Nom du Groupe",
+        "namePlaceholder": "Entrez le nom du groupe",
+        "description": "Description",
+        "descriptionPlaceholder": "De quoi parle ce groupe?",
+        "category": "Catégorie",
+        "creating": "Création...",
+        "create": "Créer le Groupe"
+      }
+    }
   }
 }

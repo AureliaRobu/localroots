@@ -8,7 +8,7 @@ export { useTyping } from './useTyping'
 export { usePresence } from './usePresence'
 
 // Context
-export { ChatProvider, useChatContext } from './ChatProvider'
+export { ChatProvider, useChatContext, useChatContextSafe } from './ChatProvider'
 
 // Types
 export type {

@@ -14,6 +14,7 @@ import { SignOutButton } from '@/components/layout/sign-out-button'
 import { MobileMenu } from '@/components/layout/mobile-menu'
 import { LanguageSwitcher } from '@/components/layout/language-switcher'
 import { CartButton } from '@/components/cart/cart-button'
+import { ChatButton } from '@/components/layout/ChatButton'
 import { UserRole } from '@prisma/client'
 import { getTranslations } from 'next-intl/server'
 
@@ -64,6 +65,9 @@ export async function Header() {
 
                     {/* Cart Button - Available for both customers and farmers */}
                     {user && (user.role === UserRole.CUSTOMER || user.role === UserRole.FARMER) && <CartButton />}
+
+                    {/* Chat Button - Available for authenticated users */}
+                    {user && <ChatButton />}
 
                     {/* Auth Section */}
                     {user ? (

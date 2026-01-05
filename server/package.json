@@ -5,8 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js"
+    "build": "prisma generate && tsc",
+    "start": "node dist/index.js",
+    "postinstall": "prisma generate"
   },
   "keywords": ["socket.io", "chat", "real-time", "redis"],
   "author": "",
@@ -17,12 +18,13 @@
     "redis": "^4.6.12",
     "jsonwebtoken": "^9.0.2",
     "dotenv": "^16.3.1",
-    "@prisma/client": "^6.17.1"
+    "@prisma/client": "^6.1.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.16",
     "@types/jsonwebtoken": "^9.0.5",
     "typescript": "^5.3.3",
-    "tsx": "^4.7.0"
+    "tsx": "^4.7.0",
+    "prisma": "^6.1.0"
   }
 }

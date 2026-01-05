@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { ProductDetailActions } from '@/components/products/product-detail-actions'
 import { ReviewSummary } from '@/components/reviews/review-summary'
 import { ReviewsList } from '@/components/reviews/reviews-list'
+import { MessageFarmerButton } from '@/components/chat/MessageFarmerButton'
 import { getProductReviews, canReviewProduct } from '@/lib/actions/review'
 import { getCurrentUser } from '@/lib/auth/session'
 import prisma from '@/lib/db/prisma'
@@ -259,6 +260,14 @@ export default async function ProductDetailPage({ params }: Props) {
                                                     </div>
                                                 )}
                                             </div>
+                                            {currentUser && currentUser.id !== farmer.id && (
+                                                <div className="mt-4">
+                                                    <MessageFarmerButton
+                                                        farmerId={farmer.id}
+                                                        farmerName={farmer.name}
+                                                    />
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </CardContent>

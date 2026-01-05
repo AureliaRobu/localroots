@@ -2,6 +2,7 @@ import { Server } from 'socket.io';
 import { createAdapter } from '@socket.io/redis-adapter';
 import { createClient } from 'redis';
 import { authMiddleware } from './middleware/auth.middleware';
+import { connectRedis } from './utils/redis';
 import {
   registerChatHandlers,
   registerPresenceHandlers,
@@ -12,6 +13,10 @@ import {
 const PORT = process.env.SOCKET_PORT || 3001;
 
 export async function createSocketServer() {
+  // Connect the main Redis client used by handlers
+  await connectRedis();
+  console.log('Redis client connected');
+
   // Redis clients for adapter (pub/sub pattern)
   const pubClient = createClient({ url: process.env.REDIS_URL || 'redis://localhost:6379' });
   const subClient = pubClient.duplicate();
