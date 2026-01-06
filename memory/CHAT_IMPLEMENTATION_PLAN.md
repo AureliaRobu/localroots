@@ -1039,7 +1039,7 @@ services:
       - redis_data:/data
 
   socket-server:
-    build: ./server
+    build: ../server
     ports:
       - '3001:3001'
     environment:

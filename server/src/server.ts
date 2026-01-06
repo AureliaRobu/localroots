@@ -32,11 +32,11 @@ export async function createSocketServer() {
   // Socket.io server
   const io = new Server({
     cors: {
-      origin: [
-        'http://localhost:3000', // Local development
-        'https://localroots-lovat.vercel.app', // Production
-        /^https:\/\/.*\.vercel\.app$/ // Vercel preview deployments
-      ],
+        origin: [
+            'https://localroots.earth',
+            'https://www.localroots.earth',
+            'http://localhost:3000'  // Keep for local dev
+        ],
       credentials: true
     },
     adapter: createAdapter(pubClient, subClient)
