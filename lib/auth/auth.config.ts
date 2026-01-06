@@ -6,7 +6,7 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import prisma from '@/lib/db/prisma'
 import { LoginFormData } from '@/types'
-import { UserRole } from '@prisma/client'
+import type { UserRole } from '@prisma/client'
 
 export default {
     providers: [
@@ -34,7 +34,7 @@ export default {
                 // Find user
                 const user = await prisma.user.findUnique({
                     where: { email },
-                    include: { farmerProfile: true }
+                    include: { sellerProfile: true }
                 })
 
                 if (!user || !user.password) {
@@ -63,27 +63,20 @@ export default {
         signIn: '/login',
     },
     callbacks: {
-        async signIn({ user, account }) {
-            // For OAuth providers, ensure user exists in our database
-            if (account?.provider !== 'credentials') {
-                const existingUser = await prisma.user.findUnique({
-                    where: { email: user.email! }
-                })
-
-                if (!existingUser) {
-                    // Create new user for OAuth sign-in
-                    await prisma.user.create({
-                        data: {
-                            email: user.email!,
-                            name: user.name,
-                            image: user.image,
-                            role: UserRole.CUSTOMER, // Default role
-                            emailVerified: new Date(),
-                        }
-                    })
-                }
+        async redirect({ url, baseUrl }) {
+            // Handle OAuth callback redirects - always go to buying dashboard
+            if (url === baseUrl || url === `${baseUrl}/`) {
+                return `${baseUrl}/dashboard/buying`
             }
-            return true
+            // Allow URLs on the same origin
+            if (url.startsWith(baseUrl)) {
+                return url
+            }
+            // Allow relative URLs
+            if (url.startsWith('/')) {
+                return `${baseUrl}${url}`
+            }
+            return baseUrl
         },
         async jwt({ token, user }) {
             if (user) {

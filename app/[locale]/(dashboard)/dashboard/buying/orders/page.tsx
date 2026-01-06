@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { getCurrentUser } from '@/lib/auth/session'
+import { requireAuth } from '@/lib/auth/session'
 import { getCustomerOrders } from '@/lib/actions/order'
 import { getTranslations } from 'next-intl/server'
 import { Card } from '@/components/ui/card'
@@ -8,17 +8,9 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { format } from 'date-fns'
 
-export default async function CustomerOrdersPage() {
-  const user = await getCurrentUser()
+export default async function BuyingOrdersPage() {
+  const user = await requireAuth()
   const t = await getTranslations('CustomerOrders')
-
-  if (!user) {
-    redirect('/login')
-  }
-
-  if (user.role !== 'CUSTOMER' && user.role !== 'FARMER') {
-    redirect('/dashboard')
-  }
 
   const ordersResult = await getCustomerOrders()
 

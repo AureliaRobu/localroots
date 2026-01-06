@@ -25,7 +25,7 @@ type CartItemProps = {
         name: string | null
         email: string
         image: string | null
-        farmerProfile: {
+        sellerProfile: {
           farmName: string
         } | null
       }
@@ -85,7 +85,7 @@ export function CartItem({ item }: CartItemProps) {
       <div className="flex-1 min-w-0">
         <h4 className="font-medium truncate">{item.product.name}</h4>
         <p className="text-sm text-muted-foreground truncate">
-          {item.product.farmer.farmerProfile?.farmName || t('unknownFarmer')}
+          {item.product.farmer.sellerProfile?.farmName || t('unknownFarmer')}
         </p>
         <div className="flex items-center gap-2 mt-2">
           <span className="font-semibold">${itemTotal.toFixed(2)}</span>

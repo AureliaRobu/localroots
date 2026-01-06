@@ -20,7 +20,7 @@ type Product = {
     distance: number
     farmer: {
         name: string | null
-        farmerProfile: {
+        sellerProfile: {
             farmName: string
             city: string
             state: string | null
@@ -165,7 +165,7 @@ export function ClosestProducts({ initialProducts = [] }: ClosestProductsProps) 
                                     imageUrl={product.imageUrl}
                                     inStock={product.inStock}
                                     farmerName={product.farmer.name}
-                                    farmName={product.farmer.farmerProfile?.farmName}
+                                    farmName={product.farmer.sellerProfile?.farmName}
                                     distance={product.distance}
                                 />
                             </CarouselItem>

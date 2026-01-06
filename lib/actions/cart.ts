@@ -28,7 +28,7 @@ export async function getCart() {
                     name: true,
                     email: true,
                     image: true,
-                    farmerProfile: {
+                    sellerProfile: {
                       select: {
                         farmName: true,
                       },
@@ -60,7 +60,7 @@ export async function getCart() {
                       name: true,
                       email: true,
                       image: true,
-                      farmerProfile: {
+                      sellerProfile: {
                         select: {
                           farmName: true,
                         },

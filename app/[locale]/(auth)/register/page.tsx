@@ -24,12 +24,10 @@ import {
     FormLabel,
     FormMessage,
 } from '@/components/ui/form'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Icons } from '@/components/icons'
 import { registerSchema, type RegisterFormData } from '@/lib/validations/auth'
 import { registerAction } from '@/lib/actions/auth'
 import { toast } from 'sonner'
-import { UserRole } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 
 export default function RegisterPage() {
@@ -45,7 +43,6 @@ export default function RegisterPage() {
             email: '',
             password: '',
             confirmPassword: '',
-            role: UserRole.CUSTOMER,
         },
     })
 
@@ -60,15 +57,8 @@ export default function RegisterPage() {
                 return
             }
 
-            // Success - redirect based on role
             toast.success(t('accountCreated'))
-
-            if (result.role === UserRole.FARMER) {
-                router.push('/farmer/dashboard')
-            } else {
-                router.push('/customer/dashboard')
-            }
-
+            router.push('/dashboard/buying')
             router.refresh()
         } catch (error) {
             console.error('Registration error:', error)
@@ -169,42 +159,6 @@ export default function RegisterPage() {
                                                 disabled={isLoading}
                                                 {...field}
                                             />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-
-                            <FormField
-                                control={form.control}
-                                name="role"
-                                render={({ field }) => (
-                                    <FormItem className="space-y-3">
-                                        <FormLabel>{t('role')}</FormLabel>
-                                        <FormControl>
-                                            <RadioGroup
-                                                onValueChange={field.onChange}
-                                                defaultValue={field.value}
-                                                className="flex flex-col space-y-1"
-                                                disabled={isLoading}
-                                            >
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <FormControl>
-                                                        <RadioGroupItem value={UserRole.CUSTOMER} />
-                                                    </FormControl>
-                                                    <FormLabel className="font-normal cursor-pointer">
-                                                        {t('customer')}
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <FormControl>
-                                                        <RadioGroupItem value={UserRole.FARMER} />
-                                                    </FormControl>
-                                                    <FormLabel className="font-normal cursor-pointer">
-                                                        {t('farmer')}
-                                                    </FormLabel>
-                                                </FormItem>
-                                            </RadioGroup>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>

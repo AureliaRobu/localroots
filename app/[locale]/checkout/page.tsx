@@ -46,7 +46,7 @@ export default async function CheckoutPage() {
                 <div className="flex-1">
                   <p className="font-medium">{item.product.name}</p>
                   <p className="text-sm text-muted-foreground">
-                    {item.product.farmer?.farmerProfile?.farmName || item.product.farmer?.name}
+                    {item.product.farmer?.sellerProfile?.farmName || item.product.farmer?.name}
                   </p>
                   <p className="text-sm text-muted-foreground">
                     {item.quantity} x ${item.product.price.toFixed(2)} / {item.product.unit}

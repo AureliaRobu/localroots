@@ -1,25 +1,16 @@
-import { redirect } from 'next/navigation'
-import { getCurrentUser } from '@/lib/auth/session'
-import { getFarmerOrders } from '@/lib/actions/order'
+import { requireSellerProfile } from '@/lib/auth/session'
+import { getSellerOrders } from '@/lib/actions/order'
 import { getTranslations } from 'next-intl/server'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { UpdateOrderStatusButton } from './update-order-status-button'
 import { format } from 'date-fns'
 
-export default async function FarmerOrdersPage() {
-  const user = await getCurrentUser()
+export default async function SellingOrdersPage() {
+  const { user } = await requireSellerProfile()
   const t = await getTranslations('FarmerOrders')
 
-  if (!user) {
-    redirect('/login')
-  }
-
-  if (user.role !== 'FARMER') {
-    redirect('/dashboard')
-  }
-
-  const ordersResult = await getFarmerOrders()
+  const ordersResult = await getSellerOrders()
 
   if (!ordersResult.success) {
     return (
@@ -46,8 +37,8 @@ export default async function FarmerOrdersPage() {
     }
   }
 
-  // Calculate order subtotal for farmer's items only
-  const calculateFarmerTotal = (order: (typeof orders)[0]) => {
+  // Calculate order subtotal for seller's items only
+  const calculateSellerTotal = (order: (typeof orders)[0]) => {
     return order.items.reduce((sum, item) => {
       return sum + item.priceAtPurchase * item.quantity
     }, 0)
@@ -66,7 +57,7 @@ export default async function FarmerOrdersPage() {
       ) : (
         <div className="space-y-4">
           {orders.map((order) => {
-            const farmerTotal = calculateFarmerTotal(order)
+            const sellerTotal = calculateSellerTotal(order)
 
             return (
               <Card key={order.id} className="p-6">
@@ -86,7 +77,7 @@ export default async function FarmerOrdersPage() {
                   </div>
                   <div className="text-right">
                     <p className="text-2xl font-bold">
-                      ${farmerTotal.toFixed(2)}
+                      ${sellerTotal.toFixed(2)}
                     </p>
                     <p className="text-sm text-muted-foreground">
                       {order.paymentMethod === 'CASH_ON_DELIVERY'

@@ -8,62 +8,62 @@ async function main() {
 
     // Clean existing data (optional - remove if you want to keep existing data)
     await prisma.product.deleteMany()
-    await prisma.farmerProfile.deleteMany()
+    await prisma.sellerProfile.deleteMany()
     await prisma.account.deleteMany()
     await prisma.user.deleteMany()
 
     console.log('🧹 Cleaned existing data')
 
-    // Create farmers
-    const farmer1 = await prisma.user.create({
+    // Create users (some will be sellers with profiles)
+    const seller1 = await prisma.user.create({
         data: {
             email: 'john@greenvalleyfarm.com',
             name: 'John Smith',
             password: await bcrypt.hash('password123', 10),
-            role: UserRole.FARMER,
+            role: UserRole.USER,
             emailVerified: new Date(),
         },
     })
 
-    const farmer2 = await prisma.user.create({
+    const seller2 = await prisma.user.create({
         data: {
             email: 'sarah@sunnyacres.com',
             name: 'Sarah Johnson',
             password: await bcrypt.hash('password123', 10),
-            role: UserRole.FARMER,
+            role: UserRole.USER,
             emailVerified: new Date(),
         },
     })
 
-    const farmer3 = await prisma.user.create({
+    const seller3 = await prisma.user.create({
         data: {
             email: 'mike@organicharvest.com',
             name: 'Mike Brown',
             password: await bcrypt.hash('password123', 10),
-            role: UserRole.FARMER,
+            role: UserRole.USER,
             emailVerified: new Date(),
         },
     })
 
-    console.log('👨‍🌾 Created farmers')
+    console.log('👨‍🌾 Created sellers')
 
-    // Create customer
-    const customer = await prisma.user.create({
+    // Create regular user (buyer only)
+    const buyer = await prisma.user.create({
         data: {
             email: 'customer@example.com',
             name: 'Jane Doe',
             password: await bcrypt.hash('password123', 10),
-            role: UserRole.CUSTOMER,
+            role: UserRole.USER,
             emailVerified: new Date(),
         },
     })
 
-    console.log('👤 Created customer')
+    console.log('👤 Created buyer')
 
-    // Create farmer profiles
-    await prisma.farmerProfile.create({
+    // Create seller profiles
+    await prisma.sellerProfile.create({
         data: {
-            userId: farmer1.id,
+            userId: seller1.id,
             farmName: 'Green Valley Farm',
             description: 'Organic vegetables and herbs since 1995',
             address: '123 Farm Road',
@@ -77,9 +77,9 @@ async function main() {
         },
     })
 
-    await prisma.farmerProfile.create({
+    await prisma.sellerProfile.create({
         data: {
-            userId: farmer2.id,
+            userId: seller2.id,
             farmName: 'Sunny Acres',
             description: 'Fresh fruits and dairy products',
             address: '456 Country Lane',
@@ -93,9 +93,9 @@ async function main() {
         },
     })
 
-    await prisma.farmerProfile.create({
+    await prisma.sellerProfile.create({
         data: {
-            userId: farmer3.id,
+            userId: seller3.id,
             farmName: 'Organic Harvest',
             description: 'Certified organic produce and eggs',
             address: '789 Green Street',
@@ -108,9 +108,9 @@ async function main() {
         },
     })
 
-    console.log('🏡 Created farmer profiles')
+    console.log('🏡 Created seller profiles')
 
-    // Create products for farmer 1
+    // Create products for seller 1
     await prisma.product.createMany({
         data: [
             {
@@ -121,7 +121,7 @@ async function main() {
                 category: 'Vegetables',
                 imageUrl: 'https://images.unsplash.com/photo-1546470427-e26264be0b0d?w=800',
                 inStock: true,
-                farmerId: farmer1.id,
+                farmerId: seller1.id,
             },
             {
                 name: 'Fresh Basil',
@@ -131,7 +131,7 @@ async function main() {
                 category: 'Herbs',
                 imageUrl: 'https://images.unsplash.com/photo-1618375569909-3c8616cf7733?w=800',
                 inStock: true,
-                farmerId: farmer1.id,
+                farmerId: seller1.id,
             },
             {
                 name: 'Green Bell Peppers',
@@ -141,12 +141,12 @@ async function main() {
                 category: 'Vegetables',
                 imageUrl: 'https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=800',
                 inStock: true,
-                farmerId: farmer1.id,
+                farmerId: seller1.id,
             },
         ],
     })
 
-    // Create products for farmer 2
+    // Create products for seller 2
     await prisma.product.createMany({
         data: [
             {
@@ -157,7 +157,7 @@ async function main() {
                 category: 'Fruits',
                 imageUrl: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=800',
                 inStock: true,
-                farmerId: farmer2.id,
+                farmerId: seller2.id,
             },
             {
                 name: 'Raw Honey',
@@ -167,7 +167,7 @@ async function main() {
                 category: 'Honey',
                 imageUrl: 'https://images.unsplash.com/photo-1587049352846-4a222e784faf?w=800',
                 inStock: true,
-                farmerId: farmer2.id,
+                farmerId: seller2.id,
             },
             {
                 name: 'Blueberries',
@@ -177,7 +177,7 @@ async function main() {
                 category: 'Fruits',
                 imageUrl: 'https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=800',
                 inStock: true,
-                farmerId: farmer2.id,
+                farmerId: seller2.id,
             },
             {
                 name: 'Whole Milk',
@@ -187,12 +187,12 @@ async function main() {
                 category: 'Dairy',
                 imageUrl: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=800',
                 inStock: false,
-                farmerId: farmer2.id,
+                farmerId: seller2.id,
             },
         ],
     })
 
-    // Create products for farmer 3
+    // Create products for seller 3
     await prisma.product.createMany({
         data: [
             {
@@ -203,7 +203,7 @@ async function main() {
                 category: 'Eggs',
                 imageUrl: 'https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=800',
                 inStock: true,
-                farmerId: farmer3.id,
+                farmerId: seller3.id,
             },
             {
                 name: 'Organic Carrots',
@@ -213,7 +213,7 @@ async function main() {
                 category: 'Vegetables',
                 imageUrl: 'https://images.unsplash.com/photo-1447175008436-054170c2e979?w=800',
                 inStock: true,
-                farmerId: farmer3.id,
+                farmerId: seller3.id,
             },
             {
                 name: 'Mixed Salad Greens',
@@ -223,7 +223,7 @@ async function main() {
                 category: 'Vegetables',
                 imageUrl: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=800',
                 inStock: true,
-                farmerId: farmer3.id,
+                farmerId: seller3.id,
             },
             {
                 name: 'Organic Apples',
@@ -233,7 +233,7 @@ async function main() {
                 category: 'Fruits',
                 imageUrl: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=800',
                 inStock: true,
-                farmerId: farmer3.id,
+                farmerId: seller3.id,
             },
         ],
     })
@@ -242,10 +242,10 @@ async function main() {
 
     console.log('✅ Seed completed successfully!')
     console.log('\n📧 Test accounts:')
-    console.log('Farmer 1: john@greenvalleyfarm.com / password123')
-    console.log('Farmer 2: sarah@sunnyacres.com / password123')
-    console.log('Farmer 3: mike@organicharvest.com / password123')
-    console.log('Customer: customer@example.com / password123')
+    console.log('Seller 1: john@greenvalleyfarm.com / password123')
+    console.log('Seller 2: sarah@sunnyacres.com / password123')
+    console.log('Seller 3: mike@organicharvest.com / password123')
+    console.log('Buyer: customer@example.com / password123')
 }
 
 main()

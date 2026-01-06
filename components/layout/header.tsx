@@ -15,7 +15,6 @@ import { MobileMenu } from '@/components/layout/mobile-menu'
 import { LanguageSwitcher } from '@/components/layout/language-switcher'
 import { CartButton } from '@/components/cart/cart-button'
 import { ChatButton } from '@/components/layout/ChatButton'
-import { UserRole } from '@prisma/client'
 import { getTranslations } from 'next-intl/server'
 
 export async function Header() {
@@ -63,8 +62,8 @@ export async function Header() {
                     {/* Language Switcher */}
                     <LanguageSwitcher />
 
-                    {/* Cart Button - Available for both customers and farmers */}
-                    {user && (user.role === UserRole.CUSTOMER || user.role === UserRole.FARMER) && <CartButton />}
+                    {/* Cart Button - Available for all authenticated users */}
+                    {user && <CartButton />}
 
                     {/* Chat Button - Available for authenticated users */}
                     {user && <ChatButton />}
@@ -93,36 +92,17 @@ export async function Header() {
                                 </DropdownMenuLabel>
                                 <DropdownMenuSeparator />
 
-                                {/* Farmer-specific links */}
-                                {user.role === UserRole.FARMER && (
-                                    <>
-                                        <DropdownMenuItem asChild>
-                                            <Link href="/farmer/dashboard" className="cursor-pointer">
-                                                {t('farmerDashboard') || 'Farmer Dashboard'}
-                                            </Link>
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem asChild>
-                                            <Link href="/farmer/products" className="cursor-pointer">
-                                                {t('myProducts')}
-                                            </Link>
-                                        </DropdownMenuItem>
-                                        <DropdownMenuSeparator />
-                                    </>
-                                )}
-
-                                {/* Customer/Buying links - Available for both customers and farmers */}
-                                {(user.role === UserRole.CUSTOMER || user.role === UserRole.FARMER) && (
-                                    <>
-                                        <DropdownMenuItem asChild>
-                                            <Link href="/customer/dashboard" className="cursor-pointer">
-                                                {user.role === UserRole.FARMER
-                                                    ? (t('buyingDashboard') || 'Buying Dashboard')
-                                                    : t('dashboard')}
-                                            </Link>
-                                        </DropdownMenuItem>
-                                        <DropdownMenuSeparator />
-                                    </>
-                                )}
+                                <DropdownMenuItem asChild>
+                                    <Link href="/dashboard/buying" className="cursor-pointer">
+                                        {t('buyingDashboard') || 'Buying'}
+                                    </Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem asChild>
+                                    <Link href="/dashboard/selling" className="cursor-pointer">
+                                        {t('sellingDashboard') || 'Selling'}
+                                    </Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
 
                                 <DropdownMenuItem asChild>
                                     <SignOutButton />

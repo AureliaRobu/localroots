@@ -1,9 +1,9 @@
-import { requireFarmer } from '@/lib/auth/session'
+import { requireSellerProfile } from '@/lib/auth/session'
 import { AddProductForm } from '@/components/products/add-product-form'
 import { FarmerProductsGrid } from '@/components/products/farmer-products-grid'
 import prisma from '@/lib/db/prisma'
 
-async function getFarmerProducts(userId: string) {
+async function getSellerProducts(userId: string) {
     const products = await prisma.product.findMany({
         where: { farmerId: userId },
         orderBy: { createdAt: 'desc' },
@@ -11,9 +11,9 @@ async function getFarmerProducts(userId: string) {
     return products
 }
 
-export default async function FarmerProductsPage() {
-    const user = await requireFarmer()
-    const products = await getFarmerProducts(user.id)
+export default async function SellingProductsPage() {
+    const { user } = await requireSellerProfile()
+    const products = await getSellerProducts(user.id)
 
     return (
         <div className="px-4 lg:px-6">

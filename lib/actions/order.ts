@@ -86,7 +86,7 @@ export async function createOrder(formData: CheckoutFormData) {
     })
 
     revalidatePath('/cart')
-    revalidatePath('/customer/orders')
+    revalidatePath('/dashboard/buying/orders')
 
     return {
       success: true,
@@ -123,7 +123,7 @@ export async function getCustomerOrders() {
                   select: {
                     id: true,
                     name: true,
-                    farmerProfile: {
+                    sellerProfile: {
                       select: {
                         farmName: true,
                       },
@@ -149,19 +149,33 @@ export async function getCustomerOrders() {
 
 /**
  * Get all orders containing products from the current farmer
+ * @deprecated Use getSellerOrders instead
  */
 export async function getFarmerOrders() {
+  return getSellerOrders()
+}
+
+/**
+ * Get all orders containing products from the current seller
+ */
+export async function getSellerOrders() {
   try {
     const user = await getCurrentUser()
     if (!user) {
       return { success: false, error: 'Not authenticated' }
     }
 
-    if (user.role !== 'FARMER') {
-      return { success: false, error: 'Not authorized' }
+    // Check if user has a seller profile
+    const sellerProfile = await prisma.sellerProfile.findUnique({
+      where: { userId: user.id },
+      select: { id: true }
+    })
+
+    if (!sellerProfile) {
+      return { success: false, error: 'No seller profile found' }
     }
 
-    // Get all orders that contain at least one product from this farmer
+    // Get all orders that contain at least one product from this seller
     const orders = await prisma.order.findMany({
       where: {
         items: {
@@ -198,7 +212,7 @@ export async function getFarmerOrders() {
 
     return { success: true, data: orders }
   } catch (error) {
-    console.error('Error getting farmer orders:', error)
+    console.error('Error getting seller orders:', error)
     return { success: false, error: 'Failed to get orders' }
   }
 }
@@ -231,7 +245,7 @@ export async function getOrderById(orderId: string) {
                   select: {
                     id: true,
                     name: true,
-                    farmerProfile: {
+                    sellerProfile: {
                       select: {
                         farmName: true,
                       },
@@ -313,8 +327,8 @@ export async function updateOrderStatus(data: UpdateOrderStatusData) {
       },
     })
 
-    revalidatePath('/farmer/orders')
-    revalidatePath('/customer/orders')
+    revalidatePath('/dashboard/selling/orders')
+    revalidatePath('/dashboard/buying/orders')
     revalidatePath(`/orders/${validatedData.orderId}`)
 
     return {
@@ -364,7 +378,7 @@ export async function cancelOrder(orderId: string) {
       data: { status: 'CANCELLED' },
     })
 
-    revalidatePath('/customer/orders')
+    revalidatePath('/dashboard/buying/orders')
     revalidatePath(`/orders/${orderId}`)
 
     return {

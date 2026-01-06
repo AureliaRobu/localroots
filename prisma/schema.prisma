@@ -12,8 +12,7 @@ datasource db {
 
 // User roles enum
 enum UserRole {
-  FARMER
-  CUSTOMER
+  USER
   ADMIN
 }
 
@@ -61,7 +60,7 @@ model User {
   email         String    @unique
   name          String?
   password      String? // Make optional for OAuth users
-  role          UserRole  @default(CUSTOMER)
+  role          UserRole  @default(USER)
   emailVerified DateTime?
   image         String?
   createdAt     DateTime  @default(now())
@@ -69,7 +68,7 @@ model User {
 
   // Relations
   accounts      Account[]
-  farmerProfile FarmerProfile?
+  sellerProfile SellerProfile?
   products      Product[]
   cart          Cart?
   orders        Order[]
@@ -105,8 +104,8 @@ model Account {
   @@map("accounts")
 }
 
-// Farmer-specific profile
-model FarmerProfile {
+// Seller profile (for users who want to sell products)
+model SellerProfile {
   id     String @id @default(cuid())
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -129,7 +128,7 @@ model FarmerProfile {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("farmer_profiles")
+  @@map("seller_profiles")
 }
 
 // Products table

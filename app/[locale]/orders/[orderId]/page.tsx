@@ -26,14 +26,14 @@ export default async function OrderDetailsPage({ params }: OrderDetailsPageProps
   const orderResult = await getOrderById(orderId)
 
   if (!orderResult.success || !orderResult.data) {
-    redirect('/customer/dashboard')
+    redirect('/dashboard/buying')
   }
 
   const order = orderResult.data
 
   // Check if current user is the order owner (can be either FARMER or CUSTOMER role)
   const isOrderOwner = order.userId === user.id
-  const isFarmer = user.role === 'FARMER'
+  // All users can be sellers now (no role check needed)
 
   const getStatusBadgeColor = (status: string) => {
     switch (status) {
@@ -136,7 +136,7 @@ export default async function OrderDetailsPage({ params }: OrderDetailsPageProps
                 {item.product.farmer && (
                   <p className="text-sm text-muted-foreground">
                     {t('from')}{' '}
-                    {item.product.farmer.farmerProfile?.farmName ||
+                    {item.product.farmer.sellerProfile?.farmName ||
                       item.product.farmer.name}
                   </p>
                 )}

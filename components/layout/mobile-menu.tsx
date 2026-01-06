@@ -14,7 +14,6 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { SignOutButton } from '@/components/layout/sign-out-button'
 import { LanguageSwitcher } from '@/components/layout/language-switcher'
-import { UserRole } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 
 interface MobileMenuProps {
@@ -22,7 +21,6 @@ interface MobileMenuProps {
     name?: string | null
     email?: string | null
     image?: string | null
-    role?: UserRole
   } | null
 }
 
@@ -102,38 +100,20 @@ export function MobileMenu({ user }: MobileMenuProps) {
           {/* User-specific Links */}
           {user && (
             <div className="flex flex-col gap-2 pt-4 border-t">
-              {/* Farmer-specific links */}
-              {user.role === UserRole.FARMER && (
-                <>
-                  <Link
-                    href="/farmer/dashboard"
-                    className="flex items-center rounded-lg px-3 py-2 text-slate-700 transition-all hover:bg-slate-100 hover:text-slate-900"
-                    onClick={() => setOpen(false)}
-                  >
-                    {t('farmerDashboard') || 'Farmer Dashboard'}
-                  </Link>
-                  <Link
-                    href="/farmer/products"
-                    className="flex items-center rounded-lg px-3 py-2 text-slate-700 transition-all hover:bg-slate-100 hover:text-slate-900"
-                    onClick={() => setOpen(false)}
-                  >
-                    {t('myProducts')}
-                  </Link>
-                </>
-              )}
-
-              {/* Customer/Buying links - Available for both customers and farmers */}
-              {(user.role === UserRole.CUSTOMER || user.role === UserRole.FARMER) && (
-                <Link
-                  href="/customer/dashboard"
-                  className="flex items-center rounded-lg px-3 py-2 text-slate-700 transition-all hover:bg-slate-100 hover:text-slate-900"
-                  onClick={() => setOpen(false)}
-                >
-                  {user.role === UserRole.FARMER
-                    ? (t('buyingDashboard') || 'Buying Dashboard')
-                    : t('dashboard')}
-                </Link>
-              )}
+              <Link
+                href="/dashboard/buying"
+                className="flex items-center rounded-lg px-3 py-2 text-slate-700 transition-all hover:bg-slate-100 hover:text-slate-900"
+                onClick={() => setOpen(false)}
+              >
+                {t('buyingDashboard') || 'Buying'}
+              </Link>
+              <Link
+                href="/dashboard/selling"
+                className="flex items-center rounded-lg px-3 py-2 text-slate-700 transition-all hover:bg-slate-100 hover:text-slate-900"
+                onClick={() => setOpen(false)}
+              >
+                {t('sellingDashboard') || 'Selling'}
+              </Link>
             </div>
           )}
 

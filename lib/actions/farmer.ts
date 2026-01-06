@@ -1,7 +1,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { requireFarmer } from '@/lib/auth/session'
+import { requireAuth } from '@/lib/auth/session'
 import prisma from '@/lib/db/prisma'
 import { farmerProfileSchema, type FarmerProfileFormData } from '@/lib/validations/farmer'
 
@@ -11,10 +11,10 @@ export async function createFarmerProfile(data: FarmerProfileFormData) {
         const validatedData = farmerProfileSchema.parse(data)
 
         // Check authentication
-        const user = await requireFarmer()
+        const user = await requireAuth()
 
         // Check if profile already exists
-        const existingProfile = await prisma.farmerProfile.findUnique({
+        const existingProfile = await prisma.sellerProfile.findUnique({
             where: { userId: user.id }
         })
 
@@ -26,7 +26,7 @@ export async function createFarmerProfile(data: FarmerProfileFormData) {
         }
 
         // Create profile
-        const profile = await prisma.farmerProfile.create({
+        const profile = await prisma.sellerProfile.create({
             data: {
                 userId: user.id,
                 farmName: validatedData.farmName,
@@ -43,14 +43,14 @@ export async function createFarmerProfile(data: FarmerProfileFormData) {
             },
         })
 
-        revalidatePath('/farmer/dashboard')
+        revalidatePath('/dashboard/selling')
 
         return {
             success: true,
             data: profile
         }
     } catch (error) {
-        console.error('Error creating farmer profile:', error)
+        console.error('Error creating seller profile:', error)
         return {
             success: false,
             error: 'Failed to create profile. Please try again.'
@@ -64,10 +64,10 @@ export async function updateFarmerProfile(data: FarmerProfileFormData) {
         const validatedData = farmerProfileSchema.parse(data)
 
         // Check authentication
-        const user = await requireFarmer()
+        const user = await requireAuth()
 
         // Update profile
-        const profile = await prisma.farmerProfile.update({
+        const profile = await prisma.sellerProfile.update({
             where: { userId: user.id },
             data: {
                 farmName: validatedData.farmName,
@@ -84,14 +84,14 @@ export async function updateFarmerProfile(data: FarmerProfileFormData) {
             },
         })
 
-        revalidatePath('/farmer/dashboard')
+        revalidatePath('/dashboard/selling')
 
         return {
             success: true,
             data: profile
         }
     } catch (error) {
-        console.error('Error updating farmer profile:', error)
+        console.error('Error updating seller profile:', error)
         return {
             success: false,
             error: 'Failed to update profile. Please try again.'

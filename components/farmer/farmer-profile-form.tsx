@@ -56,7 +56,7 @@ export function FarmerProfileForm() {
             }
 
             toast.success('Profile created successfully!')
-            router.push('/farmer/products')
+            router.push('/dashboard/selling/products')
             router.refresh()
         } catch  {
             toast.error('Something went wrong. Please try again.')

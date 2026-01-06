@@ -1,4 +1,4 @@
-import { requireCustomer } from '@/lib/auth/session'
+import { requireAuth } from '@/lib/auth/session'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
@@ -71,7 +71,7 @@ async function getRecentOrders(userId: string) {
                             farmer: {
                                 select: {
                                     name: true,
-                                    farmerProfile: {
+                                    sellerProfile: {
                                         select: { farmName: true }
                                     }
                                 }
@@ -126,8 +126,8 @@ async function getSpendingData(userId: string) {
     return chartData
 }
 
-export default async function CustomerDashboardPage() {
-    const user = await requireCustomer()
+export default async function BuyingDashboardPage() {
+    const user = await requireAuth()
     const stats = await getCustomerStats(user.id)
     const recentOrders = await getRecentOrders(user.id)
     const spendingData = await getSpendingData(user.id)
@@ -137,7 +137,7 @@ export default async function CustomerDashboardPage() {
         <div className="px-4 lg:px-6 py-6">
             {/* Header */}
             <div className="mb-8">
-                <h1 className="text-3xl font-bold">{t('title', { name: user.name ?? 'Customer' })}</h1>
+                <h1 className="text-3xl font-bold">{t('title', { name: user.name ?? 'there' })}</h1>
                 <p className="text-slate-600">{t('subtitle')}</p>
             </div>
 
@@ -209,7 +209,7 @@ export default async function CustomerDashboardPage() {
                             <CardTitle>{t('recentOrders.title')}</CardTitle>
                             <CardDescription>{t('recentOrders.description')}</CardDescription>
                         </div>
-                        <Link href="/customer/orders">
+                        <Link href="/dashboard/buying/orders">
                             <span className="text-sm text-green-600 hover:underline">{t('recentOrders.viewAll')}</span>
                         </Link>
                     </div>
@@ -259,7 +259,7 @@ export default async function CustomerDashboardPage() {
                                                 </div>
                                             </TableCell>
                                             <TableCell>
-                                                {item.product.farmer.farmerProfile?.farmName || item.product.farmer.name}
+                                                {item.product.farmer.sellerProfile?.farmName || item.product.farmer.name}
                                             </TableCell>
                                             <TableCell>{item.quantity} {item.product.unit}</TableCell>
                                             <TableCell>${(item.quantity * item.priceAtPurchase).toFixed(2)}</TableCell>

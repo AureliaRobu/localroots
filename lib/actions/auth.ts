@@ -5,11 +5,10 @@ import { loginSchema, registerSchema } from '@/lib/validations/auth'
 import { AuthError } from 'next-auth'
 import prisma from '@/lib/db/prisma'
 import { getUserByEmail } from '@/lib/db/users'
-import { UserRole } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 
 type LoginResult =
-  | { success: true; role: UserRole; hasProfile?: boolean }
+  | { success: true }
   | { success: false; error: string }
 
 export async function loginAction(data: unknown): Promise<LoginResult> {
@@ -32,12 +31,6 @@ export async function loginAction(data: unknown): Promise<LoginResult> {
       select: {
         id: true,
         email: true,
-        role: true,
-        farmerProfile: {
-          select: {
-            id: true,
-          }
-        }
       }
     })
 
@@ -55,12 +48,8 @@ export async function loginAction(data: unknown): Promise<LoginResult> {
       redirect: false,
     })
 
-    // 4. Return success with user role and profile status
-    return {
-      success: true,
-      role: user.role,
-      hasProfile: user.role === UserRole.FARMER ? !!user.farmerProfile : true
-    }
+    // 4. Return success
+    return { success: true }
 
   } catch (error) {
     // Handle NextAuth errors
@@ -95,7 +84,7 @@ export async function loginAction(data: unknown): Promise<LoginResult> {
 }
 
 type RegisterResult =
-  | { success: true; role: UserRole }
+  | { success: true }
   | { success: false; error: string }
 
 export async function registerAction(data: unknown): Promise<RegisterResult> {
@@ -110,7 +99,7 @@ export async function registerAction(data: unknown): Promise<RegisterResult> {
       }
     }
 
-    const { name, email, password, role } = validated.data
+    const { name, email, password } = validated.data
 
     // 2. Check if user already exists
     const existingUser = await getUserByEmail(email)
@@ -125,19 +114,13 @@ export async function registerAction(data: unknown): Promise<RegisterResult> {
     // 3. Hash password
     const hashedPassword = await bcrypt.hash(password, 10)
 
-    // 4. Create user
-    const user = await prisma.user.create({
+    // 4. Create user (role defaults to USER in schema)
+    await prisma.user.create({
       data: {
         name,
         email,
         password: hashedPassword,
-        role,
       },
-      select: {
-        id: true,
-        email: true,
-        role: true,
-      }
     })
 
     // 5. Auto sign in after registration
@@ -147,11 +130,8 @@ export async function registerAction(data: unknown): Promise<RegisterResult> {
       redirect: false,
     })
 
-    // 6. Return success with user role
-    return {
-      success: true,
-      role: user.role
-    }
+    // 6. Return success
+    return { success: true }
 
   } catch (error) {
     // Handle NextAuth errors

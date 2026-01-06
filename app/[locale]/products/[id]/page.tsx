@@ -44,7 +44,7 @@ export default async function ProductDetailPage({ params }: Props) {
     }
 
     const farmer = product.farmer
-    const profile = farmer.farmerProfile
+    const profile = farmer.sellerProfile
 
     // Fetch reviews data
     const reviewsResult = await getProductReviews(product.id, { limit: 10 })
@@ -347,7 +347,7 @@ async function MoreFromFarmer({
             farmer: {
                 select: {
                     name: true,
-                    farmerProfile: {
+                    sellerProfile: {
                         select: {
                             farmName: true,
                             city: true,
@@ -378,9 +378,9 @@ async function MoreFromFarmer({
                         imageUrl={product.imageUrl}
                         inStock={product.inStock}
                         farmerName={product.farmer.name}
-                        farmName={product.farmer.farmerProfile?.farmName}
-                        city={product.farmer.farmerProfile?.city}
-                        state={product.farmer.farmerProfile?.state}
+                        farmName={product.farmer.sellerProfile?.farmName}
+                        city={product.farmer.sellerProfile?.city}
+                        state={product.farmer.sellerProfile?.state}
                         averageRating={product.averageRating}
                         reviewCount={product.reviewCount}
                     />

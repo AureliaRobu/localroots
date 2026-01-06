@@ -2,7 +2,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { requireFarmer } from '@/lib/auth/session'
+import { requireSellerProfile } from '@/lib/auth/session'
 import prisma from '@/lib/db/prisma'
 import { productSchema, type ProductFormData } from '@/lib/validations/product'
 import { getClosestProducts } from '@/lib/db/products'
@@ -12,20 +12,8 @@ export async function createProduct(data: ProductFormData) {
         // Validate data
         const validatedData = productSchema.parse(data)
 
-        // Check authentication
-        const user = await requireFarmer()
-
-        // Check if farmer has a profile
-        const farmerProfile = await prisma.farmerProfile.findUnique({
-            where: { userId: user.id }
-        })
-
-        if (!farmerProfile) {
-            return {
-                success: false,
-                error: 'Please complete your farmer profile first'
-            }
-        }
+        // Check authentication and seller profile
+        const { user } = await requireSellerProfile()
 
         // Create product
         const product = await prisma.product.create({
@@ -43,7 +31,7 @@ export async function createProduct(data: ProductFormData) {
 
         // Revalidate pages that display products
         revalidatePath('/products')
-        revalidatePath('/farmer/products')
+        revalidatePath('/dashboard/selling/products')
 
         return {
             success: true,
@@ -63,8 +51,8 @@ export async function updateProduct(id: string, data: ProductFormData) {
         // Validate data
         const validatedData = productSchema.parse(data)
 
-        // Check authentication
-        const user = await requireFarmer()
+        // Check authentication and seller profile
+        const { user } = await requireSellerProfile()
 
         // Check if product exists and belongs to user
         const existingProduct = await prisma.product.findUnique({
@@ -102,7 +90,7 @@ export async function updateProduct(id: string, data: ProductFormData) {
         // Revalidate pages
         revalidatePath('/products')
         revalidatePath(`/products/${id}`)
-        revalidatePath('/farmer/products')
+        revalidatePath('/dashboard/selling/products')
 
         return {
             success: true,
@@ -119,8 +107,8 @@ export async function updateProduct(id: string, data: ProductFormData) {
 
 export async function deleteProduct(id: string) {
     try {
-        // Check authentication
-        const user = await requireFarmer()
+        // Check authentication and seller profile
+        const { user } = await requireSellerProfile()
 
         // Check if product exists and belongs to user
         const existingProduct = await prisma.product.findUnique({
@@ -148,7 +136,7 @@ export async function deleteProduct(id: string) {
 
         // Revalidate pages
         revalidatePath('/products')
-        revalidatePath('/farmer/products')
+        revalidatePath('/dashboard/selling/products')
 
         return {
             success: true

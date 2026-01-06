@@ -1,6 +1,6 @@
-import { requireFarmer } from '@/lib/auth/session'
+import { requireAuth, getSellerProfile } from '@/lib/auth/session'
+import { redirect } from 'next/navigation'
 import prisma from '@/lib/db/prisma'
-import { FarmerProfileForm } from '@/components/farmer/farmer-profile-form'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
@@ -9,13 +9,7 @@ import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 import { format } from 'date-fns'
 
-async function getFarmerProfile(userId: string) {
-    return await prisma.farmerProfile.findUnique({
-        where: { userId }
-    })
-}
-
-async function getFarmerStats(userId: string) {
+async function getSellerStats(userId: string) {
     const [totalProducts, inStockProducts, totalOrders, pendingOrders] = await Promise.all([
         prisma.product.count({ where: { farmerId: userId } }),
         prisma.product.count({ where: { farmerId: userId, inStock: true } }),
@@ -153,27 +147,17 @@ async function getSalesData(userId: string) {
     return chartData
 }
 
-export default async function FarmerDashboardPage() {
-    const user = await requireFarmer()
-    const profile = await getFarmerProfile(user.id)
+export default async function SellingDashboardPage() {
+    const user = await requireAuth()
+    const profile = await getSellerProfile(user.id)
     const t = await getTranslations('farmer.dashboard')
 
-    // If no profile, show setup form
+    // If no profile, redirect to setup
     if (!profile) {
-        return (
-            <div className="mx-auto max-w-3xl px-4 lg:px-6">
-                <div className="mb-8 text-center">
-                    <h1 className="text-3xl font-bold">{t('welcome', { name: user.name ?? 'Farmer' })}</h1>
-                    <p className="mt-2 text-slate-600">
-                        {t('setupProfile')}
-                    </p>
-                </div>
-                <FarmerProfileForm />
-            </div>
-        )
+        redirect('/dashboard/selling/profile/setup')
     }
 
-    const stats = await getFarmerStats(user.id)
+    const stats = await getSellerStats(user.id)
     const recentOrders = await getRecentOrders(user.id)
     const salesData = await getSalesData(user.id)
 
@@ -182,7 +166,7 @@ export default async function FarmerDashboardPage() {
             {/* Header */}
             <div className="mb-8">
                 <h1 className="text-3xl font-bold">{t('title')}</h1>
-                <p className="text-slate-600">{t('welcomeBack', { name: user.name ?? 'Farmer' })}</p>
+                <p className="text-slate-600">{t('welcomeBack', { name: user.name ?? 'Seller' })}</p>
             </div>
 
             {/* Stats Cards */}

@@ -95,9 +95,9 @@ async function ProductsList({ searchParams }: Props) {
                         imageUrl={product.imageUrl}
                         inStock={product.inStock}
                         farmerName={product.farmer.name}
-                        farmName={product.farmer.farmerProfile?.farmName}
-                        city={product.farmer.farmerProfile?.city}
-                        state={product.farmer.farmerProfile?.state}
+                        farmName={product.farmer.sellerProfile?.farmName}
+                        city={product.farmer.sellerProfile?.city}
+                        state={product.farmer.sellerProfile?.state}
                         averageRating={product.averageRating}
                         reviewCount={product.reviewCount}
                     />

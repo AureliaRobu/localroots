@@ -656,7 +656,7 @@ export async function getAvailableChatUsers(
           OR: [
             { name: { contains: search, mode: 'insensitive' } },
             { email: { contains: search, mode: 'insensitive' } },
-            { farmerProfile: { farmName: { contains: search, mode: 'insensitive' } } }
+            { sellerProfile: { farmName: { contains: search, mode: 'insensitive' } } }
           ]
         })
       },
@@ -665,7 +665,7 @@ export async function getAvailableChatUsers(
         name: true,
         image: true,
         role: true,
-        farmerProfile: {
+        sellerProfile: {
           select: { farmName: true }
         }
       },
@@ -680,7 +680,7 @@ export async function getAvailableChatUsers(
         name: u.name,
         image: u.image,
         role: u.role,
-        farmName: u.farmerProfile?.farmName
+        farmName: u.sellerProfile?.farmName
       }))
     }
   } catch (error) {

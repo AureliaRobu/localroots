@@ -1,16 +1,19 @@
-import { User, UserRole, FarmerProfile, Product, Review } from '@prisma/client'
+import { User, UserRole, SellerProfile, Product, Review } from '@prisma/client'
 
 // Export Prisma types
-export type { User, UserRole, FarmerProfile, Product, Review }
+export type { User, UserRole, SellerProfile, Product, Review }
+
+// Backward compatibility alias
+export type FarmerProfile = SellerProfile
 
 // Extended types with relations
 export type UserWithProfile = User & {
-    farmerProfile?: FarmerProfile | null
+    sellerProfile?: SellerProfile | null
 }
 
 export type ProductWithFarmer = Product & {
     farmer: User & {
-        farmerProfile?: FarmerProfile | null
+        sellerProfile?: SellerProfile | null
     }
 }
 

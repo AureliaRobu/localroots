@@ -19,7 +19,7 @@ type CartItem = {
       name: string | null
       email: string
       image: string | null
-      farmerProfile: {
+      sellerProfile: {
         farmName: string
       } | null
     }

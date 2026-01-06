@@ -29,8 +29,8 @@ async function getFarmersLocations(searchParams: Awaited<Props['searchParams']>)
     // Get unique farmer IDs from filtered products
     const farmerIds = [...new Set(filteredProducts.map(p => p.farmerId))]
 
-    // Get farmer profiles for those farmers
-    const farmers = await prisma.farmerProfile.findMany({
+    // Get seller profiles for those farmers
+    const farmers = await prisma.sellerProfile.findMany({
         where: {
             userId: { in: farmerIds }
         },

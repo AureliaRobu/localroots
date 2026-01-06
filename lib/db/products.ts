@@ -65,7 +65,7 @@ export async function getProducts(filters?: ProductFilters) {
                 farmer: {
                     select: {
                         name: true,
-                        farmerProfile: {
+                        sellerProfile: {
                             select: {
                                 farmName: true,
                                 city: true,
@@ -82,13 +82,13 @@ export async function getProducts(filters?: ProductFilters) {
         // Distance filter (client-side filtering after fetch)
         if (filters?.userLat && filters?.userLon && filters?.maxDistance) {
             products = products.filter((product) => {
-                if (!product.farmer.farmerProfile) return false
+                if (!product.farmer.sellerProfile) return false
 
                 const distance = calculateDistance(
                     filters.userLat!,
                     filters.userLon!,
-                    product.farmer.farmerProfile.latitude,
-                    product.farmer.farmerProfile.longitude
+                    product.farmer.sellerProfile.latitude,
+                    product.farmer.sellerProfile.longitude
                 )
 
                 return distance <= filters.maxDistance!
@@ -114,7 +114,7 @@ export async function getProductById(id: string) {
                         name: true,
                         email: true,
                         image: true,
-                        farmerProfile: {
+                        sellerProfile: {
                             select: {
                                 farmName: true,
                                 description: true,
@@ -160,7 +160,7 @@ export async function getClosestProducts(userLat: number, userLon: number, limit
                 farmer: {
                     select: {
                         name: true,
-                        farmerProfile: {
+                        sellerProfile: {
                             select: {
                                 farmName: true,
                                 city: true,
@@ -176,13 +176,13 @@ export async function getClosestProducts(userLat: number, userLon: number, limit
 
         // Filter products with valid farmer profiles and calculate distances
         const productsWithDistance = products
-            .filter((product) => product.farmer.farmerProfile)
+            .filter((product) => product.farmer.sellerProfile)
             .map((product) => {
                 const distance = calculateDistance(
                     userLat,
                     userLon,
-                    product.farmer.farmerProfile!.latitude,
-                    product.farmer.farmerProfile!.longitude
+                    product.farmer.sellerProfile!.latitude,
+                    product.farmer.sellerProfile!.longitude
                 )
                 return { ...product, distance }
             })

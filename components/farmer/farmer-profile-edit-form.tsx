@@ -21,11 +21,11 @@ import { farmerProfileSchema, type FarmerProfileFormData } from '@/lib/validatio
 import { updateFarmerProfile } from '@/lib/actions/farmer'
 import { geocodeAddress } from '@/lib/actions/geocoding'
 import { toast } from 'sonner'
-import { FarmerProfile } from '@prisma/client'
+import { SellerProfile } from '@prisma/client'
 import Link from 'next/link'
 
 interface FarmerProfileEditFormProps {
-  profile: FarmerProfile
+  profile: SellerProfile
 }
 
 export function FarmerProfileEditForm({ profile }: FarmerProfileEditFormProps) {
@@ -62,7 +62,7 @@ export function FarmerProfileEditForm({ profile }: FarmerProfileEditFormProps) {
       }
 
       toast.success('Profile updated successfully!')
-      router.push('/farmer/dashboard')
+      router.push('/dashboard/selling')
       router.refresh()
     } catch {
       toast.error('Something went wrong. Please try again.')
@@ -358,7 +358,7 @@ export function FarmerProfileEditForm({ profile }: FarmerProfileEditFormProps) {
               <Button type="submit" disabled={isLoading} className="flex-1">
                 {isLoading ? 'Saving Changes...' : 'Save Changes'}
               </Button>
-              <Link href="/farmer/dashboard">
+              <Link href="/dashboard/selling">
                 <Button type="button" variant="outline" disabled={isLoading}>
                   Cancel
                 </Button>

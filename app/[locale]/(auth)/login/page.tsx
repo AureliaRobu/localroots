@@ -29,7 +29,6 @@ import { loginSchema, type LoginFormData } from '@/lib/validations/auth'
 import { loginAction } from '@/lib/actions/auth'
 import { toast } from 'sonner'
 import { useTranslations } from 'next-intl'
-import { UserRole } from '@prisma/client'
 
 export default function LoginPage() {
     const router = useRouter()
@@ -56,22 +55,8 @@ export default function LoginPage() {
                 return
             }
 
-            // Success - redirect based on role
             toast.success(t('welcomeBack'))
-
-            if (result.role === UserRole.FARMER) {
-                // Check if farmer has completed their profile
-                if (result.hasProfile) {
-                    router.push('/farmer/dashboard')
-                } else {
-                    router.push('/farmer/profile/setup')
-                }
-            } else if (result.role === UserRole.CUSTOMER) {
-                router.push('/customer/dashboard')
-            } else {
-                router.push('/products')
-            }
-
+            router.push('/dashboard/buying')
             router.refresh()
         } catch (error) {
             console.error('Login error:', error)

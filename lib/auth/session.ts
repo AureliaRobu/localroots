@@ -1,6 +1,7 @@
 import { auth } from '@/lib/auth/auth'
 import { redirect } from 'next/navigation'
 import { UserRole } from '@prisma/client'
+import prisma from '@/lib/db/prisma'
 
 export async function getCurrentUser() {
     const session = await auth()
@@ -15,20 +16,38 @@ export async function requireAuth() {
     return user
 }
 
-export async function requireFarmer() {
+export async function requireAdmin() {
     const user = await requireAuth()
-    if (user.role !== UserRole.FARMER) {
-        redirect('/products')
+    if (user.role !== UserRole.ADMIN) {
+        redirect('/dashboard/buying')
     }
     return user
 }
 
-export async function requireCustomer() {
+export async function requireSellerProfile() {
     const user = await requireAuth()
-    // Allow both CUSTOMER and FARMER roles to access customer routes
-    // Farmers can buy products too!
-    if (user.role !== UserRole.CUSTOMER && user.role !== UserRole.FARMER) {
-        redirect('/products')
+
+    const profile = await prisma.sellerProfile.findUnique({
+        where: { userId: user.id }
+    })
+
+    if (!profile) {
+        redirect('/dashboard/selling/profile/setup')
     }
-    return user
+
+    return { user, profile }
+}
+
+export async function getSellerProfile(userId: string) {
+    return prisma.sellerProfile.findUnique({
+        where: { userId }
+    })
+}
+
+export async function hasSellerProfile(userId: string) {
+    const profile = await prisma.sellerProfile.findUnique({
+        where: { userId },
+        select: { id: true }
+    })
+    return !!profile
 }
