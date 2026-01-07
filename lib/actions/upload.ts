@@ -69,12 +69,9 @@ export async function uploadImageToS3(formData: FormData): Promise<UploadResult>
 
         await s3Client.send(command)
 
-        // Construct the URL
-        // If your bucket is public, use this format:
-        const imageUrl = `https://${BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`
-
-        // Or if you're using CloudFront:
-        // const imageUrl = `${process.env.CLOUDFRONT_URL}/${fileName}`
+        // Construct the URL using CloudFront CDN
+        const cloudfrontDomain = process.env.CLOUDFRONT_DOMAIN || 'd2mjb2yuuea7w7.cloudfront.net'
+        const imageUrl = `https://${cloudfrontDomain}/${fileName}`
 
         return {
             success: true,

@@ -24,7 +24,7 @@ export default function AboutPage() {
             <section className="mx-auto max-w-6xl px-4 py-8">
                 <div className="relative h-[400px] w-full overflow-hidden rounded-2xl shadow-xl">
                     <Image
-                        src="https://images.unsplash.com/photo-1507844090982-e6e9452ea68d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1166"
+                        src="https://d2mjb2yuuea7w7.cloudfront.net/static/about-hero.jpg"
                         alt="Happy farmers at community farm with fresh vegetables"
                         fill
                         className="object-cover"
@@ -60,7 +60,7 @@ export default function AboutPage() {
                     </Card>
                     <div className="relative h-[300px] overflow-hidden rounded-xl shadow-lg">
                         <Image
-                            src="https://images.unsplash.com/photo-1657288649124-b80bdee3c17e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fG9yZ2FuaWMlMjBmYXJtfGVufDB8MHwwfHx8Mg%3D%3D&auto=format&fit=crop&q=60&w=500"
+                            src="https://d2mjb2yuuea7w7.cloudfront.net/static/about-organic-farm.jpg"
                             alt="Basket of fresh organic carrots"
                             fill
                             className="object-cover"
@@ -147,7 +147,7 @@ export default function AboutPage() {
                 <div className="grid gap-8 md:grid-cols-2 items-center">
                     <div className="relative h-[350px] overflow-hidden rounded-xl shadow-lg order-2 md:order-1">
                         <Image
-                            src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80"
+                            src="https://d2mjb2yuuea7w7.cloudfront.net/static/about-fresh-produce.jpg"
                             alt="Local farmers market with shop local banner and fresh produce"
                             fill
                             className="object-cover"

@@ -13,7 +13,7 @@ export default function HomePage() {
             <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden">
                 {/* Background Image - Using Next.js Image for LCP optimization */}
                 <Image
-                    src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2832&auto=format&fit=crop"
+                    src="https://d2mjb2yuuea7w7.cloudfront.net/static/hero-farm-field.jpg"
                     alt="Farm field landscape"
                     fill
                     priority
@@ -57,7 +57,7 @@ export default function HomePage() {
                     <div className="grid gap-8 md:grid-cols-2 items-center">
                         <div className="relative h-80 overflow-hidden rounded-2xl shadow-lg">
                             <Image
-                                src="https://images.unsplash.com/photo-1461354464878-ad92f492a5a0?w=500&auto=format&fit=crop"
+                                src="https://d2mjb2yuuea7w7.cloudfront.net/static/audience-local-food.jpg"
                                 alt="Local food enthusiasts shopping"
                                 fill
                                 className="object-cover"
@@ -99,7 +99,7 @@ export default function HomePage() {
                         </div>
                         <div className="relative h-80 overflow-hidden rounded-2xl shadow-lg md:order-2">
                             <Image
-                                src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?q=80&w=2793&auto=format&fit=crop"
+                                src="https://d2mjb2yuuea7w7.cloudfront.net/static/audience-organic-farmer.jpg"
                                 alt="Organic farmer in field"
                                 fill
                                 className="object-cover"
@@ -111,7 +111,7 @@ export default function HomePage() {
                     <div className="grid gap-8 md:grid-cols-2 items-center">
                         <div className="relative h-80 overflow-hidden rounded-2xl shadow-lg">
                             <Image
-                                src="https://images.unsplash.com/photo-1616990632575-59f35f0e2cd0?w=500&auto=format&fit=crop"
+                                src="https://d2mjb2yuuea7w7.cloudfront.net/static/audience-community.jpg"
                                 alt="Community gathering"
                                 fill
                                 className="object-cover"
