@@ -11,12 +11,14 @@ export default function HomePage() {
         <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
             {/* Hero Section */}
             <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden">
-                {/* Background Image */}
-                <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{
-                        backgroundImage: "url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2832&auto=format&fit=crop')"
-                    }}
+                {/* Background Image - Using Next.js Image for LCP optimization */}
+                <Image
+                    src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2832&auto=format&fit=crop"
+                    alt="Farm field landscape"
+                    fill
+                    priority
+                    sizes="100vw"
+                    className="object-cover object-center"
                 />
                 {/* Dark Overlay */}
                 <div className="absolute inset-0 bg-black/50" />
