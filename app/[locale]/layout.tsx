@@ -34,8 +34,26 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-    title: "LocalRoots - Organic Farmers Marketplace",
-    description: "Connect with local organic farmers and browse fresh produce",
+    title: {
+        default: "LocalRoots - Organic Farmers Marketplace",
+        template: "%s | LocalRoots",
+    },
+    description: "Connect with local organic farmers and browse fresh produce. Support sustainable agriculture and discover farm-to-table food in your community.",
+    keywords: ["organic farmers", "local produce", "farm to table", "sustainable agriculture", "farmers market", "organic food"],
+    authors: [{ name: "LocalRoots" }],
+    creator: "LocalRoots",
+    icons: {
+        icon: [
+            { url: "/icon.svg", type: "image/svg+xml" },
+            { url: "/icon", type: "image/png", sizes: "32x32" },
+        ],
+        apple: "/apple-icon",
+    },
+    manifest: "/manifest.webmanifest",
+    other: {
+        "theme-color": "#16a34a",
+        "msapplication-TileColor": "#16a34a",
+    },
 };
 
 export default async function RootLayout({
@@ -49,7 +67,7 @@ export default async function RootLayout({
         notFound();
     }
     return (
-        <html lang="en">
+        <html lang={locale}>
         <body
             className={`${poppins.variable} ${lora.variable} antialiased flex flex-col min-h-screen`}
         >
