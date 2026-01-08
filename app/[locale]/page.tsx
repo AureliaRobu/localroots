@@ -4,6 +4,47 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { useTranslations } from 'next-intl'
 import { ClosestProducts } from '@/components/products/closest-products'
+import type { Metadata } from 'next'
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://localroots.earth'
+
+type Props = {
+    params: Promise<{ locale: string }>
+}
+
+const seoContent = {
+    en: {
+        title: 'Real Farmers. Real Food. Real Connections.',
+        description: 'Discover fresh, organic produce from farmers in your community. Support local agriculture, connect directly with farmers, and eat healthier with LocalRoots marketplace.',
+    },
+    fr: {
+        title: 'Vrais agriculteurs. Vraie nourriture. Vraies connexions.',
+        description: 'Découvrez des produits frais et biologiques des agriculteurs de votre communauté. Soutenez l\'agriculture locale avec LocalRoots.',
+    },
+    es: {
+        title: 'Agricultores reales. Comida real. Conexiones reales.',
+        description: 'Descubre productos frescos y orgánicos de agricultores de tu comunidad. Apoya la agricultura local con LocalRoots.',
+    },
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { locale } = await params
+    const content = seoContent[locale as keyof typeof seoContent] || seoContent.en
+
+    return {
+        title: content.title,
+        description: content.description,
+        openGraph: {
+            title: `LocalRoots - ${content.title}`,
+            description: content.description,
+            url: `${baseUrl}/${locale}`,
+            images: [{ url: `${baseUrl}/og-image`, width: 1200, height: 630 }],
+        },
+        alternates: {
+            canonical: `${baseUrl}/${locale}`,
+        },
+    }
+}
 
 export default function HomePage() {
     const t = useTranslations('home');

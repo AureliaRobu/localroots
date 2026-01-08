@@ -50,7 +50,7 @@ import { MetadataRoute } from 'next'
 import prisma from '@/lib/db/prisma'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://localroots.com'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://localroots.earth'
   const locales = ['en', 'fr', 'es']
 
   // Static pages
@@ -92,7 +92,7 @@ Create `app/robots.ts`:
 import { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://localroots.com'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://localroots.earth'
 
   return {
     rules: [
@@ -122,7 +122,7 @@ import { Metadata } from 'next'
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://localroots.com'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://localroots.earth'
 
   const titles = {
     en: 'LocalRoots - Local Organic Farmers Marketplace',
@@ -262,7 +262,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: 'Product Not Found' }
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://localroots.com'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://localroots.earth'
   const farmName = product.farmer.sellerProfile?.farmName || 'Local Farm'
   const location = product.farmer.sellerProfile
     ? `${product.farmer.sellerProfile.city}, ${product.farmer.sellerProfile.state}`

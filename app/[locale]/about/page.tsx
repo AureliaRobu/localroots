@@ -3,6 +3,47 @@ import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import type { Metadata } from 'next';
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://localroots.earth'
+
+type Props = {
+    params: Promise<{ locale: string }>
+}
+
+const seoContent = {
+    en: {
+        title: 'About LocalRoots - Our Mission & Values',
+        description: 'LocalRoots connects local organic farmers with customers who value fresh, sustainable food. Learn about our mission to support local agriculture and build stronger communities.',
+    },
+    fr: {
+        title: 'À propos de LocalRoots - Notre Mission',
+        description: 'LocalRoots connecte les agriculteurs bio locaux avec les clients qui apprécient les aliments frais et durables. Découvrez notre mission.',
+    },
+    es: {
+        title: 'Acerca de LocalRoots - Nuestra Misión',
+        description: 'LocalRoots conecta agricultores orgánicos locales con clientes que valoran alimentos frescos y sostenibles. Conoce nuestra misión.',
+    },
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { locale } = await params
+    const content = seoContent[locale as keyof typeof seoContent] || seoContent.en
+
+    return {
+        title: content.title,
+        description: content.description,
+        openGraph: {
+            title: content.title,
+            description: content.description,
+            url: `${baseUrl}/${locale}/about`,
+            images: [{ url: `${baseUrl}/og-image`, width: 1200, height: 630 }],
+        },
+        alternates: {
+            canonical: `${baseUrl}/${locale}/about`,
+        },
+    }
+}
 
 export default function AboutPage() {
     const t = useTranslations('about');

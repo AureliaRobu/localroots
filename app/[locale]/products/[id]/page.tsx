@@ -13,6 +13,9 @@ import { getProductReviews, canReviewProduct } from '@/lib/actions/review'
 import { getCurrentUser } from '@/lib/auth/session'
 import prisma from '@/lib/db/prisma'
 import type { Metadata } from 'next'
+import { ProductSchema, BreadcrumbSchema } from '@/components/seo'
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://localroots.earth'
 
 type Props = {
     params: Promise<{ locale: string; id: string }>
@@ -20,8 +23,8 @@ type Props = {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const paramsData = await params
-    const product = await getProductById(paramsData.id)
+    const { id, locale } = await params
+    const product = await getProductById(id)
 
     if (!product) {
         return {
@@ -29,9 +32,40 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         }
     }
 
+    const farmName = product.farmer.sellerProfile?.farmName || 'Local Farm'
+    const location = product.farmer.sellerProfile
+        ? `${product.farmer.sellerProfile.city}, ${product.farmer.sellerProfile.state || ''}`
+        : ''
+
+    const description = product.description ||
+        `Buy fresh ${product.name} from ${farmName}${location ? ` in ${location}` : ''}. $${product.price.toFixed(2)}/${product.unit}. Support local organic farmers.`
+
     return {
-        title: `${product.name} - LocalRoots`,
-        description: product.description || `Buy ${product.name} from local farmers`,
+        title: `${product.name} from ${farmName}`,
+        description,
+        openGraph: {
+            title: `${product.name} - ${farmName} | LocalRoots`,
+            description,
+            url: `${baseUrl}/${locale}/products/${id}`,
+            images: product.imageUrl ? [
+                {
+                    url: product.imageUrl,
+                    width: 800,
+                    height: 800,
+                    alt: product.name,
+                }
+            ] : [{ url: `${baseUrl}/og-image`, width: 1200, height: 630 }],
+            type: 'website',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `${product.name} - ${farmName}`,
+            description,
+            images: product.imageUrl ? [product.imageUrl] : [`${baseUrl}/og-image`],
+        },
+        alternates: {
+            canonical: `${baseUrl}/${locale}/products/${id}`,
+        },
     }
 }
 
@@ -70,9 +104,18 @@ export default async function ProductDetailPage({ params }: Props) {
         })
     }
 
+    const breadcrumbItems = [
+        { name: 'Home', url: `${baseUrl}/${paramsData.locale}` },
+        { name: 'Products', url: `${baseUrl}/${paramsData.locale}/products` },
+        { name: product.name, url: `${baseUrl}/${paramsData.locale}/products/${product.id}` },
+    ]
+
     return (
-        <div className="min-h-screen bg-slate-50">
-            <div className="mx-auto max-w-7xl px-4 py-8">
+        <>
+            <ProductSchema product={product} locale={paramsData.locale} />
+            <BreadcrumbSchema items={breadcrumbItems} />
+            <div className="min-h-screen bg-slate-50">
+                <div className="mx-auto max-w-7xl px-4 py-8">
                 {/* Breadcrumb */}
                 <nav className="mb-6 flex items-center gap-2 text-sm text-slate-600">
                     <Link href="/products" className="hover:text-slate-900">
@@ -324,6 +367,7 @@ export default async function ProductDetailPage({ params }: Props) {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

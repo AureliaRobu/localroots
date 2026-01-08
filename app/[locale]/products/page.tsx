@@ -6,8 +6,12 @@ import { ProductsFilters } from '@/components/products/products-filters'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { getTranslations } from 'next-intl/server'
+import type { Metadata } from 'next'
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://localroots.earth'
 
 type Props = {
+    params: Promise<{ locale: string }>
     searchParams: Promise<{
         search?: string
         category?: string
@@ -18,7 +22,46 @@ type Props = {
     }>
 }
 
-async function ProductsList({ searchParams }: Props) {
+const seoContent = {
+    en: {
+        title: 'Browse Local Organic Products',
+        description: 'Browse fresh, organic products from local farmers. Filter by category, location, and availability. Farm-to-table produce delivered to you.',
+    },
+    fr: {
+        title: 'Parcourir les Produits Bio Locaux',
+        description: 'Parcourez les produits frais et biologiques des agriculteurs locaux. Filtrez par catégorie et disponibilité.',
+    },
+    es: {
+        title: 'Explorar Productos Orgánicos Locales',
+        description: 'Explora productos frescos y orgánicos de agricultores locales. Filtra por categoría y disponibilidad.',
+    },
+}
+
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+    const { locale } = await params
+    const { category } = await searchParams
+    const content = seoContent[locale as keyof typeof seoContent] || seoContent.en
+
+    const title = category
+        ? `${category} - Fresh Local Products`
+        : content.title
+
+    return {
+        title,
+        description: content.description,
+        openGraph: {
+            title,
+            description: content.description,
+            url: `${baseUrl}/${locale}/products`,
+            images: [{ url: `${baseUrl}/og-image`, width: 1200, height: 630 }],
+        },
+        alternates: {
+            canonical: `${baseUrl}/${locale}/products`,
+        },
+    }
+}
+
+async function ProductsList({ searchParams }: { searchParams: Props['searchParams'] }) {
     const params = await searchParams
     const t = await getTranslations('products')
 
