@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getProductById } from '@/lib/db/products'
@@ -6,16 +7,18 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { ProductDetailActions } from '@/components/products/product-detail-actions'
-import { ReviewSummary } from '@/components/reviews/review-summary'
-import { ReviewsList } from '@/components/reviews/reviews-list'
-import { MessageFarmerButton } from '@/components/chat/MessageFarmerButton'
-import { getProductReviews, canReviewProduct } from '@/lib/actions/review'
-import { getCurrentUser } from '@/lib/auth/session'
+import { UserReviewActions, UserReviewActionsSkeleton } from '@/components/reviews/user-review-actions'
+import { MessageFarmerWrapper, MessageFarmerSkeleton } from '@/components/chat/message-farmer-wrapper'
 import prisma from '@/lib/db/prisma'
 import type { Metadata } from 'next'
 import { ProductSchema, BreadcrumbSchema } from '@/components/seo'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://localroots.earth'
+
+// ISR: Revalidate product pages every 60 seconds
+// This caches the static parts of the page at the CDN level
+// User-specific content (reviews, message button) loads via Suspense
+export const revalidate = 60
 
 type Props = {
     params: Promise<{ locale: string; id: string }>
@@ -80,30 +83,6 @@ export default async function ProductDetailPage({ params }: Props) {
     const farmer = product.farmer
     const profile = farmer.sellerProfile
 
-    // Fetch reviews data
-    const reviewsResult = await getProductReviews(product.id, { limit: 10 })
-    const reviews = reviewsResult.success && reviewsResult.data ? reviewsResult.data.reviews : []
-    const totalReviews = reviewsResult.success && reviewsResult.data ? reviewsResult.data.totalCount : 0
-    const hasMore = reviewsResult.success && reviewsResult.data ? reviewsResult.data.hasMore : false
-
-    // Check if current user can review
-    const currentUser = await getCurrentUser()
-    const canReviewResult = await canReviewProduct(product.id)
-    const canReview = canReviewResult.success && canReviewResult.data ? canReviewResult.data.canReview : false
-    const orderId = canReviewResult.success && canReviewResult.data ? canReviewResult.data.orderId : undefined
-
-    // Calculate rating distribution
-    const ratingDistribution: { [key: number]: number } = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
-    if (reviewsResult.success && reviewsResult.data) {
-        const allReviews = await prisma.review.findMany({
-            where: { productId: product.id },
-            select: { rating: true },
-        })
-        allReviews.forEach((review) => {
-            ratingDistribution[review.rating]++
-        })
-    }
-
     const breadcrumbItems = [
         { name: 'Home', url: `${baseUrl}/${paramsData.locale}` },
         { name: 'Products', url: `${baseUrl}/${paramsData.locale}/products` },
@@ -126,7 +105,7 @@ export default async function ProductDetailPage({ params }: Props) {
                 </nav>
 
                 <div className="grid gap-8 lg:grid-cols-2">
-                    {/* Product Image */}
+                    {/* Product Image - STATIC (cached) */}
                     <div className="relative aspect-square overflow-hidden rounded-lg bg-slate-100">
                         {product.imageUrl ? (
                             <Image
@@ -163,7 +142,7 @@ export default async function ProductDetailPage({ params }: Props) {
                         )}
                     </div>
 
-                    {/* Product Details */}
+                    {/* Product Details - STATIC (cached) */}
                     <div className="flex flex-col">
                         <div className="flex-1 space-y-6">
                             {/* Header */}
@@ -210,7 +189,7 @@ export default async function ProductDetailPage({ params }: Props) {
                             />
                         </div>
 
-                        {/* Farmer Info Card */}
+                        {/* Farmer Info Card - STATIC (cached) */}
                         {profile && (
                             <Card className="mt-8">
                                 <CardHeader>
@@ -303,14 +282,13 @@ export default async function ProductDetailPage({ params }: Props) {
                                                     </div>
                                                 )}
                                             </div>
-                                            {currentUser && currentUser.id !== farmer.id && (
-                                                <div className="mt-4">
-                                                    <MessageFarmerButton
-                                                        farmerId={farmer.id}
-                                                        farmerName={farmer.name}
-                                                    />
-                                                </div>
-                                            )}
+                                            {/* DYNAMIC: Message button - loaded via Suspense */}
+                                            <Suspense fallback={<MessageFarmerSkeleton />}>
+                                                <MessageFarmerWrapper
+                                                    farmerId={farmer.id}
+                                                    farmerName={farmer.name}
+                                                />
+                                            </Suspense>
                                         </div>
                                     </div>
                                 </CardContent>
@@ -319,52 +297,19 @@ export default async function ProductDetailPage({ params }: Props) {
                     </div>
                 </div>
 
-                {/* More from this farmer */}
+                {/* More from this farmer - STATIC (cached) */}
                 <MoreFromFarmer farmerId={product.farmerId} currentProductId={product.id} />
 
-                {/* Reviews Section */}
-                <div className="mt-16">
-                    <h2 className="mb-6 text-2xl font-bold">Customer Reviews</h2>
-
-                    {/* Review Summary */}
-                    {product.averageRating && totalReviews > 0 ? (
-                        <ReviewSummary
-                            averageRating={product.averageRating}
-                            totalReviews={totalReviews}
-                            ratingDistribution={ratingDistribution}
-                            canReview={canReview}
-                            productId={product.id}
-                            orderId={orderId}
-                        />
-                    ) : (
-                        <Card className="p-6 text-center">
-                            <p className="text-gray-500">No reviews yet</p>
-                            {canReview && orderId && (
-                                <ReviewSummary
-                                    averageRating={0}
-                                    totalReviews={0}
-                                    ratingDistribution={ratingDistribution}
-                                    canReview={canReview}
-                                    productId={product.id}
-                                    orderId={orderId}
-                                />
-                            )}
-                        </Card>
-                    )}
-
-                    {/* Reviews List */}
-                    {totalReviews > 0 && (
-                        <div className="mt-8">
-                            <ReviewsList
-                                initialReviews={reviews}
-                                productId={product.id}
-                                orderId={orderId}
-                                currentUserId={currentUser?.id}
-                                totalCount={totalReviews}
-                            />
-                        </div>
-                    )}
-                </div>
+                {/* DYNAMIC: Reviews Section - loaded via Suspense */}
+                {/* This section contains user-specific data (canReview, currentUser) */}
+                {/* so it streams in after the static content is served */}
+                <Suspense fallback={<UserReviewActionsSkeleton />}>
+                    <UserReviewActions
+                        productId={product.id}
+                        averageRating={product.averageRating}
+                        reviewCount={product.reviewCount}
+                    />
+                </Suspense>
             </div>
         </div>
         </>
@@ -379,7 +324,6 @@ async function MoreFromFarmer({
     farmerId: string
     currentProductId: string
 }) {
-    const prisma = (await import('@/lib/db/prisma')).default
     const { ProductCard } = await import('@/components/products/product-card')
 
     const otherProducts = await prisma.product.findMany({
