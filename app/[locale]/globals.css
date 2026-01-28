@@ -132,6 +132,10 @@
   header, nav, [role="navigation"] {
     font-family: var(--font-poppins), sans-serif;
   }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
 }
 
 /* Fix Leaflet marker icons */
@@ -139,3 +143,4 @@
     height: 100%;
     width: 100%;
 }
+
