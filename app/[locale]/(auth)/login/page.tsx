@@ -69,7 +69,7 @@ export default function LoginPage() {
     const handleSocialLogin = async (provider: 'google' | 'facebook') => {
         setIsLoading(true)
         try {
-            await signIn(provider)
+            await signIn(provider, { redirectTo: '/dashboard/buying' })
         } catch {
             toast.error(t('socialError'))
             setIsLoading(false)
