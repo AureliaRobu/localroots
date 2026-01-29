@@ -32,8 +32,8 @@ enum PaymentMethod {
 
 // Chat conversation type enum
 enum ConversationType {
-  DIRECT      // 1-on-1 chat
-  GROUP       // Group/community chat
+  DIRECT // 1-on-1 chat
+  GROUP // Group/community chat
 }
 
 // Message type enum
@@ -41,17 +41,17 @@ enum MessageType {
   TEXT
   IMAGE
   FILE
-  SYSTEM  // Join/leave notifications
+  SYSTEM // Join/leave notifications
 }
 
 // Group category enum
 enum GroupCategory {
   GENERAL
-  FOOD_SHARE      // Food sharing community
-  NEWS            // News and updates
-  RECIPES         // Recipe sharing
-  TIPS            // Farming/cooking tips
-  LOCAL_EVENTS    // Local events
+  FOOD_SHARE // Food sharing community
+  NEWS // News and updates
+  RECIPES // Recipe sharing
+  TIPS // Farming/cooking tips
+  LOCAL_EVENTS // Local events
 }
 
 // Users table
@@ -75,10 +75,13 @@ model User {
   reviews       Review[]
 
   // Chat relations
-  conversationParticipants  ConversationParticipant[]
-  messages                  Message[]
-  messageReadReceipts       MessageReadReceipt[]
-  createdGroups             Group[]
+  conversationParticipants ConversationParticipant[]
+  messages                 Message[]
+  messageReadReceipts      MessageReadReceipt[]
+  createdGroups            Group[]
+
+  // Blog relations
+  blogPosts BlogPost[]
 
   @@map("users")
 }
@@ -144,7 +147,7 @@ model Product {
 
   // Ratings and reviews
   averageRating Float?
-  reviewCount   Int      @default(0)
+  reviewCount   Int    @default(0)
 
   // Relations
   farmerId   String
@@ -195,8 +198,8 @@ model Order {
   user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   status          OrderStatus   @default(PENDING)
   paymentMethod   PaymentMethod @default(CASH_ON_DELIVERY)
-  paymentStatus   String?       // For Stripe: 'pending', 'paid', 'failed'
-  stripePaymentId String?       // Stripe Payment Intent ID
+  paymentStatus   String? // For Stripe: 'pending', 'paid', 'failed'
+  stripePaymentId String? // Stripe Payment Intent ID
   total           Float
   customerName    String
   customerEmail   String
@@ -231,23 +234,23 @@ model OrderItem {
 
 // Reviews
 model Review {
-  id        String   @id @default(cuid())
-  rating    Int      // 1-5 stars
-  title     String   // Short review title
-  comment   String?  @db.Text
+  id      String  @id @default(cuid())
+  rating  Int // 1-5 stars
+  title   String // Short review title
+  comment String? @db.Text
 
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
-  orderId   String
-  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
-  isVerified Boolean @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  isVerified Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@unique([userId, productId])
   @@map("reviews")
@@ -257,14 +260,14 @@ model Review {
 
 // Chat Conversations
 model Conversation {
-  id            String    @id @default(cuid())
-  type          ConversationType @default(DIRECT)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id        String           @id @default(cuid())
+  type      ConversationType @default(DIRECT)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
 
-  participants  ConversationParticipant[]
-  messages      Message[]
-  group         Group?
+  participants ConversationParticipant[]
+  messages     Message[]
+  group        Group?
 
   @@map("conversations")
   @@index([type])
@@ -272,14 +275,14 @@ model Conversation {
 
 // Conversation Participants (many-to-many User <-> Conversation)
 model ConversationParticipant {
-  id              String   @id @default(cuid())
-  conversationId  String
-  userId          String
-  joinedAt        DateTime @default(now())
-  lastReadAt      DateTime @default(now())
+  id             String   @id @default(cuid())
+  conversationId String
+  userId         String
+  joinedAt       DateTime @default(now())
+  lastReadAt     DateTime @default(now())
 
-  conversation    Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  user            User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([conversationId, userId])
   @@map("conversation_participants")
@@ -288,18 +291,18 @@ model ConversationParticipant {
 
 // Messages
 model Message {
-  id              String   @id @default(cuid())
-  conversationId  String
-  senderId        String
-  content         String   @db.Text
-  type            MessageType @default(TEXT)
-  attachmentUrl   String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id             String      @id @default(cuid())
+  conversationId String
+  senderId       String
+  content        String      @db.Text
+  type           MessageType @default(TEXT)
+  attachmentUrl  String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
 
-  conversation    Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  sender          User @relation(fields: [senderId], references: [id], onDelete: Cascade)
-  readReceipts    MessageReadReceipt[]
+  conversation Conversation         @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender       User                 @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  readReceipts MessageReadReceipt[]
 
   @@map("messages")
   @@index([conversationId, createdAt])
@@ -313,8 +316,8 @@ model MessageReadReceipt {
   userId    String
   readAt    DateTime @default(now())
 
-  message   Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
-  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([messageId, userId])
   @@map("message_read_receipts")
@@ -322,20 +325,85 @@ model MessageReadReceipt {
 
 // Groups/Communities
 model Group {
-  id              String   @id @default(cuid())
-  conversationId  String   @unique
-  name            String
-  description     String?  @db.Text
-  imageUrl        String?
-  category        GroupCategory @default(GENERAL)
-  createdById     String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id             String        @id @default(cuid())
+  conversationId String        @unique
+  name           String
+  description    String?       @db.Text
+  imageUrl       String?
+  category       GroupCategory @default(GENERAL)
+  createdById    String
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
 
-  conversation    Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  createdBy       User @relation(fields: [createdById], references: [id])
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  createdBy    User         @relation(fields: [createdById], references: [id])
 
   @@map("groups")
   @@index([category])
   @@index([createdById])
+}
+
+// Blog Categories (language-agnostic base)
+model BlogCategory {
+  id           String                    @id @default(cuid())
+  slug         String                    @unique
+  posts        BlogPost[]
+  translations BlogCategoryTranslation[]
+  createdAt    DateTime                  @default(now())
+  updatedAt    DateTime                  @updatedAt
+
+  @@map("blog_categories")
+}
+
+// Blog Category Translations
+model BlogCategoryTranslation {
+  id          String       @id @default(cuid())
+  categoryId  String
+  category    BlogCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  locale      String // "en", "es", "fr", etc.
+  name        String
+  description String?
+
+  @@unique([categoryId, locale])
+  @@map("blog_category_translations")
+  @@index([locale])
+}
+
+// Blog Posts (language-agnostic base)
+model BlogPost {
+  id            String                @id @default(cuid())
+  slug          String                @unique
+  status        BlogPostStatus        @default(DRAFT)
+  featuredImage String?
+  categoryId    String?
+  category      BlogCategory?         @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  tags          String[]
+  authorId      String
+  author        User                  @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  translations  BlogPostTranslation[]
+  publishedAt   DateTime?
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+
+  @@map("blog_posts")
+  @@index([status, publishedAt])
+  @@index([categoryId])
+  @@index([authorId])
+}
+
+// Blog Post Translations
+model BlogPostTranslation {
+  id              String   @id @default(cuid())
+  postId          String
+  post            BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  locale          String // "en", "es", "fr", etc.
+  title           String
+  excerpt         String?  @db.Text
+  content         Json // Tiptap JSON
+  metaTitle       String?
+  metaDescription String?
+
+  @@unique([postId, locale])
+  @@map("blog_post_translations")
+  @@index([locale])
 }

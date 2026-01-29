@@ -1,6 +1,6 @@
-import Link from 'next/link'
-import { auth } from '@/lib/auth/auth'
-import { Button } from '@/components/ui/button'
+import {Link} from '@/i18n/navigation';
+import {auth} from '@/lib/auth/auth'
+import {Button} from '@/components/ui/button'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -9,13 +9,13 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { SignOutButton } from '@/components/layout/sign-out-button'
-import { MobileMenu } from '@/components/layout/mobile-menu'
-import { LanguageSwitcher } from '@/components/layout/language-switcher'
-import { CartButton } from '@/components/cart/cart-button'
-import { ChatButton } from '@/components/layout/ChatButton'
-import { getTranslations } from 'next-intl/server'
+import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
+import {SignOutButton} from '@/components/layout/sign-out-button'
+import {MobileMenu} from '@/components/layout/mobile-menu'
+import {LanguageSwitcher} from '@/components/layout/language-switcher'
+import {CartButton} from '@/components/cart/cart-button'
+import {ChatButton} from '@/components/layout/ChatButton'
+import {getTranslations} from 'next-intl/server'
 
 export async function Header() {
     const session = await auth()
@@ -23,14 +23,16 @@ export async function Header() {
     const t = await getTranslations('header')
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+        <header
+            className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
                 {/* Mobile Menu */}
-                <MobileMenu user={user} />
+                <MobileMenu user={user}/>
 
                 {/* Logo */}
                 <Link href="/" className="flex items-center space-x-2">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-600 text-white font-bold">
+                    <div
+                        className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-600 text-white font-bold">
                         LR
                     </div>
                     <span className="hidden font-bold sm:inline-block">
@@ -60,13 +62,13 @@ export async function Header() {
                     </Link>
 
                     {/* Language Switcher */}
-                    <LanguageSwitcher />
+                    <LanguageSwitcher/>
 
                     {/* Cart Button - Available for all authenticated users */}
-                    {user && <CartButton />}
+                    {user && <CartButton/>}
 
                     {/* Chat Button - Available for authenticated users */}
-                    {user && <ChatButton />}
+                    {user && <ChatButton/>}
 
                     {/* Auth Section */}
                     {user ? (
@@ -74,7 +76,7 @@ export async function Header() {
                             <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                                     <Avatar className="h-10 w-10">
-                                        <AvatarImage src={user.image || undefined} alt={user.name || 'User'} />
+                                        <AvatarImage src={user.image || undefined} alt={user.name || 'User'}/>
                                         <AvatarFallback className="bg-green-600 text-white">
                                             {user.name?.charAt(0).toUpperCase() || 'U'}
                                         </AvatarFallback>
@@ -90,7 +92,7 @@ export async function Header() {
                                         </p>
                                     </div>
                                 </DropdownMenuLabel>
-                                <DropdownMenuSeparator />
+                                <DropdownMenuSeparator/>
 
                                 <DropdownMenuItem asChild>
                                     <Link href="/dashboard/buying" className="cursor-pointer">
@@ -102,10 +104,10 @@ export async function Header() {
                                         {t('sellingDashboard') || 'Selling'}
                                     </Link>
                                 </DropdownMenuItem>
-                                <DropdownMenuSeparator />
+                                <DropdownMenuSeparator/>
 
                                 <DropdownMenuItem asChild>
-                                    <SignOutButton />
+                                    <SignOutButton/>
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
