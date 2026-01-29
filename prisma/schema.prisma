@@ -80,9 +80,6 @@ model User {
   messageReadReceipts      MessageReadReceipt[]
   createdGroups            Group[]
 
-  // Blog relations
-  blogPosts BlogPost[]
-
   @@map("users")
 }
 
