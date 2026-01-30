@@ -15,6 +15,7 @@ import {MobileMenu} from '@/components/layout/mobile-menu'
 import {LanguageSwitcher} from '@/components/layout/language-switcher'
 import {CartButton} from '@/components/cart/cart-button'
 import {ChatButton} from '@/components/layout/ChatButton'
+import {HeaderNav} from '@/components/layout/header-nav'
 import {getTranslations} from 'next-intl/server'
 
 export async function Header() {
@@ -42,24 +43,13 @@ export async function Header() {
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center gap-6">
-                    <Link
-                        href="/products"
-                        className="text-sm font-medium text-slate-700 transition-colors hover:text-slate-900"
-                    >
-                        {t('products')}
-                    </Link>
-                    <Link
-                        href="/map"
-                        className="text-sm font-medium text-slate-700 transition-colors hover:text-slate-900"
-                    >
-                        {t('map')}
-                    </Link>
-                    <Link
-                        href="/about"
-                        className="text-sm font-medium text-slate-700 transition-colors hover:text-slate-900"
-                    >
-                        {t('about')}
-                    </Link>
+                    <HeaderNav
+                        translations={{
+                            products: t('products'),
+                            map: t('map'),
+                            about: t('about'),
+                        }}
+                    />
 
                     {/* Language Switcher */}
                     <LanguageSwitcher/>
@@ -94,19 +84,14 @@ export async function Header() {
                                 </DropdownMenuLabel>
                                 <DropdownMenuSeparator/>
 
-                                <DropdownMenuItem asChild>
-                                    <Link href="/dashboard/buying" className="cursor-pointer">
-                                        {t('buyingDashboard') || 'Buying'}
-                                    </Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem asChild>
-                                    <Link href="/dashboard/selling" className="cursor-pointer">
-                                        {t('sellingDashboard') || 'Selling'}
-                                    </Link>
-                                </DropdownMenuItem>
+                                <Link href="/dashboard/buying">
+                                    <DropdownMenuItem className="cursor-pointer">
+                                        {t('dashboard') || 'Dashboard'}
+                                    </DropdownMenuItem>
+                                </Link>
                                 <DropdownMenuSeparator/>
 
-                                <DropdownMenuItem asChild>
+                                <DropdownMenuItem className="p-0">
                                     <SignOutButton/>
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
